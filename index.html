@@ -136,6 +136,26 @@ header{
 
 .nav-links a:hover::before{width:60%}
 
+@media(max-width:768px){
+
+    .navbar{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links{
+        flex-wrap: nowrap;
+    }
+
+    .nav-links a{
+        white-space: nowrap;
+    }
+
+    /* scrollbar hide */
+    .navbar::-webkit-scrollbar{
+        display:none;
+    }
+}
 
 
 /* ================= HERO ================= */
@@ -806,8 +826,8 @@ header{
 
 .contact-modern {
     padding:120px 20px;
-    background: linear-gradient(135deg,#0509d6);
-
+    background: linear-gradient(135deg,#0509d6,#0509d6);
+    background: linear-gradient(135deg,#0a2b97,#0a2b97);
     text-align:center;
     border-radius:40px;
     max-width:1100px;
@@ -845,8 +865,8 @@ header{
 }
 
 .contact-card {
-    background: linear-gradient(135deg,#000000,#000000);
-    
+    background: linear-gradient(135deg,#0509d6,#0509d6);
+    background: linear-gradient(135deg,#0a2b97,#0a2b97);
     border-radius:30px;
     padding:40px 30px;
     max-width:300px;
@@ -881,7 +901,8 @@ header{
 
 .contact-card a {
     display:inline-block;
-    background: linear-gradient(135deg,#2563eb,#60a5fa);
+    background: linear-gradient(135deg,#0509d6,#0509d6);
+    background: linear-gradient(135deg,#0a2b97,#0a2b97);
     color:white;
     padding:12px 28px;
     border-radius:14px;
@@ -911,33 +932,22 @@ header{
     100%{opacity:1; transform:translateY(0);}
 }
 
-/* ===== CONTACT MOBILE FIX ===== */
 @media(max-width:768px){
 
     .contact-modern{
-        background: linear-gradient(135deg,#000000,#000000) !important;
-        padding: 80px 15px;
-        border-radius: 20px;
+        max-width:95%;
+        margin-left:auto;
+        margin-right:auto;
     }
 
-    .contact-modern h2{
-        font-size: 32px;
-    }
-
-    .contact-modern p{
-        font-size: 16px;
+    .contact-cards{
+        flex-wrap:wrap;
+        justify-content:center;
     }
 
     .contact-card{
-        background: linear-gradient(135deg,#0a2b97,#0a2b97) !important;
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
-    }
-
-    .contact-card{
-        width: 100%;
-        max-width: 350px;
+        flex:1 1 280px;
+        max-width:300px;
     }
 }
 
