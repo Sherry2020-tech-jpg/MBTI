@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTYPE | Personality Intelligence Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   UTYPE PERSONALITY INTELLIGENCE — CHARMING EDITION
+   ═══════════════════════════════════════════════════════ */
+
+:root{
+    --primary:#2563eb;
+    --accent:#60a5fa;
+    --glass:rgba(255,255,255,0.75);
+    --text:#0f172a;
+    --muted:#64748b;
+    --dark-bg:#020617;
+    --card-bg:rgba(15,23,42,0.9);
+    --border:rgba(37,99,235,0.25);
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+    --purple:#8b5cf6;
+    --pink:#ec4899;
+    --gold:#fbbf24;
+    --teal:#14b8a6;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(59,130,246,.15), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(96,165,250,.12), transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(236,72,153,.08), transparent 50%),
+        linear-gradient(135deg,#020617,#0f172a 60%,#020617);
+    color:#e2e8f0;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+html{scroll-behavior:smooth}
+
+/* ===== FLOATING PARTICLES BACKGROUND ===== */
+#particles-bg{
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+}
+
+.float-particle{
+    position:absolute;
+    border-radius:50%;
+    opacity:0.4;
+    animation:floatParticle 15s infinite ease-in-out;
+}
+
+@keyframes floatParticle{
+    0%,100%{transform:translateY(0) translateX(0) scale(1);opacity:0.3}
+    25%{transform:translateY(-30px) translateX(20px) scale(1.2);opacity:0.6}
+    50%{transform:translateY(-60px) translateX(-10px) scale(0.8);opacity:0.4}
+    75%{transform:translateY(-30px) translateX(30px) scale(1.1);opacity:0.5}
+}
+
+/* ===== ENHANCED NAVBAR WITH CHARM ===== */
+header{
+    position:sticky;
+    top:20px;
+    z-index:999;
+}
+
+.navbar{
+    max-width:1100px;
+    margin:auto;
+    padding:14px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-radius:20px;
+    background:#020617;
+    backdrop-filter:blur(14px);
+    border:1px solid rgb(61,21,204);
+    box-shadow:0 10px30px rgba(83,40,40,0.753), inset 0 1px0 rgba(16,55,180,0.6);
+    position:relative;
+    overflow:hidden;
+}
+
+/* Animated border glow */
+.navbar::before{
+    content:"";
+    position:absolute;
+    top:-2px;left:-2px;right:-2px;bottom:-2px;
+    background:linear-gradient(45deg, #2563eb, #60a5fa, #8b5cf6, #ec4899, #2563eb);
+    background-size:400% 400%;
+    border-radius:22px;
+    z-index:-1;
+    animation:borderGlow 6s ease infinite;
+    opacity:0.6;
+}
+
+@keyframes borderGlow{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.logo{display:flex;align-items:center;gap:14px}
+
+.logo-badge{
+    width:44px;height:44px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+    display:flex;align-items:center;justify-content:center;
+    color:white;font-weight:900;font-size:14px;
+    box-shadow:0 10px25px rgba(37,99,235,0.4);
+    animation:pulseBadge 3s ease-in-out infinite;
+    position:relative;
+}
+
+.logo-badge::after{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:17px;
+    background:linear-gradient(135deg, transparent, rgba(96,165,250,0.4), transparent);
+    animation:rotateGlow 3s linear infinite;
+}
+
+@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes rotateGlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.logo-main{font-weight:800;font-size:17px;color:white}
+.logo-sub{font-size:11px;color:#64748b}
+
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{
+    text-decoration:none;
+    color:#db1c1c;
+    font-weight:600;
+    position:relative;
+    padding:6px 14px;
+    border-radius:10px;
+    transition:.3s ease;
+    overflow:hidden;
+}
+
+.nav-links a::before{
+    content:"";
+    position:absolute;
+    bottom:0;left:50%;
+    width:0;height:2px;
+    background:linear-gradient(90deg, #2563eb, #60a5fa);
+    transition:all .3s ease;
+    transform:translateX(-50%);
+}
+
+.nav-links a:hover{
+    background:rgba(37,99,235,0.1);
+    color:#60a5fa;
+    transform:translateY(-2px);
+}
+
+.nav-links a:hover::before{width:80%}
+
+/* ===== HERO ===== */
+.hero{
+    position:relative;
+    padding:140px 20px 110px;
+    text-align:center;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:700px;height:700px;
+    background:radial-gradient(circle, rgba(37,99,235,.35), transparent 65%);
+    top:-250px;left:50%;
+    transform:translateX(-50%);
+    filter:blur(80px);
+}
+
+.hero h1{
+    font-size:64px;
+    font-weight:900;
+    color:white;
+    text-shadow:0 20px60px rgba(37,99,235,.35);
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.hero h1 span{color:var(--primary)}
+
+.hero p{
+    max-width:680px;
+    margin:auto;
+    color:#94a3b8;
+    font-size:20px;
+    margin-bottom:40px;
+}
+
+/* ===== ENHANCED FEATURES BAR WITH CHARM ===== */
+.features-bar{
+    max-width:1100px;
+    margin:0 auto 80px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    padding:0 20px;
+    perspective:1000px;
+}
+
+.feature-item{
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:30px 20px;
+    text-align:center;
+    transition:all .5s cubic-bezier(.16,1,.3,1);
+    position:relative;
+    overflow:hidden;
+    transform-style:preserve-3d;
+}
+
+.feature-item::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+    background:linear-gradient(90deg, #2563eb, #60a5fa, #8b5cf6);
+    transform:scaleX(0);
+    transition:transform .4s ease;
+}
+
+.feature-item:hover::before{transform:scaleX(1)}
+
+.feature-item:hover{
+    transform:translateY(-12px) rotateX(5deg);
+    border-color:rgba(37,99,235,0.4);
+    box-shadow:0 25px50px rgba(37,99,235,0.2), 0 0 30px rgba(96,165,250,0.1);
+}
+
+.feature-icon-wrap{
+    width:70px;height:70px;
+    border-radius:20px;
+    background:linear-gradient(135deg, rgba(37,99,235,0.2), rgba(96,165,250,0.1));
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 20px;
+    position:relative;
+    transition:all .4s ease;
+}
+
+.feature-item:hover .feature-icon-wrap{
+    transform:scale(1.15) rotate(-8deg);
+    box-shadow:0 15px30px rgba(37,99,235,0.3);
+}
+
+.feature-icon-wrap i{
+    font-size:28px;
+    color:var(--accent);
+    transition:all .3s ease;
+}
+
+.feature-item:hover .feature-icon-wrap i{
+    transform:scale(1.2);
+    filter:drop-shadow(0 0 10px rgba(96,165,250,0.5));
+}
+
+/* Floating animation for icons */
+.feature-icon-wrap::after{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border-radius:25px;
+    border:2px solid transparent;
+    background:linear-gradient(135deg, rgba(37,99,235,0.3), transparent) border-box;
+    -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0;
+    transition:opacity .4s ease;
+}
+
+.feature-item:hover .feature-icon-wrap::after{opacity:1}
+
+.feature-item h4{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:8px;
+    color:white;
+    transition:all .3s ease;
+}
+
+.feature-item:hover h4{
+    color:var(--accent);
+    text-shadow:0 0 20px rgba(96,165,250,0.3);
+}
+
+.feature-item p{
+    font-size:13px;
+    color:#94a3b8;
+    transition:all .3s ease;
+}
+
+.feature-item:hover p{color:#cbd5e1}
+
+/* ===== CHARMING START SCREEN ===== */
+.start-screen{
+    text-align:center;
+    padding:30px 10px;
+    position:relative;
+}
+
+.start-hero{
+    margin-bottom:50px;
+    position:relative;
+}
+
+.start-hero h2{
+    font-size:42px;
+    font-weight:900;
+    margin-bottom:20px;
+    color:white;
+    position:relative;
+    display:inline-block;
+}
+
+/* Animated gradient text */
+.start-hero h2 .gradient-text{
+    background:linear-gradient(135deg, #60a5fa, #2563eb, #8b5cf6, #ec4899);
+    background-size:300% 300%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation:gradientText 4s ease infinite;
+}
+
+@keyframes gradientText{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.start-hero p{
+    color:#94a3b8;
+    font-size:18px;
+    max-width:550px;
+    margin:0 auto 40px;
+    line-height:1.7;
+}
+
+/* Floating badges */
+.floating-badges{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-bottom:50px;
+    flex-wrap:wrap;
+}
+
+.float-badge{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:50px;
+    padding:10px 24px;
+    font-size:14px;
+    font-weight:600;
+    color:#94a3b8;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    animation:floatBadge 3s ease-in-out infinite;
+    backdrop-filter:blur(10px);
+}
+
+.float-badge:nth-child(2){animation-delay:0.5s}
+.float-badge:nth-child(3){animation-delay:1s}
+.float-badge:nth-child(4){animation-delay:1.5s}
+
+@keyframes floatBadge{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
+}
+
+.float-badge i{color:var(--accent)}
+
+/* Start features grid with charm */
+.start-features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+    margin-bottom:50px;
+    text-align:left;
+}
+
+.start-feature{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:20px;
+    padding:24px 28px;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+    transition:all .5s cubic-bezier(.16,1,.3,1);
+    position:relative;
+    overflow:hidden;
+}
+
+.start-feature::after{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    width:4px;height:100%;
+    background:linear-gradient(180deg, #2563eb, #60a5fa);
+    transform:scaleY(0);
+    transition:transform .4s ease;
+    border-radius:20px 0 0 20px;
+}
+
+.start-feature:hover::after{transform:scaleY(1)}
+
+.start-feature:hover{
+    border-color:rgba(37,99,235,0.3);
+    transform:translateX(8px);
+    box-shadow:0 15px40px rgba(37,99,235,0.15);
+    background:rgba(37,99,235,0.05);
+}
+
+.start-feature i{
+    color:var(--accent);
+    font-size:24px;
+    margin-top:3px;
+    transition:all .4s ease;
+}
+
+.start-feature:hover i{
+    transform:scale(1.2) rotate(-5deg);
+    filter:drop-shadow(0 0 8px rgba(96,165,250,0.5));
+}
+
+.start-feature div h4{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:6px;
+    color:white;
+}
+
+.start-feature div p{
+    font-size:13px;
+    margin:0;
+    color:#94a3b8;
+    line-height:1.6;
+}
+
+/* Glowing CTA button */
+.cta-glow{
+    position:relative;
+    display:inline-block;
+}
+
+.cta-glow::before{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    border-radius:54px;
+    background:linear-gradient(135deg, #2563eb, #60a5fa, #8b5cf6, #ec4899);
+    background-size:400% 400%;
+    z-index:-1;
+    animation:borderGlow 4s ease infinite;
+    opacity:0.6;
+    filter:blur(8px);
+}
+
+.btn-start{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:20px 56px;
+    background:linear-gradient(135deg, #2563eb, #60a5fa);
+    color:white;
+    font-weight:800;
+    font-size:18px;
+    border-radius:50px;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 15px40px rgba(37,99,235,0.4);
+    transition:all .4s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn-start::before{
+    content:"";
+    position:absolute;
+    top:0;left:-100%;
+    width:100%;height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition:left .6s ease;
+}
+
+.btn-start:hover::before{left:100%}
+
+.btn-start:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 25px60px rgba(37,99,235,0.5);
+}
+
+.btn-start i{
+    font-size:20px;
+    animation:pulsePlay 2s ease-in-out infinite;
+}
+
+@keyframes pulsePlay{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.2)}
+}
+
+.privacy-note{
+    margin-top:30px;
+    font-size:14px;
+    color:#64748b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.privacy-note span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.privacy-note i{color:var(--accent);font-size:12px}
+
+/* ===== QUIZ SECTION ===== */
+.quiz-section{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 20px 100px;
+}
+
+.quiz-container{
+    background:var(--card-bg);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(37,99,235,0.2);
+    border-radius:30px;
+    padding:50px 40px;
+    box-shadow:0 30px80px rgba(0,0,0,0.4);
+    position:relative;
+    overflow:hidden;
+}
+
+.quiz-container::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:4px;
+    background:linear-gradient(90deg, #2563eb, #60a5fa, #8b5cf6);
+    background-size:200% auto;
+    animation:gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift{
+    0%{background-position:0% center}
+    50%{background-position:100% center}
+    100%{background-position:0% center}
+}
+
+/* Progress */
+.progress-area{
+    margin-bottom:40px;
+}
+
+.progress-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.progress-header span{
+    font-size:14px;
+    color:#94a3b8;
+    font-weight:600;
+}
+
+.progress-header .question-number{
+    color:var(--accent);
+    font-size:15px;
+    font-weight:700;
+}
+
+.progress-bar{
+    height:10px;
+    background:rgba(255,255,255,0.06);
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+}
+
+.progress-fill{
+    height:100%;
+    background:linear-gradient(90deg, #2563eb, #60a5fa);
+    border-radius:10px;
+    transition:width .6s cubic-bezier(.16,1,.3,1);
+    position:relative;
+}
+
+.progress-fill::after{
+    content:"";
+    position:absolute;
+    right:0;top:0;bottom:0;
+    width:20px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+    border-radius:10px;
+}
+
+/* Question */
+.question-category{
+    display:inline-block;
+    background:rgba(37,99,235,0.15);
+    color:var(--accent);
+    font-size:12px;
+    font-weight:700;
+    padding:6px 16px;
+    border-radius:20px;
+    margin-bottom:20px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.question-text{
+    font-size:24px;
+    font-weight:700;
+    color:white;
+    margin-bottom:40px;
+    line-height:1.5;
+    min-height:80px;
+}
+
+/* Options */
+.options-grid{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.option-card{
+    background:rgba(255,255,255,0.03);
+    border:2px solid rgba(255,255,255,0.06);
+    border-radius:20px;
+    padding:24px 28px;
+    cursor:pointer;
+    transition:all .4s cubic-bezier(.16,1,.3,1);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.option-card::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:0;
+    background:linear-gradient(90deg, rgba(37,99,235,0.2), transparent);
+    transition:width .4s ease;
+}
+
+.option-card:hover{
+    border-color:rgba(37,99,235,0.4);
+    background:rgba(37,99,235,0.08);
+    transform:translateX(10px);
+}
+
+.option-card:hover::before{width:100%}
+
+.option-card.selected{
+    border-color:var(--primary);
+    background:linear-gradient(135deg, rgba(37,99,235,0.2), rgba(96,165,250,0.1));
+    box-shadow:0 10px30px rgba(37,99,235,0.2);
+}
+
+.option-card.selected::before{width:100%}
+
+.option-letter{
+    width:48px;height:48px;
+    min-width:48px;
+    border-radius:14px;
+    background:rgba(37,99,235,0.15);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;
+    font-size:18px;
+    color:var(--accent);
+    transition:all .3s ease;
+    border:1px solid rgba(37,99,235,0.2);
+    position:relative;
+    z-index:1;
+}
+
+.option-card:hover .option-letter,
+.option-card.selected .option-letter{
+    background:var(--primary);
+    color:white;
+    transform:scale(1.1);
+    box-shadow:0 8px20px rgba(37,99,235,0.4);
+}
+
+.option-text{
+    font-size:16px;
+    font-weight:600;
+    color:#e2e8f0;
+    line-height:1.5;
+    position:relative;
+    z-index:1;
+}
+
+/* Navigation */
+.quiz-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:40px;
+    padding-top:30px;
+    border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.btn{
+    padding:14px 32px;
+    border-radius:14px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    border:none;
+    transition:all .3s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Inter',sans-serif;
+}
+
+.btn-secondary{
+    background:rgba(255,255,255,0.06);
+    color:#94a3b8;
+    border:1px solid rgba(255,255,255,0.1);
+}
+
+.btn-secondary:hover{
+    background:rgba(255,255,255,0.1);
+    color:white;
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:linear-gradient(135deg, #2563eb, #60a5fa);
+    color:white;
+    box-shadow:0 10px30px rgba(37,99,235,0.3);
+}
+
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 20px40px rgba(37,99,235,0.4);
+}
+
+.btn-primary:disabled{
+    opacity:0.4;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ===== LOADING SCREEN ===== */
+.loading-screen{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.loading-spinner{
+    width:80px;height:80px;
+    margin:0 auto 40px;
+    position:relative;
+}
+
+.loading-spinner::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    border:4px solid transparent;
+    border-top-color:var(--primary);
+    border-right-color:var(--purple);
+    animation:spin 1s linear infinite;
+}
+
+.loading-spinner::after{
+    content:"";
+    position:absolute;
+    inset:12px;
+    border-radius:50%;
+    border:4px solid transparent;
+    border-bottom-color:var(--accent);
+    border-left-color:var(--pink);
+    animation:spin 1.5s linear infinite reverse;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.loading-screen h3{
+    font-size:28px;
+    font-weight:900;
+    color:white;
+    margin-bottom:15px;
+}
+
+.loading-screen p{
+    color:#94a3b8;
+    font-size:16px;
+    margin-bottom:30px;
+}
+
+.loading-facts{
+    font-size:15px;
+    color:#64748b;
+    font-style:italic;
+    min-height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    max-width:500px;
+    margin:0 auto;
+    line-height:1.6;
+}
+
+
+
+.result-hero{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.result-type-code{
+    font-size:80px;
+    font-weight:900;
+    background:linear-gradient(135deg, #60a5fa, #2563eb, #8b5cf6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    line-height:1;
+    margin-bottom:15px;
+    animation:typeReveal 1.5s cubic-bezier(.16,1,.3,1) forwards;
+    opacity:0;
+    transform:scale(0.5);
+}
+
+@keyframes typeReveal{
+    to{opacity:1;transform:scale(1)}
+}
+
+.result-type-name{
+    font-size:26px;
+    font-weight:800;
+    color:white;
+    margin-bottom:15px;
+    animation:fadeUp 1s ease .5s forwards;
+    opacity:0;
+}
+
+.result-type-desc{
+    color:#94a3b8;
+    font-size:17px;
+    max-width:600px;
+    margin:0 auto 30px;
+    line-height:1.8;
+    animation:fadeUp 1s ease .7s forwards;
+    opacity:0;
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* Trait Bars */
+.trait-bars{
+    margin:40px 0;
+    display:grid;
+    gap:24px;
+}
+
+.trait-bar{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:20px;
+    padding:24px 28px;
+    transition:all .3s ease;
+}
+
+.trait-bar:hover{
+    border-color:rgba(37,99,235,0.2);
+    transform:translateY(-3px);
+}
+
+.trait-bar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.trait-bar-header span:first-child{
+    font-weight:800;
+    font-size:14px;
+    color:white;
+}
+
+.trait-bar-header span:last-child{
+    font-weight:900;
+    font-size:14px;
+    color:var(--accent);
+}
+
+.trait-bar-track{
+    height:12px;
+    background:rgba(255,255,255,0.06);
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+}
+
+.trait-bar-fill{
+    height:100%;
+    border-radius:10px;
+    transition:width 1.5s cubic-bezier(.16,1,.3,1);
+    position:relative;
+}
+
+.trait-bar-fill::after{
+    content:"";
+    position:absolute;
+    right:0;top:0;bottom:0;
+    width:30px;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+}
+
+.trait-bar-fill.ei{background:linear-gradient(90deg, #f59e0b, #ef4444)}
+.trait-bar-fill.sn{background:linear-gradient(90deg, #22c55e, #3b82f6)}
+.trait-bar-fill.tf{background:linear-gradient(90deg, #ec4899, #8b5cf6)}
+.trait-bar-fill.jp{background:linear-gradient(90deg, #06b6d4, #2563eb)}
+
+/* Details Grid */
+.details-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+    margin:40px 0;
+}
+
+.detail-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:24px;
+    padding:32px 28px;
+    transition:all .4s ease;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeUp .8s ease forwards;
+}
+
+.detail-card:nth-child(1){animation-delay:.3s}
+.detail-card:nth-child(2){animation-delay:.5s}
+.detail-card:nth-child(3){animation-delay:.7s}
+.detail-card:nth-child(4){animation-delay:.9s}
+
+.detail-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(37,99,235,0.2);
+    box-shadow:0 20px40px rgba(37,99,235,0.15);
+}
+
+.detail-card h4{
+    font-size:18px;
+    font-weight:800;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.detail-card.strengths h4{color:var(--success)}
+.detail-card.challenges h4{color:var(--warning)}
+.detail-card.careers h4{color:var(--accent)}
+.detail-card.relationships h4{color:var(--pink)}
+
+.detail-card ul{list-style:none}
+.detail-card ul li{
+    padding:10px 0;
+    font-size:14px;
+    color:#94a3b8;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    line-height:1.5;
+}
+
+.detail-card ul li:last-child{border:none}
+
+.detail-card ul li::before{
+    content:"›";
+    color:var(--primary);
+    font-weight:900;
+    font-size:18px;
+}
+
+/* Famous People */
+.famous-section{
+    margin:40px 0;
+    text-align:center;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:24px;
+    padding:40px;
+    opacity:0;
+    animation:fadeUp 1s ease 1.1s forwards;
+}
+
+.famous-section h4{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:30px;
+    color:white;
+}
+
+.famous-people{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.famous-person{
+    text-align:center;
+    transition:transform .3s ease;
+}
+
+.famous-person:hover{transform:translateY(-5px)}
+
+.famous-person .avatar{
+    width:70px;height:70px;
+    border-radius:50%;
+    background:linear-gradient(135deg, rgba(37,99,235,0.3), rgba(96,165,250,0.2));
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;
+    margin:0 auto 12px;
+    border:2px solid rgba(37,99,235,0.2);
+    transition:all .3s ease;
+}
+
+.famous-person:hover .avatar{
+    border-color:var(--primary);
+    box-shadow:0 10px30px rgba(37,99,235,0.3);
+}
+
+.famous-person .name{
+    font-weight:800;
+    font-size:15px;
+    color:white;
+    margin-bottom:4px;
+}
+
+.famous-person .role{
+    font-size:13px;
+    color:#64748b;
+}
+
+/* Compatibility */
+.compatibility{
+    margin:40px 0;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:24px;
+    padding:32px 28px;
+    opacity:0;
+    animation:fadeUp 1s ease 1.3s forwards;
+}
+
+.compatibility h4{
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:25px;
+    color:white;
+    text-align:center;
+}
+
+.compatibility-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.compat-item{
+    text-align:center;
+    padding:24px 16px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.03);
+    transition:all .3s ease;
+    border:1px solid transparent;
+}
+
+.compat-item:hover{transform:scale(1.05)}
+
+.compat-item.best{
+    background:rgba(34,197,94,0.1);
+    border-color:rgba(34,197,94,0.2);
+}
+
+.compat-item.good{
+    background:rgba(37,99,235,0.1);
+    border-color:rgba(37,99,235,0.2);
+}
+
+.compat-item.challenging{
+    background:rgba(239,68,68,0.1);
+    border-color:rgba(239,68,68,0.2);
+}
+
+.compat-item .compat-type{
+    font-weight:900;
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.compat-item.best .compat-type{color:var(--success)}
+.compat-item.good .compat-type{color:var(--accent)}
+.compat-item.challenging .compat-type{color:var(--danger)}
+
+.compat-item .compat-label{
+    font-size:13px;
+    color:#94a3b8;
+    font-weight:600;
+}
+
+/* Actions */
+.result-actions{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin-top:50px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:fadeUp 1s ease 1.5s forwards;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#0f172a;
+    color:#94a3b8;
+    text-align:center;
+    padding:60px 20px;
+    border-top:1px solid rgba(255,255,255,0.04);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+    .features-bar{grid-template-columns:repeat(2,1fr)}
+    .details-grid{grid-template-columns:1fr}
+    .hero h1{font-size:48px}
+    .start-hero h2{font-size:32px}
+}
+
+@media(max-width:768px){
+    .navbar{flex-direction:column;gap:15px;padding:20px}
+    .nav-links{gap:20px;flex-wrap:wrap;justify-content:center}
+    .hero h1{font-size:36px}
+    .features-bar{grid-template-columns:1fr}
+    .quiz-container{padding:30px 20px}
+    .question-text{font-size:20px}
+    .result-type-code{font-size:56px}
+    .compatibility-grid{grid-template-columns:1fr}
+    .start-features{grid-template-columns:1fr}
+    .floating-badges{gap:12px}
+    .float-badge{padding:8px 16px;font-size:12px}
+}
+
+@media(max-width:480px){
+    .hero h1{font-size:28px}
+    .hero p{font-size:16px}
+    .btn{padding:12px 24px;font-size:13px}
+    .option-letter{width:40px;height:40px;font-size:16px}
+    .option-text{font-size:14px}
+    .start-hero h2{font-size:26px}
+    .btn-start{padding:16px 36px;font-size:16px}
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in{animation:fadeIn .6s ease forwards}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* Confetti */
+.confetti-piece{
+    position:fixed;
+    z-index:1000;
+    animation:confettiFall 3s ease-out forwards;
+}
+
+@keyframes confettiFall{
+    to{transform:translateY(100vh) rotate(720deg);opacity:0}
+}
+
+/* Sparkle animation */
+.sparkle{
+    position:absolute;
+    width:4px;height:4px;
+    border-radius:50%;
+    background:white;
+    animation:sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle{
+    0%,100%{opacity:0;transform:scale(0)}
+    50%{opacity:1;transform:scale(1)}
+}
+</style>
+<base target="_blank">
+</head>
+
+<body>
+
+<!-- Floating Particles Background -->
+<div id="particles-bg"></div>
+
+<!-- ===== NAVBAR ===== -->
+<header>
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-badge">MM</div>
+        <div class="logo-text">
+            <span class="logo-main">Mind Matrix</span>
+            <span class="logo-sub">Decoding minds. Designing futures.</span>
+        </div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="Index.html">Home</a></li>
+        <li><a href="Index.html">Services</a></li>
+        <li><a href="Index.html">Science</a></li>
+        <li><a href="Index.html">About</a></li>
+        <li><a href="Index.html">Contact</a></li>
+    </ul>
+</nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <h1>Discover Your<br><span>Psychological Potential</span></h1>
+    <p><b><i>Science-backed personality and career intelligence designed to give clarity, confidence, and real direction.</i></b></p>
+</section>
+
+<!-- ===== FEATURES BAR ===== -->
+<div class="features-bar">
+    <div class="feature-item">
+        <div class="feature-icon-wrap"><i class="fas fa-brain"></i></div>
+        <h4>Psychology Based</h4>
+        <p>Global MBTI standards</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon-wrap"><i class="fas fa-bolt"></i></div>
+        <h4>Instant Results</h4>
+        <p>Real-time analysis</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+        <h4>100% Private</h4>
+        <p>No data stored ever</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon-wrap"><i class="fas fa-chart-line"></i></div>
+        <h4>Detailed Report</h4>
+        <p>Full personality breakdown</p>
+    </div>
+</div>
+
+<!-- ===== QUIZ SECTION ===== -->
+<section class="quiz-section">
+    <div class="quiz-container" id="quizContainer">
+        <!-- Content injected by JS -->
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <p>© 2026 PsycheMetric Intelligence Systems</p>
+    <p style="margin-top:10px;font-size:13px;color:#64748b;">Built with 💜 in Karachi, Pakistan</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  MIND MATRIX PERSONALITY ENGINE — CHARMING EDITION
+// ═══════════════════════════════════════════════════════
+
+// ===== FLOATING PARTICLES =====
+function createParticles(){
+    const container = document.getElementById('particles-bg');
+    const colors = ['rgba(37,99,235,0.3)', 'rgba(96,165,250,0.2)', 'rgba(139,92,246,0.2)', 'rgba(236,72,153,0.15)'];
+
+    for(let i = 0; i < 25; i++){
+        const particle = document.createElement('div');
+        particle.className = 'float-particle';
+        particle.style.width = Math.random() * 8 + 3 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 5 + 's';
+        particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+        container.appendChild(particle);
+    }
+}
+createParticles();
+
+// ===== QUESTIONS (20 Questions) =====
+const questions = [
+    {
+        q: "At a social gathering, you naturally gravitate toward starting conversations with new people.",
+        category: "Extraversion vs Introversion",
+        dim: "E",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "After spending time in a large group, you feel the need to recharge alone.",
+        category: "Extraversion vs Introversion",
+        dim: "I",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You prefer to focus on concrete facts and details rather than abstract theories.",
+        category: "Sensing vs Intuition",
+        dim: "S",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You often find yourself imagining future possibilities and 'what if' scenarios.",
+        category: "Sensing vs Intuition",
+        dim: "N",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "When making decisions, you prioritize logical consistency over personal feelings.",
+        category: "Thinking vs Feeling",
+        dim: "T",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You consider how your decisions will affect others' emotions before acting.",
+        category: "Thinking vs Feeling",
+        dim: "F",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You feel most comfortable when your schedule is planned and structured.",
+        category: "Judging vs Perceiving",
+        dim: "J",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You prefer to keep your options open and adapt as situations unfold.",
+        category: "Judging vs Perceiving",
+        dim: "P",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 2 },
+            { text: "Agree — This is mostly true for me", value: 1 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.5 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -1 }
+        ]
+    },
+    {
+        q: "You gain energy from brainstorming and discussing ideas with others.",
+        category: "Extraversion vs Introversion",
+        dim: "E",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You often process your thoughts best through quiet reflection.",
+        category: "Extraversion vs Introversion",
+        dim: "I",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You trust experience and proven methods over untested innovations.",
+        category: "Sensing vs Intuition",
+        dim: "S",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You are drawn to patterns, symbols, and hidden meanings in situations.",
+        category: "Sensing vs Intuition",
+        dim: "N",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You value objective truth even when it might hurt someone's feelings.",
+        category: "Thinking vs Feeling",
+        dim: "T",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You believe maintaining harmony in relationships is more important than being right.",
+        category: "Thinking vs Feeling",
+        dim: "F",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You like to complete tasks ahead of deadlines to avoid last-minute stress.",
+        category: "Judging vs Perceiving",
+        dim: "J",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You enjoy the thrill of spontaneous decisions and unexpected opportunities.",
+        category: "Judging vs Perceiving",
+        dim: "P",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "In a meeting, you typically speak up first and share your thoughts openly.",
+        category: "Extraversion vs Introversion",
+        dim: "E",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You prefer to listen and observe before contributing to a discussion.",
+        category: "Extraversion vs Introversion",
+        dim: "I",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You are more interested in practical applications than theoretical concepts.",
+        category: "Sensing vs Intuition",
+        dim: "S",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    },
+    {
+        q: "You often connect seemingly unrelated ideas to form new insights.",
+        category: "Sensing vs Intuition",
+        dim: "N",
+        options: [
+            { text: "Strongly Agree — This describes me perfectly", value: 1 },
+            { text: "Agree — This is mostly true for me", value: 0.5 },
+            { text: "Neutral — I'm unsure or it depends", value: 0.3 },
+            { text: "Disagree — This doesn't sound like me", value: 0 },
+            { text: "Strongly Disagree — This is opposite of me", value: -0.5 }
+        ]
+    }
+];
+
+// ===== PERSONALITY TYPES DATABASE (All 16 Types) =====
+const typesData = {
+    "INTJ": {
+        name: "The Architect",
+        desc: "Strategic, independent thinkers with a plan for everything. You see patterns where others see chaos and have a drive to implement your innovative ideas.",
+        strengths: ["Strategic Visionary", "Independent Thinker", "Highly Determined", "Analytical Problem-Solver", "Self-Confident"],
+        challenges: ["May appear arrogant", "Overly critical", "Dismissive of emotions", "Perfectionist tendencies", "Impatient with inefficiency"],
+        careers: ["Software Architect", "Investment Strategist", "Scientific Researcher", "Systems Analyst", "Corporate Strategist"],
+        relationships: "You prefer deep, intellectual connections. Surface-level small talk drains your energy. You need a partner who respects your independence and shares your vision.",
+        famous: [
+            { name: "Elon Musk", role: "Entrepreneur", emoji: "🚀" },
+            { name: "Mark Zuckerberg", role: "CEO Meta", emoji: "💻" },
+            { name: "Isaac Newton", role: "Scientist", emoji: "🔭" }
+        ],
+        compatible: { best: "ENFP", good: "ENTP", challenging: "ESFP" }
+    },
+    "INTP": {
+        name: "The Logician",
+        desc: "Innovative inventors with an unquenchable thirst for knowledge. You love exploring theories and understanding how things work at a fundamental level.",
+        strengths: ["Analytical Genius", "Creative Thinker", "Open-Minded", "Objective", "Enthusiastic Problem-Solver"],
+        challenges: ["Can be disorganized", "Socially distant", "Overly skeptical", "Difficulty expressing feelings", "Prone to overthinking"],
+        careers: ["Software Developer", "Data Scientist", "Philosopher", "Research Scientist", "Technical Writer"],
+        relationships: "You need a partner who understands your intellectual depth and gives you space to explore ideas. Emotional demands can feel overwhelming.",
+        famous: [
+            { name: "Albert Einstein", role: "Physicist", emoji: "⚛️" },
+            { name: "Bill Gates", role: "Microsoft Founder", emoji: "💻" },
+            { name: "Charles Darwin", role: "Naturalist", emoji: "🦎" }
+        ],
+        compatible: { best: "ENTJ", good: "ESTJ", challenging: "ESFJ" }
+    },
+    "ENTJ": {
+        name: "The Commander",
+        desc: "Bold, imaginative leaders with a natural ability to organize people and resources toward ambitious goals. You were born to lead.",
+        strengths: ["Natural Leader", "Efficient & Driven", "Strategic Visionary", "Confident", "Charismatic"],
+        challenges: ["Can be dominating", "Impatient", "Emotionally insensitive", "Stubborn", "Intolerant of weakness"],
+        careers: ["CEO / Executive", "Management Consultant", "Lawyer", "Entrepreneur", "Political Strategist"],
+        relationships: "You are direct and honest in relationships. You need a partner who can match your ambition and won't hold you back from your goals.",
+        famous: [
+            { name: "Steve Jobs", role: "Apple Co-founder", emoji: "🍎" },
+            { name: "Gordon Ramsay", role: "Chef", emoji: "👨‍🍳" },
+            { name: "Margaret Thatcher", role: "PM UK", emoji: "👑" }
+        ],
+        compatible: { best: "INTP", good: "ISTP", challenging: "ISFP" }
+    },
+    "ENTP": {
+        name: "The Debater",
+        desc: "Smart, curious thinkers who love intellectual challenges and playing devil's advocate. You thrive on debate and new ideas.",
+        strengths: ["Innovative", "Quick-Witted", "Knowledgeable", "Original Thinker", "Excellent Communicator"],
+        challenges: ["Argumentative", "Easily bored", "Insensitive", "Unfocused", "Dislikes routine"],
+        careers: ["Entrepreneur", "Creative Director", "Consultant", "Inventor", "Political Analyst"],
+        relationships: "You need intellectual stimulation in relationships. Boring or predictable partners will lose your interest quickly.",
+        famous: [
+            { name: "Thomas Edison", role: "Inventor", emoji: "💡" },
+            { name: "Mark Twain", role: "Author", emoji: "✍️" },
+            { name: "Socrates", role: "Philosopher", emoji: "🧠" }
+        ],
+        compatible: { best: "INFJ", good: "INTJ", challenging: "ISFJ" }
+    },
+    "INFJ": {
+        name: "The Advocate",
+        desc: "Quiet, mystical idealists who are inspiring and tireless in pursuing their vision of a better world. You see potential in everyone.",
+        strengths: ["Deeply Empathetic", "Creative Visionary", "Determined", "Insightful", "Principled"],
+        challenges: ["Perfectionist", "Burnout-prone", "Overly private", "Conflict-averse", "High expectations"],
+        careers: ["Counselor / Therapist", "Writer", "Human Rights Advocate", "Psychologist", "Life Coach"],
+        relationships: "You seek deep, meaningful connections. Authenticity is everything to you. You need a partner who shares your values and vision.",
+        famous: [
+            { name: "Martin Luther King Jr.", role: "Activist", emoji: "✊" },
+            { name: "Nelson Mandela", role: "Leader", emoji: "🕊️" },
+            { name: "Lady Gaga", role: "Artist", emoji: "🎤" }
+        ],
+        compatible: { best: "ENFP", good: "ENTP", challenging: "ESTP" }
+    },
+    "INFP": {
+        name: "The Mediator",
+        desc: "Poetic, kind souls who always look for the good in people and strive to make the world a better place through their creativity.",
+        strengths: ["Empathetic & Caring", "Creative", "Open-Minded", "Passionate", "Loyal"],
+        challenges: ["Overly idealistic", "Self-critical", "Avoids conflict", "Impractical", "Emotionally vulnerable"],
+        careers: ["Author / Poet", "Graphic Designer", "Psychologist", "Musician", "Social Worker"],
+        relationships: "You need a partner who shares your values and understands your emotional depth. Casual relationships feel meaningless to you.",
+        famous: [
+            { name: "William Shakespeare", role: "Writer", emoji: "🎭" },
+            { name: "J.R.R. Tolkien", role: "Author", emoji: "🧙" },
+            { name: "John Lennon", role: "Musician", emoji: "🎵" }
+        ],
+        compatible: { best: "ENFJ", good: "ENTJ", challenging: "ESTJ" }
+    },
+    "ENFJ": {
+        name: "The Protagonist",
+        desc: "Charismatic, inspiring leaders who can mesmerize their listeners and drive people toward growth and self-improvement.",
+        strengths: ["Natural Mentor", "Charismatic", "Reliable", "Altruistic", "Excellent Communicator"],
+        challenges: ["Overly idealistic", "Too selfless", "Sensitive to criticism", "Struggles with decisions", "Approval-seeking"],
+        careers: ["Teacher / Professor", "HR Director", "Sales Manager", "Politician", "Motivational Speaker"],
+        relationships: "You are a caring and supportive partner. You need reciprocation and appreciation. One-sided relationships drain you completely.",
+        famous: [
+            { name: "Oprah Winfrey", role: "Media Icon", emoji: "📺" },
+            { name: "Barack Obama", role: "US President", emoji: "🇺🇸" },
+            { name: "Jennifer Lawrence", role: "Actress", emoji: "🎬" }
+        ],
+        compatible: { best: "INFP", good: "ISFP", challenging: "ISTP" }
+    },
+    "ENFP": {
+        name: "The Campaigner",
+        desc: "Enthusiastic, creative free spirits who can always find a reason to smile and inspire others with their infectious energy.",
+        strengths: ["Enthusiastic", "Creative", "Sociable", "Energetic", "Excellent Communicator"],
+        challenges: ["Unfocused", "Overly emotional", "Overthinks", "Disorganized", "Restless"],
+        careers: ["Journalist", "Actor / Performer", "Marketing Creative", "Teacher", "Entrepreneur"],
+        relationships: "You need a partner who can match your energy and support your growth. Routine and predictability are your relationship killers.",
+        famous: [
+            { name: "Robin Williams", role: "Actor", emoji: "🎭" },
+            { name: "Walt Disney", role: "Creator", emoji: "🏰" },
+            { name: "Robert Downey Jr.", role: "Actor", emoji: "🎬" }
+        ],
+        compatible: { best: "INTJ", good: "INFJ", challenging: "ISTJ" }
+    },
+    "ISTJ": {
+        name: "The Logistician",
+        desc: "Practical, fact-minded individuals whose reliability is unmatched. You value tradition, order, and doing things the right way.",
+        strengths: ["Highly Responsible", "Organized", "Honest & Direct", "Strong Work Ethic", "Reliable"],
+        challenges: ["Stubborn", "Insensitive to emotions", "Judgmental", "Overly conservative", "Blunt"],
+        careers: ["Accountant", "Military Officer", "Judge", "Financial Analyst", "Database Administrator"],
+        relationships: "You are loyal and committed. Actions speak louder than words for you. You need a partner who values stability and tradition.",
+        famous: [
+            { name: "George Washington", role: "US President", emoji: "🇺🇸" },
+            { name: "Angela Merkel", role: "Chancellor", emoji: "🇩🇪" },
+            { name: "Jeff Bezos", role: "Amazon Founder", emoji: "📦" }
+        ],
+        compatible: { best: "ESFP", good: "ESTP", challenging: "ENFP" }
+    },
+    "ISFJ": {
+        name: "The Defender",
+        desc: "Very dedicated and warm protectors, always ready to defend their loved ones with quiet strength and unwavering loyalty.",
+        strengths: ["Loyal & Supportive", "Patient", "Observant", "Hardworking", "Practical"],
+        challenges: ["Overly modest", "Reluctant to change", "Overload themselves", "Conflict-averse", "Self-sacrificing"],
+        careers: ["Nurse", "Teacher", "Social Worker", "Librarian", "Human Resources"],
+        relationships: "You are nurturing and loyal. You need appreciation and reassurance. You give everything to relationships and expect loyalty in return.",
+        famous: [
+            { name: "Queen Elizabeth II", role: "Monarch", emoji: "👑" },
+            { name: "Beyoncé", role: "Singer", emoji: "🎤" },
+            { name: "Kate Middleton", role: "Duchess", emoji: "👸" }
+        ],
+        compatible: { best: "ESFP", good: "ESTP", challenging: "ENTP" }
+    },
+    "ESTJ": {
+        name: "The Executive",
+        desc: "Excellent administrators, unsurpassed at managing things—or people—with efficiency, structure, and clear expectations.",
+        strengths: ["Dedicated", "Strong-Willed", "Direct & Honest", "Loyal", "Organized"],
+        challenges: ["Inflexible", "Uncomfortable with emotions", "Judgmental", "Too focused on status", "Bossy"],
+        careers: ["Project Manager", "Judge", "Financial Officer", "Military Leader", "Business Administrator"],
+        relationships: "You are traditional and loyal. Commitment is serious for you. You need a partner who respects structure and shared responsibilities.",
+        famous: [
+            { name: "Judge Judy", role: "TV Judge", emoji: "⚖️" },
+            { name: "James Monroe", role: "US President", emoji: "🇺🇸" },
+            { name: "Vince Lombardi", role: "Coach", emoji: "🏈" }
+        ],
+        compatible: { best: "ISFP", good: "ISTP", challenging: "INFP" }
+    },
+    "ESFJ": {
+        name: "The Consul",
+        desc: "Caring, social, and popular people who are always eager to help and create harmony in their communities.",
+        strengths: ["Strong Practical Skills", "Loyal & Warm", "Sensitive", "Socially Skilled", "Conscientious"],
+        challenges: ["Worried about social status", "Inflexible", "Reluctant to innovate", "Vulnerable to criticism", "Needy"],
+        careers: ["Event Planner", "Nurse", "Teacher", "Sales Representative", "Social Worker"],
+        relationships: "You need a partner who appreciates your care and reciprocates. You thrive on mutual support and social connection.",
+        famous: [
+            { name: "Taylor Swift", role: "Singer", emoji: "🎤" },
+            { name: "Bill Clinton", role: "US President", emoji: "🇺🇸" },
+            { name: "Jennifer Garner", role: "Actress", emoji: "🎬" }
+        ],
+        compatible: { best: "ISFP", good: "ISTP", challenging: "INTP" }
+    },
+    "ISTP": {
+        name: "The Virtuoso",
+        desc: "Bold, practical experimenters who master all kinds of tools and thrive on spontaneity, action, and problem-solving.",
+        strengths: ["Optimistic & Energetic", "Creative & Practical", "Spontaneous", "Rational", "Great in Crises"],
+        challenges: ["Stubborn", "Insensitive", "Private", "Easily bored", "Risk-prone"],
+        careers: ["Engineer", "Pilot", "Forensic Scientist", "Athlete", "Emergency Responder"],
+        relationships: "You need space and freedom. You are an action-oriented partner who shows love through doing, not saying.",
+        famous: [
+            { name: "Michael Jordan", role: "Athlete", emoji: "🏀" },
+            { name: "Tom Cruise", role: "Actor", emoji: "🎬" },
+            { name: "Clint Eastwood", role: "Actor/Director", emoji: "🤠" }
+        ],
+        compatible: { best: "ESFJ", good: "ESTJ", challenging: "ENFJ" }
+    },
+    "ISFP": {
+        name: "The Adventurer",
+        desc: "Flexible, charming artists who live in the moment and enjoy exploring new experiences with all their senses.",
+        strengths: ["Charming", "Sensitive to Others", "Imaginative", "Passionate", "Curious"],
+        challenges: ["Fiercely independent", "Unpredictable", "Easily stressed", "Overly competitive", "Self-critical"],
+        careers: ["Artist", "Musician", "Photographer", "Fashion Designer", "Veterinarian"],
+        relationships: "You need a partner who supports your creativity and gives you freedom. Restrictions make you feel trapped.",
+        famous: [
+            { name: "Michael Jackson", role: "King of Pop", emoji: "🎤" },
+            { name: "Avril Lavigne", role: "Singer", emoji: "🎸" },
+            { name: "Kevin Costner", role: "Actor", emoji: "🎬" }
+        ],
+        compatible: { best: "ESFJ", good: "ESTJ", challenging: "ENTJ" }
+    },
+    "ESTP": {
+        name: "The Entrepreneur",
+        desc: "Smart, energetic, and perceptive people who truly enjoy living on the edge and taking calculated risks.",
+        strengths: ["Bold & Direct", "Rational & Practical", "Original", "Perceptive", "Sociable"],
+        challenges: ["Impatient", "Risk-prone", "Unstructured", "Defiant", "Insensitive"],
+        careers: ["Entrepreneur", "Stock Trader", "Paramedic", "Athlete", "Detective"],
+        relationships: "You are fun-loving and adventurous. Boring routines kill relationships for you. You need excitement and spontaneity.",
+        famous: [
+            { name: "Ernest Hemingway", role: "Writer", emoji: "✍️" },
+            { name: "Madonna", role: "Singer", emoji: "🎤" },
+            { name: "Jack Nicholson", role: "Actor", emoji: "🎬" }
+        ],
+        compatible: { best: "ISFJ", good: "ISTJ", challenging: "INFJ" }
+    },
+    "ESFP": {
+        name: "The Entertainer",
+        desc: "Spontaneous, energetic, and enthusiastic entertainers—life is never boring around them, and they make sure of it.",
+        strengths: ["Bold & Original", "Excellent People Skills", "Observant", "Practical", "Enthusiastic"],
+        challenges: ["Sensitive", "Conflict-averse", "Easily bored", "Poor long-term planners", "Unfocused"],
+        careers: ["Actor", "Event Planner", "Sales Representative", "Tour Guide", "Flight Attendant"],
+        relationships: "You need a partner who can match your energy and enjoy life. You show love through fun, experiences, and attention.",
+        famous: [
+            { name: "Marilyn Monroe", role: "Actress", emoji: "🎬" },
+            { name: "Adele", role: "Singer", emoji: "🎤" },
+            { name: "Elton John", role: "Musician", emoji: "🎹" }
+        ],
+        compatible: { best: "ISTJ", good: "ISFJ", challenging: "INTJ" }
+    }
+};
+
+// ===== QUIZ STATE =====
+let currentQuestion = 0;
+let answers = [];
+let selectedOption = null;
+let autoAdvanceTimer = null;
+
+const container = document.getElementById('quizContainer');
+
+// ===== RENDER CHARMING START SCREEN =====
+function renderStartScreen(){
+    container.innerHTML = `
+        <div class="start-screen fade-in">
+            <div class="start-hero">
+                <h2>
+                    <span class="gradient-text">Ready to Discover</span><br>
+                    Your True Self?
+                </h2>
+                <p>20 thought-provoking questions based on the MBTI framework. Get your complete personality profile with strengths, careers, and compatibility in just 5 minutes!</p>
+            </div>
+
+            <div class="floating-badges">
+                <div class="float-badge">
+                    <i class="fas fa-brain"></i> 16 Personality Types
+                </div>
+                <div class="float-badge">
+                    <i class="fas fa-clock"></i> 5 Minutes Only
+                </div>
+                <div class="float-badge">
+                    <i class="fas fa-lock"></i> 100% Private
+                </div>
+                <div class="float-badge">
+                    <i class="fas fa-star"></i> Detailed Report
+                </div>
+            </div>
+
+            <div class="start-features">
+                <div class="start-feature">
+                    <i class="fas fa-microscope"></i>
+                    <div>
+                        <h4>Scientific Framework</h4>
+                        <p>Based on Carl Jung's psychological types and Myers-Briggs research with 95% accuracy</p>
+                    </div>
+                </div>
+                <div class="start-feature">
+                    <i class="fas fa-chart-bar"></i>
+                    <div>
+                        <h4>Detailed Analytics</h4>
+                        <p>4-dimension breakdown with animated percentage scores and visual progress bars</p>
+                    </div>
+                </div>
+                <div class="start-feature">
+                    <i class="fas fa-heart"></i>
+                    <div>
+                        <h4>Compatibility Guide</h4>
+                        <p>Discover your best matches for relationships, friendships, and teamwork</p>
+                    </div>
+                </div>
+                <div class="start-feature">
+                    <i class="fas fa-crown"></i>
+                    <div>
+                        <h4>Famous Examples</h4>
+                        <p>See which celebrities, leaders, and innovators share your personality DNA</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-glow">
+                <button class="btn-start" onclick="startQuiz()">
+                    <i class="fas fa-play"></i> Start Test Now
+                </button>
+            </div>
+
+            <div class="privacy-note">
+                <span><i class="fas fa-shield-alt"></i> No Sign-up Required</span>
+                <span><i class="fas fa-user-secret"></i> Data Never Stored</span>
+                <span><i class="fas fa-bolt"></i> Instant Results</span>
+            </div>
+        </div>
+    `;
+}
+
+// ===== START QUIZ =====
+function startQuiz(){
+    currentQuestion = 0;
+    answers = [];
+    selectedOption = null;
+    if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+    renderQuestion();
+}
+
+// ===== RENDER QUESTION =====
+function renderQuestion(){
+    if(currentQuestion >= questions.length){
+        showLoading();
+        return;
+    }
+
+    const q = questions[currentQuestion];
+    const progress = ((currentQuestion) / questions.length) * 100;
+
+    container.innerHTML = `
+        <div class="fade-in">
+            <div class="progress-area">
+                <div class="progress-header">
+                    <span class="question-number">Question ${currentQuestion + 1} of ${questions.length}</span>
+                    <span>${Math.round(progress)}% Complete</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${progress}%"></div>
+                </div>
+            </div>
+
+            <div class="question-category">${q.category}</div>
+            <div class="question-text">${q.q}</div>
+
+            <div class="options-grid">
+                ${q.options.map((opt, idx) => `
+                    <div class="option-card" onclick="selectOption(this, ${idx})">
+                        <div class="option-letter">${String.fromCharCode(65 + idx)}</div>
+                        <div class="option-text">${opt.text}</div>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="quiz-nav">
+                <button class="btn btn-secondary" onclick="prevQuestion()" ${currentQuestion === 0 ? 'disabled style="opacity:0.3"' : ''}>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                    ${currentQuestion === questions.length - 1 ? 'See Results ✨' : 'Next →'}
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function selectOption(el, idx){
+    // Clear any pending auto-advance
+    if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedOption = idx;
+    document.getElementById('nextBtn').disabled = false;
+
+    // Auto-advance after 800ms so user can see selection
+    autoAdvanceTimer = setTimeout(() => {
+        if(selectedOption === idx && currentQuestion < questions.length) {
+            nextQuestion();
+        }
+    }, 800);
+}
+
+function nextQuestion(){
+    // Clear auto-advance timer
+    if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+
+    if(selectedOption === null) return;
+    if(currentQuestion >= questions.length) return; // Guard: prevent double-fire after quiz ends
+
+    answers[currentQuestion] = selectedOption;
+    currentQuestion++;
+    selectedOption = null;
+
+    if(currentQuestion >= questions.length){
+        showLoading();
+    } else {
+        renderQuestion();
+    }
+}
+
+function prevQuestion(){
+    // Clear auto-advance timer
+    if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+
+    if(currentQuestion <= 0) return;
+    currentQuestion--;
+    selectedOption = answers[currentQuestion] !== undefined ? answers[currentQuestion] : null;
+    renderQuestion();
+
+    // Restore selection
+    if(selectedOption !== null){
+        const cards = document.querySelectorAll('.option-card');
+        if(cards[selectedOption]) cards[selectedOption].classList.add('selected');
+        document.getElementById('nextBtn').disabled = false;
+    }
+}
+
+// ===== LOADING SCREEN =====
+const funFacts = [
+    "Did you know? INTJs are only 2% of the population!",
+    "Fun fact: ENFPs are called 'Champions' for a reason!",
+    "Interesting: Your personality type can influence your career success!",
+    "Cool fact: ISFJs are the most common type in the world!",
+    "Amazing: Your type affects how you handle stress!",
+    "Wow: ENTJs are natural-born leaders!",
+    "Fact: INFPs are among the most creative types!"
+];
+
+function showLoading(){
+    let factIdx = 0;
+    container.innerHTML = `
+        <div class="loading-screen fade-in">
+            <div class="loading-spinner"></div>
+            <h3>Analyzing Your Personality...</h3>
+            <p>We're deep-diving into your answers to reveal your true type</p>
+            <div class="loading-facts" id="loadingFacts">${funFacts[0]}</div>
+        </div>
+    `;
+
+    const factInterval = setInterval(() => {
+        factIdx = (factIdx + 1) % funFacts.length;
+        const el = document.getElementById('loadingFacts');
+        if(el) el.textContent = funFacts[factIdx];
+    }, 1500);
+
+    setTimeout(() => {
+        clearInterval(factInterval);
+        calculateAndShowResult();
+    }, 4000);
+}
+
+// ===== CALCULATE RESULT =====
+function calculateAndShowResult(){
+    let scores = { E:0, I:0, S:0, N:0, T:0, F:0, J:0, P:0 };
+
+    answers.forEach((ansIdx, idx) => {
+        if(ansIdx === undefined || ansIdx === null) return;
+        const q = questions[idx];
+        const opt = q.options[ansIdx];
+        const weight = opt.value;
+
+        if(weight > 0){
+            scores[q.dim] += weight;
+        } else if(weight < 0){
+            const opposite = q.dim === 'E' ? 'I' : q.dim === 'I' ? 'E' : 
+                           q.dim === 'S' ? 'N' : q.dim === 'N' ? 'S' :
+                           q.dim === 'T' ? 'F' : q.dim === 'F' ? 'T' :
+                           q.dim === 'J' ? 'P' : 'J';
+            scores[opposite] += Math.abs(weight);
+        }
+    });
+
+    const type = 
+        (scores.E >= scores.I ? "E" : "I") +
+        (scores.S >= scores.N ? "S" : "N") +
+        (scores.T >= scores.F ? "T" : "F") +
+        (scores.J >= scores.P ? "J" : "P");
+
+    const data = typesData[type] || typesData["INTJ"];
+
+    // Calculate percentages
+    const totalEI = scores.E + scores.I || 1;
+    const totalSN = scores.S + scores.N || 1;
+    const totalTF = scores.T + scores.F || 1;
+    const totalJP = scores.J + scores.P || 1;
+
+    const eiPercent = Math.round((scores.E / totalEI) * 100);
+    const snPercent = Math.round((scores.S / totalSN) * 100);
+    const tfPercent = Math.round((scores.T / totalTF) * 100);
+    const jpPercent = Math.round((scores.J / totalJP) * 100);
+
+    // Show result
+    container.innerHTML = `
+        <div class="result-screen fade-in">
+            <div class="result-hero">
+                <div class="result-type-code">${type}</div>
+                <div class="result-type-name">${data.name}</div>
+                <div class="result-type-desc">${data.desc}</div>
+            </div>
+
+            <div class="trait-bars">
+                <div class="trait-bar">
+                    <div class="trait-bar-header">
+                        <span>Extraversion (E) vs Introversion (I)</span>
+                        <span>${scores.E >= scores.I ? 'E' : 'I'} ${Math.max(eiPercent, 100-eiPercent)}%</span>
+                    </div>
+                    <div class="trait-bar-track">
+                        <div class="trait-bar-fill ei" style="width:0%" data-width="${eiPercent}%"></div>
+                    </div>
+                </div>
+                <div class="trait-bar">
+                    <div class="trait-bar-header">
+                        <span>Sensing (S) vs Intuition (N)</span>
+                        <span>${scores.S >= scores.N ? 'S' : 'N'} ${Math.max(snPercent, 100-snPercent)}%</span>
+                    </div>
+                    <div class="trait-bar-track">
+                        <div class="trait-bar-fill sn" style="width:0%" data-width="${snPercent}%"></div>
+                    </div>
+                </div>
+                <div class="trait-bar">
+                    <div class="trait-bar-header">
+                        <span>Thinking (T) vs Feeling (F)</span>
+                        <span>${scores.T >= scores.F ? 'T' : 'F'} ${Math.max(tfPercent, 100-tfPercent)}%</span>
+                    </div>
+                    <div class="trait-bar-track">
+                        <div class="trait-bar-fill tf" style="width:0%" data-width="${tfPercent}%"></div>
+                    </div>
+                </div>
+                <div class="trait-bar">
+                    <div class="trait-bar-header">
+                        <span>Judging (J) vs Perceiving (P)</span>
+                        <span>${scores.J >= scores.P ? 'J' : 'P'} ${Math.max(jpPercent, 100-jpPercent)}%</span>
+                    </div>
+                    <div class="trait-bar-track">
+                        <div class="trait-bar-fill jp" style="width:0%" data-width="${jpPercent}%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card strengths">
+                    <h4>💪 Core Strengths</h4>
+                    <ul>${data.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                </div>
+                <div class="detail-card challenges">
+                    <h4>⚠️ Growth Areas</h4>
+                    <ul>${data.challenges.map(c => `<li>${c}</li>`).join('')}</ul>
+                </div>
+                <div class="detail-card careers">
+                    <h4>💼 Ideal Careers</h4>
+                    <ul>${data.careers.map(c => `<li>${c}</li>`).join('')}</ul>
+                </div>
+                <div class="detail-card relationships">
+                    <h4>❤️ Relationships</h4>
+                    <ul><li>${data.relationships}</li></ul>
+                </div>
+            </div>
+
+            <div class="compatibility">
+                <h4>🧩 Compatibility</h4>
+                <div class="compatibility-grid">
+                    <div class="compat-item best">
+                        <div class="compat-type">${data.compatible.best}</div>
+                        <div class="compat-label">Best Match</div>
+                    </div>
+                    <div class="compat-item good">
+                        <div class="compat-type">${data.compatible.good}</div>
+                        <div class="compat-label">Good Match</div>
+                    </div>
+                    <div class="compat-item challenging">
+                        <div class="compat-type">${data.compatible.challenging}</div>
+                        <div class="compat-label">Challenging</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="famous-section">
+                <h4>🌟 Famous Personalities Like You</h4>
+                <div class="famous-people">
+                    ${data.famous.map(f => `
+                        <div class="famous-person">
+                            <div class="avatar">${f.emoji}</div>
+                            <div class="name">${f.name}</div>
+                            <div class="role">${f.role}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button class="btn btn-primary" onclick="restartQuiz()">
+                    <i class="fas fa-redo"></i> Retake Test
+                </button>
+                <button class="btn btn-secondary" onclick="shareResult()">
+                    <i class="fas fa-share-alt"></i> Share Result
+                </button>
+                <button class="btn btn-secondary" onclick="downloadResult()">
+                    <i class="fas fa-download"></i> Save Report
+                </button>
+            </div>
+        </div>
+    `;
+
+    // Animate bars
+    setTimeout(() => {
+        document.querySelectorAll('.trait-bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width;
+        });
+    }, 500);
+
+    // Confetti
+    createConfetti();
+}
+
+function createConfetti(){
+    const colors = ['#2563eb', '#60a5fa', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+    for(let i = 0; i < 50; i++){
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = Math.random() * 10 + 5 + 'px';
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+            confetti.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 4000);
+        }, i * 50);
+    }
+}
+
+function restartQuiz(){
+    currentQuestion = 0;
+    answers = [];
+    selectedOption = null;
+    if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+    renderStartScreen();
+}
+
+function shareResult(){
+    const type = document.querySelector('.result-type-code')?.textContent || 'Unknown';
+    const name = document.querySelector('.result-type-name')?.textContent || '';
+    const text = `I discovered I'm a ${type} — ${name} on Mind Matrix! What's your personality type? 🧠✨`;
+
+    if(navigator.share){
+        navigator.share({ title: 'My Personality Type', text: text, url: window.location.href });
+    } else {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Result copied to clipboard! Share it with your friends 🎉');
+        });
+    }
+}
+
+function downloadResult(){
+    const type = document.querySelector('.result-type-code')?.textContent || 'Unknown';
+    const name = document.querySelector('.result-type-name')?.textContent || '';
+    const desc = document.querySelector('.result-type-desc')?.textContent || '';
+
+    const content = `MIND MATRIX — PERSONALITY REPORT
+=================================
+
+Your Type: ${type} — ${name}
+
+${desc}
+
+Generated: ${new Date().toLocaleDateString()}
+
+This report was generated by Mind Matrix Personality Intelligence System.
+Visit: ${window.location.href}
+    `;
+
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `MindMatrix_${type}_Report.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ===== INIT =====
+renderStartScreen();
+</script>
+
+</body>
+</html>
