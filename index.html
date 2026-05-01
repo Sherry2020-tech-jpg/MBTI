@@ -133,53 +133,29 @@ header{
     color:#60a5fa;
     transform:translateY(-2px);
 }
+
 .nav-links a:hover::before{width:60%}
-.menu-toggle{
-    display:none;
-    font-size:24px;
-    color:white;
-    cursor:pointer;
-}
-/* Tablet & Mobile */
+/* ===== NAVBAR MOBILE FIX (NO DESIGN CHANGE) ===== */
 @media(max-width:768px){
 
     .navbar{
-        padding:14px 20px;
-    }
-
-    .menu-toggle{
-        display:block;
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
 
     .nav-links{
-        position:absolute;
-        top:80px;
-        left:0;
-        width:100%;
-        background:#020617;
-        flex-direction:column;
-        align-items:center;
-        gap:18px;
-        padding:20px 0;
-        border-radius:0 0 20px 20px;
-
-        /* hide by default */
-        opacity:0;
-        transform:translateY(-20px);
-        pointer-events:none;
-        transition:0.3s ease;
-    }
-
-    .nav-links.active{
-        opacity:1;
-        transform:translateY(0);
-        pointer-events:auto;
+        flex-direction: row;
+        gap: 20px;
+        min-width: max-content;
     }
 
     .nav-links a{
-        width:90%;
-        text-align:center;
-        padding:12px;
+        white-space: nowrap;
+    }
+
+    /* scrollbar hide (clean look) */
+    .navbar::-webkit-scrollbar{
+        display:none;
     }
 }
 
@@ -891,7 +867,7 @@ header{
 }
 
 .contact-card {
-    background: linear-gradient(135deg#0a2b97);
+    background: linear-gradient(135deg,#000000,#000000);
     
     border-radius:30px;
     padding:40px 30px;
@@ -961,6 +937,7 @@ header{
 @media(max-width:768px){
 
     .contact-modern{
+        background: linear-gradient(135deg,#000000,#000000) !important;
         padding: 80px 15px;
         border-radius: 20px;
     }
@@ -973,7 +950,8 @@ header{
         font-size: 16px;
     }
 
-    .contact-cards{
+    .contact-card{
+        background: linear-gradient(135deg,#000000,#000000) !important;
         flex-direction: column;
         gap: 25px;
         align-items: center;
@@ -1017,9 +995,6 @@ footer{
             <span class="logo-main">Mind Matrix</span>
             <span class="logo-sub">Decoding minds. Designing futures.</span>
         </div>
-        <div class="menu-toggle">
-    <i class="fa-solid fa-bars"></i>
-</div>
     </div>
 
     <ul class="nav-links">
@@ -1265,12 +1240,6 @@ const observer=new IntersectionObserver(entries=>{
 
 document.querySelectorAll(".fancy-head,.cred-item,.card")
 .forEach(el=>observer.observe(el));
-const toggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav-links");
-
-toggle.addEventListener("click", ()=>{
-    nav.classList.toggle("active");
-});
 </script>
 
 </body>
