@@ -1,0 +1,1199 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTYPE | Intelligence Redefined</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+    --primary:#2563eb;
+    --accent:#60a5fa;
+    --glass:rgba(255,255,255,0.75);
+    --text:#0f172a;
+    --muted:#64748b;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Inter',sans-serif;
+    font-family:'Inter',sans-serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(59,130,246,.15), transparent 40%),
+        radial-gradient(circle at 80% 0%, rgba(96,165,250,.12), transparent 40%),
+        linear-gradient(135deg,#020617,#0f172a 60%,#020617);
+    color:#e2e8f0;
+    overflow-x:hidden;
+}
+html{
+    scroll-behavior:smooth;
+}
+
+section{
+    scroll-margin-top:140px;
+}
+/* ================= PREMIUM NAVBAR ================= */
+
+header{
+    position: sticky;
+    top: 20px;
+    z-index: 999;
+}
+
+.navbar{
+    max-width:1100px;
+    margin:auto;
+    padding:14px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-radius:20px;
+    background:#020617;
+    backdrop-filter:blur(14px);
+    border:1px solid rgb(61,21,204);
+    box-shadow:0 10px30px rgba(83,40,40,0.753), inset 0 1px0 rgba(16,55,180,0.6);
+    position:relative;
+    overflow:hidden;
+}
+
+/* Animated border glow */
+.navbar::before{
+    content:"";
+    position:absolute;
+    top:-2px;left:-2px;right:-2px;bottom:-2px;
+    background:linear-gradient(45deg, #2563eb, #60a5fa, #8b5cf6, #ec4899, #2563eb);
+    background-size:400% 400%;
+    border-radius:22px;
+    z-index:-1;
+    animation:borderGlow 6s ease infinite;
+    opacity:0.6;
+}
+
+@keyframes borderGlow{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.logo{display:flex;align-items:center;gap:14px}
+
+.logo-badge{
+    width:44px;height:44px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+    display:flex;align-items:center;justify-content:center;
+    color:white;font-weight:900;font-size:14px;
+    box-shadow:0 10px25px rgba(37,99,235,0.4);
+    animation:pulseBadge 3s ease-in-out infinite;
+    position:relative;
+}
+
+.logo-badge::after{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:17px;
+    background:linear-gradient(135deg, transparent, rgba(96,165,250,0.4), transparent);
+    animation:rotateGlow 3s linear infinite;
+}
+
+@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes rotateGlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.logo-main{font-weight:800;font-size:17px;color:white}
+.logo-sub{font-size:11px;color:#64748b}
+
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{
+    text-decoration:none;
+    color:#db1c1c;
+    font-weight:600;
+    position:relative;
+    padding:6px 14px;
+    border-radius:10px;
+    transition:.3s ease;
+    overflow:hidden;
+}
+
+.nav-links a::before{
+    content:"";
+    position:absolute;
+    bottom:0;left:50%;
+    width:0;height:2px;
+    background:linear-gradient(90deg, #2563eb, #60a5fa);
+    transition:all .3s ease;
+    transform:translateX(-50%);
+}
+
+.nav-links a:hover{
+    background:rgba(37,99,235,0.1);
+    color:#60a5fa;
+    transform:translateY(-2px);
+}
+
+.nav-links a:hover::before{width:80%}
+
+
+
+/* ================= HERO ================= */
+.hero{
+    position:relative;
+    padding:140px 20px 110px;
+    text-align:center;
+}
+
+/* BIG GLOW BEHIND TEXT */
+.hero::before{
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    background: radial-gradient(circle, rgba(37,99,235,.35), transparent 65%);
+    top:-250px;
+    left:50%;
+    transform:translateX(-50%);
+    filter:blur(80px);
+}
+
+.hero h1{
+    font-size:64px;
+    font-weight:900;
+    color:white;
+    text-shadow:0 20px 60px rgba(37,99,235,.35);
+}
+
+@keyframes heroTitle{
+    from{opacity:0;transform:translateY(40px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.hero h1 span{color:var(--primary)}
+
+.hero p{
+    max-width:680px;
+    margin:auto;
+    color:#94a3b8;
+    font-size:20px;
+    opacity:0;
+    animation:heroPara .9s ease .6s forwards;
+}
+
+@keyframes heroPara{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+
+/* ================= IMAGE STRIP ================= */
+
+.image-strip{
+    position: relative;
+    overflow: hidden;
+    margin: -40px 0 80px;
+    perspective: 1200px; /* 3D depth */
+}
+
+/* Moving Track */
+.strip-track{
+    display: flex;
+    gap: 40px;
+    width: max-content;
+    transform-style: preserve-3d;
+    animation: scrollImages 35s linear infinite;
+}
+
+/* Image Styling */
+.strip-track img{
+    width: 320px;
+    height: 200px;
+    border-radius: 20px;
+    object-fit: cover;
+    background: #e5e7eb;
+
+    /* Premium subtle border */
+    border: 1.5px solid rgba(5, 1, 1, 0.6);
+    outline: 1px solid rgba(0, 0, 0, 0.05);
+
+    /* 3D effect */
+    transform: rotateY(18deg) scale(.95);
+    transform-origin: center;
+    transition: transform .6s cubic-bezier(.16,1,.3,1),
+                box-shadow .6s ease,
+                border .4s ease;
+
+    /* Depth shadow */
+    box-shadow:
+        0 30px 60px rgba(0,0,0,0.18),
+        0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Hover Cinematic Effect */
+.strip-track img:hover{
+    transform: rotateY(0deg) scale(1.08);
+
+    border: 1.5px solid rgba(12, 13, 17, 0.4);
+
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.25),
+        0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Infinite Scroll Animation */
+@keyframes scrollImages{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+}
+
+/* ===== ULTRA PREMIUM ABOUT SECTION ===== */
+
+.about-ultra{
+    position:relative;
+    padding:140px 20px;
+    text-align:center;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+}
+
+/* Moving soft glow */
+.about-glow{
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle,rgba(37,99,235,.5),transparent 70%);
+    top:-200px;
+    left:50%;
+    transform:translateX(-50%);
+    filter:blur(80px);
+    animation:floatGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatGlow{
+    from{transform:translateX(-50%) translateY(0)}
+    to{transform:translateX(-50%) translateY(40px)}
+}
+
+.about-content{
+    position:relative;
+    max-width:900px;
+    margin:auto;
+    z-index:2;
+}
+
+.about-content h2 {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, #60a5fa, #2563eb);
+    background-clip: text; /* standard property */
+    -webkit-background-clip: text; /* for Safari & Chrome */
+    color: transparent; /* fallback */
+    -webkit-text-fill-color: transparent; /* for Safari & Chrome */
+}
+
+.about-content p{
+    font-size:19px;
+    line-height:1.8;
+    max-width:750px;
+    margin:auto;
+    color:#cbd5e1;
+}
+
+/* Highlight stats */
+.about-highlights{
+    display:flex;
+    justify-content:center;
+    gap:70px;
+    margin-top:70px;
+    flex-wrap:wrap;
+}
+
+.about-highlights h3{
+    font-size:38px;
+    font-weight:900;
+    color:#60a5fa;
+    margin-bottom:8px;
+    text-shadow:0 8px 20px rgba(37,99,235,.35);
+}
+
+.about-highlights span{
+    font-size:14px;
+    color:#94a3b8;
+}
+
+/* ================= SECTION HEAD ================= */
+.section-head{
+    text-align:center;
+    max-width:720px;
+    margin:0 auto 60px;
+}
+
+.fancy-head{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s cubic-bezier(.16,1,.3,1);
+}
+
+.fancy-head.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.fancy-head h2{
+    font-size:42px;
+    font-weight:900;
+    margin-bottom:14px;
+    position:relative;
+    display:inline-block;
+}
+
+.fancy-head h2::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-14px;
+    width:0;
+    height:4px;
+    background:linear-gradient(90deg,#2563eb,#60a5fa);
+    border-radius:4px;
+    transform:translateX(-50%);
+    transition:1s ease;
+}
+
+.fancy-head.show h2::after{
+    width:90px;
+}
+
+.fancy-head p{
+    max-width:620px;
+    margin:28px auto 0;
+    font-size:17px;
+    color:var(--muted);
+    opacity:0;
+    transform:translateY(20px);
+    transition:.8s ease .3s;
+}
+
+.fancy-head.show p{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+
+/* ================= BUILT ON SCIENCE ================= */
+
+.credibility{
+    padding: 80px 20px;
+    position: relative;
+}
+
+/* Grid Layout */
+.credibility-box{
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    perspective: 1200px;
+}
+
+/* Card Design */
+.cred-item{
+    position: relative;
+    background: linear-gradient(180deg)
+       #0509d6,
+        #0509d6;
+
+    border-radius: 24px;
+    padding: 36px 26px;
+    text-align: center;
+
+    border: 1.5px solid rgba(255, 251, 0, 0.877);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.6),
+        0 20px 40px rgba(0,0,0,.10);
+
+    transform: rotateX(6deg) translateY(30px);
+    transform-style: preserve-3d;
+    opacity: 0;
+
+    transition:
+        transform .6s cubic-bezier(.16,1,.3,1),
+        box-shadow .6s ease,
+        border .4s ease;
+}
+
+/* Reveal Animation */
+.cred-item.show{
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0);
+}
+
+/* Hover 3D Lift */
+.cred-item:hover{
+    transform: translateY(-12px) scale(1.03);
+    border: 1.5px solid rgba(37,99,235,.4);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.7),
+        0 35px 70px rgba(37,99,235,.25);
+}
+
+/* ==== Glow Background Animation (RESTORED) ==== */
+.cred-item::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:24px;
+    background:radial-gradient(circle at top,
+        rgba(96,165,250,.35),
+        transparent 65%);
+    opacity:0;
+    transition:.6s ease;
+    z-index:-1;
+}
+
+.cred-item:hover::after{
+    opacity:1;
+}
+
+/* Icon Box */
+.cred-item span{
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#000000,#000000);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 18px;
+
+    box-shadow: 0 12px 28px rgba(82, 22, 22, 0);
+
+    transform: translateZ(30px);
+    transition: .5s cubic-bezier(.16,1,.3,1);
+}
+
+/* Icon Pop Animation */
+.cred-item:hover span{
+    transform: translateY(-6px) scale(1.08);
+}
+
+/* Heading */
+.cred-item h4{
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: hsl(0, 0%, 100%);
+}
+
+/* Paragraph */
+.cred-item p{
+    font-size: 14px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+
+/* ================= SERVICES ================= */
+
+.services{
+    max-width: 1200px;
+    margin: 100px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 40px;
+    perspective: 1200px; /* 3D depth */
+}
+
+/* Card Design */
+.card{
+    position: relative;
+    background: linear-gradient(180deg),
+        #0509d6,
+        #0509d6;
+
+    border-radius: 30px;
+    padding: 48px 36px;
+
+    /* Beautiful border */
+    border: 1.5px solid rgb(252, 207, 6);
+
+    /* Glass + depth */
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.6),
+        0 25px 60px rgba(0, 0, 0, 0.712);
+
+    transform: rotateX(8deg) translateY(40px);
+    transform-style: preserve-3d;
+    opacity: 0;
+
+    transition:
+        transform .6s cubic-bezier(.16,1,.3,1),
+        box-shadow .6s ease,
+        border .4s ease;
+}
+
+/* Reveal Animation */
+.card.show{
+    opacity: 1;
+    transform: rotateX(0deg) translateY(0);
+}
+
+/* Hover 3D Lift */
+.card:hover{
+    transform: rotateX(0deg) translateY(-20px) scale(1.04);
+    border: 1.5px solid rgba(37,99,235,.45);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.7),
+        0 50px 100px rgba(37,99,235,.35);
+}
+
+/* Icon Box */
+.icon{
+    width: 74px;
+    height: 74px;
+    border-radius: 22px;
+    background: linear-gradient(135deg,#010203,#010203);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 24px;
+
+    box-shadow: 0 18px 40px rgba(37,99,235,.35);
+
+    transform: translateZ(40px);
+    transition: transform .4s ease;
+}
+
+/* Icon Pop Effect */
+.card:hover .icon{
+    transform: translateZ(60px) scale(1.08);
+}
+
+/* Heading */
+.card h3{
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #fbfbff;
+}
+
+/* Paragraph */
+.card p{
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Button */
+.card a{
+    display: inline-block;
+    margin-top: 18px;
+    background: linear-gradient(135deg,#2563eb,#60a5fa);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .3s ease, box-shadow .3s ease;
+    box-shadow: 0 15px 35px rgba(37,99,235,.35);
+}
+
+/* Button Hover */
+.card a:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 25px 50px rgba(37,99,235,.45);
+}
+
+/* ================= CINEMATIC MBTI ================= */
+
+.mbti-cinematic{
+    position:relative;
+    padding:140px 0;
+    overflow:hidden;
+}
+
+/* background glow */
+.cinematic-bg{
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left,
+    rgba(37,99,235,.18),
+    transparent 35%),
+
+    radial-gradient(circle at bottom right,
+    rgba(168,85,247,.14),
+    transparent 35%);
+}
+
+/* slider shell */
+.slider-shell{
+    width:100%;
+    overflow:hidden;
+    margin-top:90px;
+}
+
+/* track */
+.slider-track-3d{
+    display:flex;
+    gap:28px;
+    width:max-content;
+    padding:20px 60px;
+    animation:cinematicSlide 50s linear infinite;
+}
+
+/* animation */
+@keyframes cinematicSlide{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+}
+
+/* ================= CARD ================= */
+
+.slide-card{
+    position:relative;
+    width:280px;
+    height:380px;
+    flex-shrink:0;
+
+    border-radius:28px;
+    overflow:hidden;
+
+    background:#0f172a;
+    border:1px solid rgb(250, 234, 6);
+
+    box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    transition:
+    transform .6s cubic-bezier(.16,1,.3,1),
+    box-shadow .6s ease,
+    border .6s ease;
+}
+
+/* ================= ICON STYLE ================= */
+
+.slide-card i{
+
+    font-size:70px;
+
+    color:#60a5fa;
+
+    margin-bottom:20px;
+
+    filter:drop-shadow(0 0 20px rgba(96,165,250,.6));
+
+    transition:transform .6s ease, color .6s ease;
+}
+
+/* hover icon effect */
+.slide-card:hover i{
+    transform:scale(1.2) rotate(5deg);
+    color:#a855f7;
+}
+
+/* ================= OVERLAY ================= */
+
+.slide-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+    to top,
+    rgba(2,6,23,.96),
+    rgba(2,6,23,.3),
+    transparent);
+
+    z-index:1;
+}
+
+/* ================= HOVER CARD ================= */
+
+.slide-card:hover{
+    transform:translateY(-16px) scale(1.04);
+    box-shadow:0 40px 120px rgba(37,99,235,.3);
+}
+
+/* animated top line */
+.slide-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:2px;
+
+    background:linear-gradient(
+    90deg,
+    transparent,
+    #60a5fa,
+    transparent);
+
+    z-index:3;
+    transition:1s ease;
+}
+
+.slide-card:hover::before{
+    left:100%;
+}
+
+/* ================= TEXT ================= */
+
+.slide-card h1{
+    position:relative;
+    z-index:2;
+
+    font-size:42px;
+    font-weight:900;
+    color:white;
+
+    margin:0;
+    letter-spacing:2px;
+}
+
+.slide-card span{
+    position:relative;
+    z-index:2;
+
+    font-size:18px;
+    color:#cbd5e1;
+
+    margin-top:10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+    .slide-card{
+        width:240px;
+        height:330px;
+    }
+
+    .slide-card i{
+        font-size:55px;
+    }
+
+    .slide-card h1{
+        font-size:34px;
+    }
+
+    .slide-card span{
+        font-size:15px;
+    }
+}
+
+.contact-modern {
+    padding:120px 20px;
+    background: linear-gradient(135deg,#0509d6);
+
+    text-align:center;
+    border-radius:40px;
+    max-width:1100px;
+    margin:80px auto;
+    box-shadow:0 30px 70px rgba(37,99,235,0.15);
+    position:relative;
+    overflow:hidden;
+}
+
+.contact-modern h2 {
+    font-size:46px;
+    font-weight:900;
+    color:#fffdfd;
+    margin-bottom:16px;
+    text-shadow: 0 5px 20px rgba(37,99,235,0.3);
+    opacity:0;
+    transform:translateY(-40px);
+    animation:fadeSlideDown 1s forwards;
+}
+
+.contact-modern p {
+    font-size:18px;
+    color:#475569;
+    margin-bottom:60px;
+    opacity:0;
+    transform:translateY(40px);
+    animation:fadeSlideUp 1s forwards 0.5s;
+}
+
+.contact-cards {
+    display: flex;
+    gap:30px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.contact-card {
+    background: linear-gradient(135deg#0a2b97);
+    border:1px solid rgba(255, 251, 0, 0.993);
+    border-radius:30px;
+    padding:40px 30px;
+    max-width:300px;
+    text-align:center;
+    transition:transform .4s ease, box-shadow .4s ease;
+    box-shadow:0 20px 50px rgba(37,99,235,0.1);
+    opacity:0;
+    transform:translateY(50px);
+    animation:fadeSlideUp 1s forwards 0.8s;
+}
+
+.contact-card span {
+    font-size:40px;
+    display:block;
+    margin-bottom:18px;
+    color:#2563eb;
+    transition:transform .3s ease;
+}
+
+.contact-card h3 {
+    font-size:22px;
+    font-weight:800;
+    color:hsl(0, 100%, 99%);
+    margin-bottom:10px;
+}
+
+.contact-card p {
+    font-size:15px;
+    color:#475569;
+    margin-bottom:20px;
+}
+
+.contact-card a {
+    display:inline-block;
+    background: linear-gradient(135deg,#2563eb,#60a5fa);
+    color:white;
+    padding:12px 28px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0 12px 35px rgba(37,99,235,0.25);
+    transition: all 0.3s ease;
+}
+
+.contact-card a:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:0 25px 60px rgba(37,99,235,0.35);
+}
+
+.contact-card:hover span {
+    transform: scale(1.2) rotate(-10deg);
+}
+
+/* Animations */
+@keyframes fadeSlideDown{
+    0%{opacity:0; transform:translateY(-40px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeSlideUp{
+    0%{opacity:0; transform:translateY(50px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+/* Responsive */
+@media(max-width:1024px){
+    .contact-cards {flex-direction:column; gap:40px;}
+}
+
+/* ================= FOOTER ================= */
+footer{
+    background:#0f172a;
+    color:#94a3b8;
+    text-align:center;
+    padding:60px 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1024px){
+    .services{grid-template-columns:repeat(2,1fr)}
+    .credibility-box{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+    .services,.credibility-box{grid-template-columns:1fr}
+    .hero h1{font-size:36px}
+}
+</style>
+<base target="_blank">
+</head>
+
+<body>
+
+<header>
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-badge">MM</div>
+        <div class="logo-text">
+            <span class="logo-main">Mind Matrix</span>
+            <span class="logo-sub">Decoding minds. Designing futures.</span>
+        </div>
+    </div>
+
+    <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+</header>
+
+
+
+<section class="hero" id="home">
+    <h1>Discover Your <span>Psychological Potential</span></h1>
+    <p><b><i>Science-backed personality and career intelligence designed to give clarity, confidence, and real direction.</i></b></p>
+</section>
+
+<div class="image-strip">
+    <div class="strip-track">
+        <img src="images/img1.jpeg" alt="">
+        <img src="images/img2.jpeg" alt="">
+        <img src="images/img3.jpeg" alt="">
+        <img src="images/img4.jpeg" alt="">
+        <img src="images/img5.jpeg" alt="">
+        <img src="images/img6.jpeg" alt="">
+
+        <!-- Duplicate for smooth loop -->
+        <img src="images/img1.jpeg" alt="">
+        <img src="images/img2.jpeg" alt="">
+        <img src="images/img3.jpeg" alt="">
+        <img src="images/img4.jpeg" alt="">
+        <img src="images/img5.jpeg" alt="">
+        <img src="images/img6.jpeg" alt="">
+    </div>
+</div>
+
+
+<section id="about" class="about-ultra">
+    <div class="about-glow"></div>
+
+    <div class="about-content">
+        <h2>About Mind Matrix</h2>
+        <p>
+            <b><i>
+            We blend psychology, data, and innovation to craft intelligent pathways 
+            that unlock clarity, confidence, and powerful life direction.
+            </i></b>
+        </p>
+
+        <div class="about-highlights">
+            <div>
+                <h3>10K+</h3>
+                <span>Assessments Completed</span>
+            </div>
+            <div>
+                <h3>95%</h3>
+                <span>Accuracy Rate</span>
+            </div>
+            <div>
+                <h3>Global</h3>
+                <span>Research Standards</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="credibility" id="science">
+    <div class="section-head fancy-head">
+        <h2>Built on Science</h2>
+        <p><b><i>Trusted psychological frameworks.</i></b></p>
+    </div>
+
+    <div class="credibility-box">
+        <div class="cred-item"><span>🧬</span><h4>Psychology Based</h4><p>Global standards</p></div>
+        <div class="cred-item"><span>📐</span><h4>Validated</h4><p>Scientific models</p></div>
+        <div class="cred-item"><span>🔒</span><h4>Privacy</h4><p>Data protection</p></div>
+        <div class="cred-item"><span>🎯</span><h4>Career Focus</h4><p>Real decisions</p></div>
+    </div>
+</section>
+
+<div class="section-head fancy-head">
+    <h2>What You’ll Discover</h2>
+    <p><b><i>Deep insights that go beyond surface-level personality tests.</i></b></p>
+</div>
+
+<section class="services" id="services">
+    <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Personality Mapping</h3>
+        <p>Understand your mind.</p>
+        <a href="personality.html">Start</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Career Intelligence</h3>
+        <p>Best-fit careers.</p>
+        <a href="career.html">Explore</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">🚀</div>
+        <h3>Skill Optimization</h3>
+        <p>Boost growth.</p>
+        <a href="skills.html">View</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">📊</div>
+        <h3>Analytics</h3>
+        <p>Track progress.</p>
+        <a href="analytics.html">See</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">🧩</div>
+        <h3>Mind Patterns</h3>
+        <p>Decode behavior.</p>
+        <a href="mind-patterns.html">Analyze</a>
+    </div>
+
+    <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Performance</h3>
+        <p>Maximize focus.</p>
+        <a href="performance.html">Boost</a>
+    </div>
+</section>
+<section class="mbti-cinematic">
+
+    <div class="cinematic-bg"></div>
+
+    <div class="section-head fancy-head">
+        <h2>16 Personality Types</h2>
+        <p><b><i>Discover the psychology behind every ambitious mind.</i></b></p>
+    </div>
+
+    <div class="slider-shell">
+        <div class="slider-track-3d">
+
+            <!-- ================= ORIGINAL 16 ================= -->
+
+            <!-- ANALYSTS -->
+            <div class="slide-card"><i class="fa-solid fa-cube"></i><h1>INTJ</h1><span>The Architect</span></div>
+            <div class="slide-card"><i class="fa-solid fa-brain"></i><h1>INTP</h1><span>The Thinker</span></div>
+            <div class="slide-card"><i class="fa-solid fa-chess-queen"></i><h1>ENTJ</h1><span>The Commander</span></div>
+            <div class="slide-card"><i class="fa-solid fa-lightbulb"></i><h1>ENTP</h1><span>The Debater</span></div>
+
+            <!-- DIPLOMATS -->
+            <div class="slide-card"><i class="fa-solid fa-dove"></i><h1>INFJ</h1><span>The Advocate</span></div>
+            <div class="slide-card"><i class="fa-solid fa-leaf"></i><h1>INFP</h1><span>The Mediator</span></div>
+            <div class="slide-card"><i class="fa-solid fa-hands-helping"></i><h1>ENFJ</h1><span>The Protagonist</span></div>
+            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ENFP</h1><span>The Campaigner</span></div>
+
+            <!-- SENTINELS -->
+            <div class="slide-card"><i class="fa-solid fa-clipboard-check"></i><h1>ISTJ</h1><span>The Logistician</span></div>
+            <div class="slide-card"><i class="fa-solid fa-shield-heart"></i><h1>ISFJ</h1><span>The Defender</span></div>
+            <div class="slide-card"><i class="fa-solid fa-building-columns"></i><h1>ESTJ</h1><span>The Executive</span></div>
+            <div class="slide-card"><i class="fa-solid fa-users"></i><h1>ESFJ</h1><span>The Consul</span></div>
+
+            <!-- EXPLORERS -->
+            <div class="slide-card"><i class="fa-solid fa-wrench"></i><h1>ISTP</h1><span>The Virtuoso</span></div>
+            <div class="slide-card"><i class="fa-solid fa-palette"></i><h1>ISFP</h1><span>The Adventurer</span></div>
+            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ESTP</h1><span>The Entrepreneur</span></div>
+            <div class="slide-card"><i class="fa-solid fa-microphone"></i><h1>ESFP</h1><span>The Entertainer</span></div>
+
+            <!-- ================= DUPLICATE (FULL COPY FOR SMOOTH LOOP) ================= -->
+
+            <!-- ANALYSTS -->
+            <div class="slide-card"><i class="fa-solid fa-cube"></i><h1>INTJ</h1><span>The Architect</span></div>
+            <div class="slide-card"><i class="fa-solid fa-brain"></i><h1>INTP</h1><span>The Thinker</span></div>
+            <div class="slide-card"><i class="fa-solid fa-chess-queen"></i><h1>ENTJ</h1><span>The Commander</span></div>
+            <div class="slide-card"><i class="fa-solid fa-lightbulb"></i><h1>ENTP</h1><span>The Debater</span></div>
+
+            <!-- DIPLOMATS -->
+            <div class="slide-card"><i class="fa-solid fa-dove"></i><h1>INFJ</h1><span>The Advocate</span></div>
+            <div class="slide-card"><i class="fa-solid fa-leaf"></i><h1>INFP</h1><span>The Mediator</span></div>
+            <div class="slide-card"><i class="fa-solid fa-hands-helping"></i><h1>ENFJ</h1><span>The Protagonist</span></div>
+            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ENFP</h1><span>The Campaigner</span></div>
+
+            <!-- SENTINELS -->
+            <div class="slide-card"><i class="fa-solid fa-clipboard-check"></i><h1>ISTJ</h1><span>The Logistician</span></div>
+            <div class="slide-card"><i class="fa-solid fa-shield-heart"></i><h1>ISFJ</h1><span>The Defender</span></div>
+            <div class="slide-card"><i class="fa-solid fa-building-columns"></i><h1>ESTJ</h1><span>The Executive</span></div>
+            <div class="slide-card"><i class="fa-solid fa-users"></i><h1>ESFJ</h1><span>The Consul</span></div>
+
+            <!-- EXPLORERS -->
+            <div class="slide-card"><i class="fa-solid fa-wrench"></i><h1>ISTP</h1><span>The Virtuoso</span></div>
+            <div class="slide-card"><i class="fa-solid fa-palette"></i><h1>ISFP</h1><span>The Adventurer</span></div>
+            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ESTP</h1><span>The Entrepreneur</span></div>
+            <div class="slide-card"><i class="fa-solid fa-microphone"></i><h1>ESFP</h1><span>The Entertainer</span></div>
+
+        </div>
+    </div>
+
+</section>
+
+<section id="contact" class="contact-modern">
+  <div class="contact-content">
+    <h2>Contact Us</h2>
+    <p>Reach out and start your transformation journey today.</p>
+
+    <div class="contact-cards">
+      <div class="contact-card">
+        <span>📧</span>
+        <h3>Email Us</h3>
+        <p>creativebaccotiya@gmail.com</p>
+        <a href="mailto:creativebaccotiya@gmail.com">Send Mail</a>
+      </div>
+      <div class="contact-card">
+        <span>📞</span>
+        <h3>Call Us</h3>
+        <p>+923198547089</p>
+        <a href="tel:+923198547089">Call Now</a>
+      </div>
+      <div class="contact-card">
+        <span>🏢</span>
+        <h3>Visit Us</h3>
+        <p>Karachi, Pakistan</p>
+        <a href="#map">Locate</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+© 2026 PsycheMetric Intelligence Systems
+</footer>
+
+<script>
+/* === ONLY CHANGE: animation repeat on scroll === */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add("show");
+  }
+  /* Removed else clause — elements stay visible once revealed, no more shuffling */
+ });
+},{threshold:.15, rootMargin:"0px 0px -50px 0px"});
+
+document.querySelectorAll(".fancy-head,.cred-item,.card")
+.forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
