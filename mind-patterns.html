@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind Matrix | Mind Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+ --primary:#2563eb;--accent:#60a5fa;--purple:#8b5cf6;--pink:#ec4899;
+ --teal:#14b8a6;--gold:#fbbf24;--success:#22c55e;--danger:#ef4444;
+ --bg:#020617;--bg2:#0f172a;--card:rgba(15,23,42,.78);
+ --line:rgba(96,165,250,.22);--muted:#94a3b8;--text:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ font-family:Inter,sans-serif;color:var(--text);background:
+ radial-gradient(circle at 15% 10%,rgba(37,99,235,.16),transparent 32%),
+ radial-gradient(circle at 85% 15%,rgba(139,92,246,.13),transparent 30%),
+ radial-gradient(circle at 50% 90%,rgba(20,184,166,.08),transparent 35%),
+ linear-gradient(135deg,#020617,#0b1224 55%,#020617);
+ min-height:100vh;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.25;
+ background-image:linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px);
+ background-size:55px 55px
+}
+button{font:inherit}
+header{position:sticky;top:20px;z-index:999;}
+.navbar{
+ max-width:1100px;margin:auto;padding:14px 30px;
+ display:flex;justify-content:space-between;align-items:center;
+ border-radius:20px;background:#020617;backdrop-filter:blur(14px);
+ border:1px solid rgb(61,21,204);
+ box-shadow:0 10px 30px rgba(83,40,40,0.753), inset 0 1px 0 rgba(16,55,180,0.6);
+ position:relative;overflow:hidden;
+}
+.navbar:before{
+ content:"";position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;
+ background:linear-gradient(45deg,#2563eb,#60a5fa,#8b5cf6,#ec4899,#2563eb);
+ background-size:400% 400%;border-radius:22px;z-index:-1;
+ animation:borderGlow 6s ease infinite;opacity:.6;
+}
+.logo{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;font-weight:900;letter-spacing:-.5px}
+.logo-badge{
+ width:44px;height:44px;border-radius:14px;
+ background:linear-gradient(135deg,#2563eb,#60a5fa);
+ display:flex;align-items:center;justify-content:center;
+ color:white;font-weight:900;font-size:14px;
+ box-shadow:0 10px 25px rgba(37,99,235,.4);
+ animation:pulseBadge 3s ease-in-out infinite;position:relative;
+}
+.logo-badge:after{
+ content:"";position:absolute;inset:-3px;border-radius:17px;
+ background:linear-gradient(135deg,transparent,rgba(96,165,250,.4),transparent);
+ animation:rotateGlow 3s linear infinite;
+}
+.logo-main{font-weight:800;font-size:17px;color:white}.logo-sub{font-size:11px;color:#64748b}
+.nav-links{display:flex;gap:34px;list-style:none;align-items:center;}
+.nav-links a{
+ text-decoration:none;color:#e5e7eb;font-weight:600;
+ position:relative;padding:6px 14px;border-radius:10px;
+ transition:.3s ease;overflow:hidden;
+}
+.nav-links a:before{
+ content:"";position:absolute;bottom:0;left:50%;width:0;height:2px;
+ background:linear-gradient(90deg,#2563eb,#60a5fa);
+ transition:all .3s ease;transform:translateX(-50%);
+}
+.nav-links a:hover{background:rgba(37,99,235,.1);color:#60a5fa;transform:translateY(-2px)}
+.nav-links a:hover:before{width:80%}
+.lang-switcher{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:rgba(255,255,255,.04)}
+.lang-switcher{display:flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px}
+.lang-btn{padding:6px 14px;border-radius:10px;border:none;background:transparent;color:#94a3b8;font-weight:700;font-size:13px;cursor:pointer;transition:all .3s ease;font-family:Inter,sans-serif}
+.lang-btn.active{background:linear-gradient(135deg,#2563eb,#60a5fa);color:white;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.lang-btn:hover:not(.active){color:white}
+main{position:relative;z-index:1}
+.hero{max-width:1150px;margin:auto;text-align:center;padding:88px 20px 45px}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);
+ border-radius:999px;background:rgba(37,99,235,.08);color:#93c5fd;font-size:11px;font-weight:800;
+ letter-spacing:1.5px;text-transform:uppercase;animation:fadeUp .8s ease both
+}
+.hero h1{font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-4px;margin:22px auto 20px;max-width:950px;animation:fadeUp .9s .1s both}
+.hero h1 span{background:linear-gradient(90deg,#fff,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:700px;margin:auto;color:#94a3b8;line-height:1.8;font-size:16px;animation:fadeUp .9s .2s both}
+.pattern-orbit{width:210px;height:210px;margin:42px auto 0;border:1px solid rgba(96,165,250,.18);border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:0 0 70px rgba(37,99,235,.12),inset 0 0 50px rgba(139,92,246,.08)}
+.pattern-orbit:before,.pattern-orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:spin 9s linear infinite}
+.pattern-orbit:before{inset:20px;border-top-color:var(--accent);border-bottom-color:var(--purple)}
+.pattern-orbit:after{inset:42px;border-right-color:var(--teal);animation-direction:reverse;animation-duration:6s}
+.orbit-core{width:92px;height:92px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.2));border:1px solid rgba(147,197,253,.3);box-shadow:0 0 45px rgba(37,99,235,.3);font-size:34px}
+.feature-bar{max-width:1150px;margin:15px auto 45px;padding:0 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feature{padding:20px;border:1px solid rgba(96,165,250,.13);background:rgba(255,255,255,.025);border-radius:18px;transition:.3s}
+.feature:hover{transform:translateY(-5px);border-color:var(--line);box-shadow:0 20px 45px rgba(0,0,0,.2)}
+.feature i{color:#60a5fa;font-size:18px;margin-bottom:10px}.feature h4{font-size:13px}.feature p{font-size:11px;color:#64748b;margin-top:5px}
+#app{max-width:1000px;margin:auto;padding:0 20px 90px}
+.panel{
+ background:linear-gradient(145deg,rgba(15,23,42,.9),rgba(2,6,23,.78));
+ border:1px solid rgba(96,165,250,.2);border-radius:30px;padding:42px;
+ box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.04);
+ position:relative;overflow:hidden
+}
+.panel:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 0,rgba(37,99,235,.1),transparent 35%);pointer-events:none}
+.start-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+.start-copy h2{font-size:38px;letter-spacing:-1.5px;margin:15px 0}.start-copy p{color:#94a3b8;line-height:1.8}
+.start-list{display:grid;gap:12px;margin:25px 0}.start-list div{display:flex;gap:12px;align-items:center;color:#cbd5e1;font-size:13px}
+.start-list i{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:rgba(37,99,235,.13);color:#60a5fa}
+.btn{border:0;border-radius:15px;padding:14px 25px;cursor:pointer;font-weight:800;color:#fff;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),#60a5fa);box-shadow:0 12px 35px rgba(37,99,235,.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(37,99,235,.4)}
+.btn-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.scanner{
+ height:300px;border:1px solid rgba(96,165,250,.15);border-radius:25px;position:relative;
+ display:grid;place-items:center;background:radial-gradient(circle,rgba(37,99,235,.12),transparent 55%)
+}
+.scan-ring{width:170px;height:170px;border-radius:50%;border:1px solid rgba(96,165,250,.25);position:relative}
+.scan-ring:before{content:"";position:absolute;left:50%;top:50%;width:260px;height:1px;background:linear-gradient(90deg,transparent,#60a5fa,transparent);transform:translate(-50%,-50%);animation:scan 2.4s infinite}
+.scan-ring:after{content:"";position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(139,92,246,.4);animation:spin 8s linear infinite}
+.scan-core{position:absolute;inset:52px;border-radius:24px;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.25));display:grid;place-items:center;font-size:36px;box-shadow:0 0 50px rgba(37,99,235,.25)}
+.progress-wrap{margin-bottom:30px}.progress-top{display:flex;justify-content:space-between;color:#94a3b8;font-size:12px;margin-bottom:10px}.progress{height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--purple));transition:.5s}
+.question-card{animation:fadeUp .45s ease}.category{color:#60a5fa;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px}
+.question{font-size:29px;line-height:1.35;margin:12px 0 28px;letter-spacing:-.7px}
+.options{display:grid;gap:12px}.option{
+ text-align:left;width:100%;padding:19px;border-radius:17px;border:1px solid rgba(148,163,184,.13);
+ background:rgba(255,255,255,.035);color:#cbd5e1;cursor:pointer;transition:.25s;display:flex;gap:14px;align-items:flex-start
+}
+.option:hover{border-color:rgba(96,165,250,.45);transform:translateX(5px);background:rgba(37,99,235,.08)}
+.option.selected{border-color:#60a5fa;background:linear-gradient(135deg,rgba(37,99,235,.18),rgba(139,92,246,.1));box-shadow:0 12px 30px rgba(37,99,235,.12)}
+.option.selected{animation:selPulse .35s ease}
+@keyframes selPulse{0%{transform:translateX(0) scale(.99)}100%{transform:translateX(5px) scale(1)}}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.option .num{min-width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:rgba(96,165,250,.1);color:#93c5fd;font-weight:800;font-size:12px}
+.nav{display:flex;justify-content:space-between;margin-top:30px;padding-top:25px;border-top:1px solid rgba(255,255,255,.06)}
+.auto-note{color:#64748b;font-size:11px;display:flex;align-items:center;gap:7px}.auto-note i{color:#60a5fa}.hidden{display:none!important}
+.loading{text-align:center;padding:65px}.loader{width:72px;height:72px;border:3px solid rgba(255,255,255,.08);border-top-color:#60a5fa;border-right-color:#8b5cf6;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 25px}
+.loading h3{font-size:23px}.loading p{color:#64748b;margin-top:8px}
+.result-head{text-align:center}.result-head .mini{color:#60a5fa;font-size:11px;font-weight:800;letter-spacing:1.5px}.result-head h2{font-size:44px;margin:10px 0}.result-head p{color:#94a3b8;max-width:650px;margin:auto;line-height:1.7}
+.primary-pattern{
+ margin:35px auto;padding:25px;max-width:620px;border:1px solid rgba(139,92,246,.3);border-radius:24px;
+ background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(139,92,246,.13))
+}
+.primary-pattern .label{color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1.5px}.primary-pattern h3{font-size:30px;margin:8px 0}.primary-pattern p{color:#a5b4fc;line-height:1.6}
+.scores{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:30px 0}
+.score-card{border:1px solid rgba(96,165,250,.13);background:rgba(255,255,255,.025);border-radius:19px;padding:20px}
+.score-top{display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px}.score-top span:last-child{color:#60a5fa;font-weight:800}.scorebar{height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}.scorebar span{display:block;width:0;height:100%;background:linear-gradient(90deg,#2563eb,#8b5cf6);transition:1.3s}
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:15px}.insight{padding:23px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)}.insight h4{margin-bottom:10px}.insight p{color:#94a3b8;line-height:1.7;font-size:13px}
+.shift{margin:25px 0;padding:25px;border-radius:22px;border:1px solid rgba(20,184,166,.22);background:rgba(20,184,166,.05)}.shift h3{margin-bottom:15px}.shift-flow{display:grid;grid-template-columns:1fr 50px 1fr;align-items:center;gap:12px}.shift-box{padding:17px;border-radius:15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.shift-box small{color:#64748b}.shift-box strong{display:block;margin-top:5px}.arrow{text-align:center;color:#5eead4;font-size:22px}
+.mindmap{margin:25px 0;border:1px solid rgba(96,165,250,.15);border-radius:25px;padding:28px;background:radial-gradient(circle at center,rgba(37,99,235,.08),transparent 60%)}
+.mindmap h3{text-align:center;margin-bottom:25px}.map{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center}
+.node{padding:15px 8px;text-align:center;border:1px solid rgba(96,165,250,.18);border-radius:16px;background:rgba(255,255,255,.035);font-size:11px;font-weight:800;transition:.3s}.node i{display:block;color:#60a5fa;font-size:19px;margin-bottom:8px}.node:hover{transform:translateY(-5px);border-color:#60a5fa;box-shadow:0 10px 30px rgba(37,99,235,.12)}
+.hidden-pattern{margin:25px 0;padding:28px;border-radius:23px;border:1px solid rgba(251,191,36,.22);background:linear-gradient(135deg,rgba(251,191,36,.06),rgba(236,72,153,.04))}.hidden-pattern .tag{color:#fbbf24;font-size:11px;font-weight:900;letter-spacing:1.5px}.hidden-pattern blockquote{font-size:20px;line-height:1.65;margin-top:10px;color:#f8fafc}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+footer{text-align:center;padding:45px 20px;border-top:1px solid rgba(255,255,255,.06);color:#64748b;font-size:12px}
+@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}@keyframes rotateGlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes borderGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(37,99,235,.05),0 10px 35px rgba(37,99,235,.35)}}
+@keyframes scan{0%{transform:translate(-50%,-95px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translate(-50%,95px);opacity:0}}
+@media(max-width:800px){.nav-links{display:none}.feature-bar{grid-template-columns:repeat(2,1fr)}.start-grid{grid-template-columns:1fr}.panel{padding:28px 20px}.scores,.insights{grid-template-columns:1fr}.map{grid-template-columns:repeat(2,1fr)}.map .node:last-child{grid-column:span 2}.question{font-size:23px}}
+@media(max-width:500px){.hero{padding-top:55px}.hero h1{letter-spacing:-2px}.feature-bar{grid-template-columns:1fr}.pattern-orbit{width:170px;height:170px}.scanner{height:240px}.shift-flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+</style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+<header>
+<nav class="navbar">
+ <a href="Index.html" class="logo">
+  <span class="logo-badge"><i class="fas fa-brain"></i></span>
+  <span><span class="logo-main">Mind Matrix</span><span class="logo-sub">DECODING MINDS. DESIGNING FUTURES.</span></span>
+ </a>
+ <ul class="nav-links">
+  <li><a href="Index.html">Home</a></li>
+  <li><a href="Index.html#services">Services</a></li>
+  <li><a href="Index.html#science">Science</a></li>
+  <li><a href="Index.html#about">About</a></li>
+  <li><a href="Index.html#contact">Contact</a></li>
+  <li><div class="lang-switcher"><button class="lang-btn active" id="enBtn" onclick="setLang('en')">EN</button><button class="lang-btn" id="ruBtn" onclick="setLang('ur')">UR</button></div></li>
+ </ul>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+ <div class="eyebrow"><i class="fas fa-wave-square"></i> <span id="eyebrowHero">Behavioral Intelligence</span></div>
+ <h1 id="heroTitle">Understand the way your <span>mind operates.</span></h1>
+ <p id="heroDesc">Your personality describes who you are. Mind Patterns explores how you think, decide, react, focus, and adapt in real-life situations.</p>
+ <div class="pattern-orbit"><div class="orbit-core"><i class="fas fa-network-wired"></i></div></div>
+</section>
+
+<div class="feature-bar">
+ <div class="feature"><i class="fas fa-route"></i><h4>Scenario Based</h4><p>Real-life choices, not MBTI labels</p></div>
+ <div class="feature"><i class="fas fa-chart-radar"></i><h4>Pattern Mapping</h4><p>Five behavioral dimensions</p></div>
+ <div class="feature"><i class="fas fa-fingerprint"></i><h4>Hidden Insight</h4><p>Discover a less obvious tendency</p></div>
+ <div class="feature"><i class="fas fa-arrows-rotate"></i><h4>Pattern Shift</h4><p>Turn awareness into action</p></div>
+</div>
+
+<section id="app">
+ <div id="startScreen" class="panel">
+  <div class="start-grid">
+   <div class="start-copy">
+    <div class="eyebrow" id="startEyebrow">Not another personality test</div>
+    <h2 id="startH2">Scan your mental patterns.</h2>
+    <p id="startP">Answer 12 everyday scenarios. There are no “correct” answers. Your choices build a behavioral map showing how your mind tends to operate under decisions, pressure, focus, people, and change.</p>
+    <div class="start-list">
+     <div><i class="fas fa-check"></i> <span id="sl1">12 unique real-life scenarios</span></div>
+     <div><i class="fas fa-check"></i> <span id="sl2">5 behavioral pattern dimensions</span></div>
+     <div><i class="fas fa-check"></i> <span id="sl3">Hidden Pattern + Pattern Shift</span></div>
+     <div><i class="fas fa-check"></i> <span id="sl4">Instant private result — no data storage</span></div>
+    </div>
+    <button class="btn btn-primary" onclick="startTest()"><i class="fas fa-play"></i> <span id="startBtnTxt">Start Pattern Scan</span></button>
+   </div>
+   <div class="scanner"><div class="scan-ring"><div class="scan-core"><i class="fas fa-brain"></i></div></div></div>
+  </div>
+ </div>
+
+ <div id="quizScreen" class="panel hidden"></div>
+ <div id="loadingScreen" class="panel hidden loading">
+   <div class="loader"></div><h3 id="loadH3">Mapping your patterns...</h3><p id="loadP">Connecting your choices into a behavioral profile.</p>
+ </div>
+ <div id="resultScreen" class="panel hidden"></div>
+</section>
+</main>
+
+<footer>
+ <p id="foot1">© 2026 Mind Matrix Intelligence Systems</p>
+ <p id="foot2" style="margin-top:8px">Mind Patterns is a self-reflection experience, not a clinical diagnosis.</p>
+</footer>
+
+<script>
+const TR={
+ en:{
+  heroTitle:'Understand the way your <span>mind operates.</span>',
+  heroDesc:"Your personality describes who you are. Mind Patterns explores how you think, decide, react, focus, and adapt in real-life situations.",
+  feats:[["Scenario Based","Real-life choices, not MBTI labels"],["Pattern Mapping","Five behavioral dimensions"],["Hidden Insight","Discover a less obvious tendency"],["Pattern Shift","Turn awareness into action"]],
+  startEyebrow:"Not another personality test",
+  startH2:"Scan your mental patterns.",
+  startP:"Answer 12 everyday scenarios. There are no \u201ccorrect\u201d answers. Your choices build a behavioral map showing how your mind tends to operate under decisions, pressure, focus, people, and change.",
+  startList:["12 unique real-life scenarios","5 behavioral pattern dimensions","Hidden Pattern + Pattern Shift","Instant private result \u2014 no data storage"],
+  startBtn:"Start Pattern Scan",
+  loadH3:"Mapping your patterns...",
+  loadP:"Connecting your choices into a behavioral profile.",
+  back:"Back",
+  autoNote:"Next question opens automatically",
+  resultMini:"YOUR BEHAVIORAL MAP",
+  resultH2:"Mind Pattern Profile",
+  resultP:"This result is a self-reflection profile drawn from your answers \u2014 not a fixed label or diagnosis.",
+  primaryLabel:"Primary Pattern",
+  mindmapTitle:"Your Mind Flow",
+  nodes:["THINK","DECIDE","REACT","CONNECT","ADAPT"],
+  hiddenTag:"HIDDEN PATTERN",
+  strengthH:"Natural Strength",
+  watchH:"Watch For",
+  shiftH:"Pattern Shift",
+  currentLbl:"CURRENT TENDENCY",
+  shiftLbl:"USEFUL SHIFT",
+  again:"Scan Again",
+  shareBtn:"Share",
+  downloadBtn:"Download Report",
+  foot1:"\u00a9 2026 Mind Matrix Intelligence Systems",
+  foot2:"Mind Patterns is a self-reflection experience, not a clinical diagnosis.",
+  copied:"Result copied! Share it with your friends",
+  shareText:n=>"My Mind Pattern is "+n+" \u2014 discovered through Mind Matrix Mind Patterns. \ud83e\udde0"
+ },
+ ur:{
+  heroTitle:'Apne dimagh ke <span>patterns samjhein.</span>',
+  heroDesc:"Aapki personality batati hai aap kaun hain. Mind Patterns dekhta hai ke aap asal zindagi mein sochte, faisla karte, react, focus aur adapt kaise karte hain.",
+  feats:[["Scenario Based","Asal zindagi ke choices, MBTI labels nahi"],["Pattern Mapping","5 behavioral dimensions"],["Hidden Insight","Ek less obvious tendency discover karein"],["Pattern Shift","Awareness ko action mein badlein"]],
+  startEyebrow:"Koi aur personality test nahi",
+  startH2:"Apne mental patterns scan karein.",
+  startP:"12 rozmarra scenarios ke jawab dein. Koi \u201csahee\u201d jawab nahi hai. Aapke choices se ek behavioral map banta hai jo dikhata hai ke aapka dimagh decisions, pressure, focus, logon aur change ke saamne kaise operate karta hai.",
+  startList:["12 unique real-life scenarios","5 behavioral pattern dimensions","Hidden Pattern + Pattern Shift","Fori private result \u2014 koi data store nahi hota"],
+  startBtn:"Pattern Scan Shuru Karein",
+  loadH3:"Aapke patterns map ho rahe hain...",
+  loadP:"Aapke choices ko behavioral profile mein jora ja raha hai.",
+  back:"Peechay",
+  autoNote:"Answer select hote hi agla sawaal khul jayega",
+  resultMini:"AAPKA BEHAVIORAL MAP",
+  resultH2:"Mind Pattern Profile",
+  resultP:"Yeh result aapki answers se nikla hua self-reflection profile hai \u2014 koi fixed label ya diagnosis nahi.",
+  primaryLabel:"Primary Pattern",
+  mindmapTitle:"Aapka Mind Flow",
+  nodes:["SOCH","FAISLA","REACT","CONNECT","ADAPT"],
+  hiddenTag:"HIDDEN PATTERN",
+  strengthH:"Natural Taqat",
+  watchH:"Khabardar Rahein",
+  shiftH:"Pattern Shift",
+  currentLbl:"MOMKIN TENDENCY",
+  shiftLbl:"USEFUL SHIFT",
+  again:"Dobara Scan Karein",
+  shareBtn:"Share Karein",
+  downloadBtn:"Report Download Karein",
+  foot1:"\u00a9 2026 Mind Matrix Intelligence Systems",
+  foot2:"Mind Patterns ek self-reflection experience hai, clinical diagnosis nahi.",
+  copied:"Result copy ho gaya! Doston ke saath share karein",
+  shareText:n=>"Mera Mind Pattern hai "+n+" \u2014 Mind Matrix Mind Patterns se. \ud83e\udde0"
+ }
+};
+
+const scenarios=[
+ {cat:"DECISION",catU:"FAISLA",q:"You have to make an important choice, but some information is still missing. What feels most natural?",qU:"Aapko ahem faisla karna hai, lekin kuch information abhi missing hai. Sab se natural kya hai?",o:[
+  ["Wait until I can understand the situation properly.","deliberate","Waqti tareeqe se samajhne ka intezaar karta/karti hoon."],
+  ["Make the best call with what I already know.","instinct","Jo information pehle se hai us se behtareen faisla kar leta/leti hoon."],
+  ["Ask someone I trust how they would approach it.","social","Kisi trusted shakhs se poochta/poochtí hoon ke woh kaise karega."],
+  ["Try a small version first and learn from it.","adaptive","Pehle chota version try karta/karti hoon aur seekhta/seekhti hoon."]]},
+ {cat:"STRESS",catU:"PRESSURE",q:"A deadline suddenly moves much closer. Your first reaction is usually to...",qU:"Deadline achanak bohat qareeb aa jati hai. Aapki pehli reaction usually...",o:[
+  ["Create a quick plan and take control.","controlled","Jaldi plan banata/karti hoon aur control leta/leti hoon."],
+  ["Jump straight into action and adjust later.","reactive","Seedha action mein parta/parti hoon, baad mein adjust kar lunga/lungi."],
+  ["Feel overloaded and need a moment to reset.","overloaded","Overloaded feel hota hai, thora waqt chahiye reset karne ke liye."],
+  ["Look for a different route that could save time.","adaptive","Koi aur raasta dhoondta/dhoondti hoon jo waqt bacha sake."]]},
+ {cat:"FOCUS",catU:"FOCUS",q:"You are working on something difficult and your phone keeps distracting you. What do you tend to do?",qU:"Mushkil kaam par hain aur phone bar bar distract kar raha hai. Aap zyada tar kya karte hain?",o:[
+  ["Remove distractions and go deeply into the task.","deep","Distractions hata kar kaam mein deeply chala/chalti hoon."],
+  ["Switch between small tasks to stay productive.","flexible","Chote chote tasks ke beech switch karta/karti hoon, productive rehne ke liye."],
+  ["Follow whatever currently feels most interesting.","stimulus","Jo cheez abhi sab se interesting lage, woh follow karta/karti hoon."],
+  ["Use a deadline or external pressure to lock in.","pressure","Deadline ya external pressure use kar ke focus lock karta/karti hoon."]]},
+ {cat:"SOCIAL",catU:"SOCIAL",q:"At a gathering where you know very few people, you naturally...",qU:"Aisi mehfil jahan aap bohat kam logon ko jante hain \u2014 aap naturally...",o:[
+  ["Observe the room before joining conversations.","observer","Room observe karta/karti hoon, phir conversations mein shamil hota/hoon."],
+  ["Introduce myself and start conversations quickly.","connector","Khud introduce karta/karti hoon aur jaldi baat shuru karta/karti hoon."],
+  ["Find one person I genuinely click with.","selective","Ek aisa shakhs dhoondta/dhoondti hoon jis se genuinely click ho."],
+  ["Move around depending on the energy of the group.","adaptive","Group ki energy ke hisaab se idhar udhar move karta/karti hoon."]]},
+ {cat:"RISK",catU:"RISK",q:"A new opportunity could bring a big reward but also a real chance of failure. You usually...",qU:"Naya moqa bara reward de sakta hai lekin failure ka bhi real chance hai. Aap usually...",o:[
+  ["Compare the upside and downside carefully.","analytical","Faida aur nuqsan ghor se compare karta/karti hoon."],
+  ["Trust my feeling about whether it is worth it.","instinct","Apni feeling par trust karta/karti hoon ke kya worth it hai."],
+  ["Take the chance if I can learn something from it.","experimental","Agar is se kuch seekhne ko mile to chance leta/leti hoon."],
+  ["Prefer a safer option unless the reward is exceptional.","stable","Jab tak reward exceptional na ho, safer option pasand karta/karti hoon."]]},
+ {cat:"PROBLEM SOLVING",catU:"MASLE HAL KARNA",q:"Something you built suddenly stops working. What happens first in your mind?",qU:"Aapka banaya hua kaam achanak band ho jata hai. Dimagh mein pehle kya hota hai?",o:[
+  ["I break the problem into smaller pieces.","analytical","Masle ko chote chote hisson mein todta/todti hoon."],
+  ["I experiment until something changes.","experimental","Experiment karta/karti hoon jab tak kuch change na ho."],
+  ["I search for someone who has solved it before.","social","Kisi aise shakhs ko dhoondta/dhoondti hoon jis ne pehle solve kiya ho."],
+  ["I step back and look for the bigger cause.","strategic","Peeche hat kar baray cause ki talash karta/karti hoon."]]},
+ {cat:"CHANGE",catU:"CHANGE",q:"A plan you prepared for days gets cancelled unexpectedly. You are most likely to...",qU:"Dinon se banaya hua plan achanak cancel ho jata hai. Aap zyada tar...",o:[
+  ["Need time to mentally reorganize.","stable","Mentally reorganize karne ke liye waqt chahiye hota hai."],
+  ["Immediately create a replacement plan.","adaptive","Foran replacement plan bana deta/deti hoon."],
+  ["See it as an opportunity to try something else.","explorative","Isay kuch aur try karne ka moqa samajhta/samajhti hoon."],
+  ["Feel frustrated because the uncertainty is unnecessary.","controlled","Frustrated hota/hoon kyun ke yeh uncertainty zaroori nahi thi."]]},
+ {cat:"CONFLICT",catU:"CONFLICT",q:"Someone strongly disagrees with your idea in front of others. Your instinct is to...",qU:"Koi aapke idea se zor se disagree karta hai sab ke saamne. Aapki instinct kya kehti hai?",o:[
+  ["Ask questions and understand their reasoning.","analytical","Sawalat karta/karti hoon aur unki reasoning samajhta/samajhti hoon."],
+  ["Defend the idea immediately.","reactive","Idea foran defend karta/karti hoon."],
+  ["Keep the discussion calm and find common ground.","social","Discussion calm rakhta/karti hoon aur common ground dhoondta/dhoondti hoon."],
+  ["Step back and revisit whether my idea is actually right.","reflective","Peeche hat kar dekhta/dekhti hoon ke mera idea waqai sahee bhi tha ya nahi."]]},
+ {cat:"LEARNING",catU:"LEARNING",q:"When learning a completely new skill, you learn fastest when you...",qU:"Bilkul nayi skill seekhte waqt aap sab se tez kaise seekhte hain?",o:[
+  ["Understand the theory before practicing.","analytical","Practice se pehle theory samajh kar."],
+  ["Start doing it and learn through mistakes.","experimental","Karna shuru kar deta/deti hoon, galtiyon se seekhta/seekhti hoon."],
+  ["Watch someone experienced do it first.","observer","Pehle kisi tajurbekar shakhs ko karte hue dekhta/dekhti hoon."],
+  ["Mix different methods until one clicks.","adaptive","Mukhtalif tareeqe mix karta/karti hoon jab tak koi click na kare."]]},
+ {cat:"PRESSURE",catU:"PRESSURE",q:"When several people depend on you, what usually changes in your behavior?",qU:"Jab kaee log aap par depend karte hain, aapke behavior mein kya badal jata hai?",o:[
+  ["I become more organized and structured.","controlled","Zyada organized aur structured ho jata/deti hoon."],
+  ["I become intensely focused on the immediate task.","deep","Immediate task par intensely focused ho jata/deti hoon."],
+  ["I communicate more so everyone stays aligned.","connector","Zyada communicate karta/karti hoon taake sab aligned rahen."],
+  ["I become restless and start solving multiple things at once.","reactive","Bechain ho kar kaee cheezein ek saath hal karne lagta/lagti hoon."]]},
+ {cat:"SELF-REFLECTION",catU:"KHUD TASHKEES",q:"After making a mistake, what does your mind naturally do?",qU:"Galti ke baad aapka dimagh naturally kya karta hai?",o:[
+  ["Replay what happened to identify the exact cause.","reflective","Jo hua usay replay kar ke asal wajah dhoondta/dhoondti hoon."],
+  ["Move on quickly and try a different approach.","adaptive","Jaldi aage barh jata/deti hoon aur doosra tareeqa try karta/karti hoon."],
+  ["Think about how the mistake affected other people.","social","Sochta/sochti hoon galti se doosre logon par kya asar pada."],
+  ["Feel bothered until I can make the outcome right.","controlled","Jab tak outcome theek na kar dun, pareshan rehta/rehti hoon."]]},
+ {cat:"UNCERTAINTY",catU:"UNCERTAINTY",q:"You are entering a situation where you have no idea what to expect. Your strongest instinct is to...",qU:"Aisi situation mein enter ho rahe hain jiska koi andaza nahi. Aapki sab se strong instinct?",o:[
+  ["Gather enough information to reduce uncertainty.","analytical","Uncertainty kam karne ke liye kaafi information jama karta/karti hoon."],
+  ["Stay open and figure it out as it happens.","adaptive","Khula rehta/rehti hoon aur waqt ke saath samajhta/samajhti hoon."],
+  ["Watch other people's reactions for clues.","observer","Doosre logon ki reactions se clues leta/leti hoon."],
+  ["Treat the uncertainty as exciting rather than threatening.","explorative","Uncertainty ko threat ki bajaye exciting samajhta/samajhti hoon."]]}
+];
+
+let answers=[], index=0, lang="en", autoAdvanceTimer=null;
+const T=()=>TR[lang];
+
+function setLang(x){
+ lang=x;
+ document.getElementById("enBtn").classList.toggle("active",x==="en");
+ document.getElementById("ruBtn").classList.toggle("active",x==="ur");
+ const t=T();
+ document.getElementById("heroTitle").innerHTML=t.heroTitle;
+ document.getElementById("heroDesc").textContent=t.heroDesc;
+ document.getElementById("startEyebrow").textContent=t.startEyebrow;
+ document.getElementById("startH2").textContent=t.startH2;
+ document.getElementById("startP").textContent=t.startP;
+ document.getElementById("startBtnTxt").textContent=t.startBtn;
+ document.getElementById("loadH3").textContent=t.loadH3;
+ document.getElementById("loadP").textContent=t.loadP;
+ document.getElementById("foot1").textContent=t.foot1;
+ document.getElementById("foot2").textContent=t.foot2;
+ t.startList.forEach((s,i)=>{const el=document.getElementById("sl"+(i+1));if(el)el.textContent=s});
+ document.querySelectorAll(".feature").forEach((f,i)=>{f.querySelector("h4").textContent=t.feats[i][0];f.querySelector("p").textContent=t.feats[i][1]});
+ if(!document.getElementById("quizScreen").classList.contains("hidden"))renderQuestion();
+ if(!document.getElementById("resultScreen").classList.contains("hidden"))showResult(true);
+}
+
+function startTest(){answers=[];index=0;if(autoAdvanceTimer)clearTimeout(autoAdvanceTimer);renderQuestion()}
+function renderQuestion(){
+ const s=scenarios[index], pct=Math.round(index/scenarios.length*100), t=T();
+ document.getElementById("startScreen").classList.add("hidden");
+ const q=document.getElementById("quizScreen");q.classList.remove("hidden");
+ q.innerHTML=`
+ <div class="progress-wrap"><div class="progress-top"><span>Pattern Scan ${index+1} / ${scenarios.length}</span><span>${pct}%</span></div><div class="progress"><span style="width:${pct}%"></span></div></div>
+ <div class="question-card"><div class="category">${lang==="ur"?s.catU:s.cat}</div><div class="question">${lang==="ur"?s.qU:s.q}</div>
+ <div class="options">${s.o.map((x,i)=>`<button class="option ${answers[index]===i?'selected':''}" onclick="choose(${i})"><span class="num">${String.fromCharCode(65+i)}</span><span>${lang==="ur"?x[2]:x[0]}</span></button>`).join("")}</div>
+ <div class="nav"><button class="btn btn-secondary" onclick="prev()" ${index===0?'disabled':''}><i class="fas fa-arrow-left"></i> ${t.back}</button><span class="auto-note"><i class="fas fa-forward"></i> ${t.autoNote}</span></div></div>`;
+}
+function choose(i){
+ answers[index]=i;
+ if(autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+ document.querySelectorAll("#quizScreen .option").forEach((el,j)=>el.classList.toggle("selected",j===i));
+ autoAdvanceTimer=setTimeout(()=>{
+   if(answers[index]===i){
+     if(index<scenarios.length-1){index++;renderQuestion();}
+     else showLoading();
+   }
+ },200);
+}
+function prev(){if(autoAdvanceTimer)clearTimeout(autoAdvanceTimer);if(index>0){index--;renderQuestion()}}
+function showLoading(){
+ document.getElementById("quizScreen").classList.add("hidden");
+ document.getElementById("loadingScreen").classList.remove("hidden");
+ setTimeout(()=>showResult(false),1400);
+}
+function calculate(){
+ const counts={analytical:0,deliberate:0,instinct:0,social:0,adaptive:0,controlled:0,reactive:0,overloaded:0,deep:0,flexible:0,stimulus:0,pressure:0,observer:0,connector:0,selective:0,experimental:0,stable:0,strategic:0,explorative:0,reflective:0};
+ answers.forEach((a,i)=>counts[scenarios[i].o[a][1]]++);
+ const groups={
+  "Decision Making":["analytical","deliberate","instinct"],
+  "Stress Response":["controlled","reactive","overloaded"],
+  "Focus Style":["deep","flexible","stimulus","pressure"],
+  "Social Response":["observer","connector","selective"],
+  "Adaptability":["adaptive","experimental","stable","explorative"]
+ };
+ const scores={};Object.entries(groups).forEach(([g,keys])=>scores[g]=Math.min(100,Math.round(35+(keys.reduce((n,k)=>n+counts[k],0)/4)*22)));
+ const total={Analytical:counts.analytical+counts.deliberate, Adaptive:counts.adaptive+counts.experimental+counts.explorative, Reactive:counts.reactive+counts.overloaded, Social:counts.social+counts.connector+counts.selective, Reflective:counts.reflective};
+ let primary=Object.entries(total).sort((a,b)=>b[1]-a[1])[0][0];
+ const profiles={
+  Analytical:{en:["The Strategic Analyzer","You naturally look for structure, causes, and enough clarity to make sense of complexity."],ur:["Strategic Analyzer","Aap naturally structure, wajah aur wazahat talash karte hain taake complexity samajh sakein."]},
+  Adaptive:{en:["The Adaptive Navigator","You are comfortable adjusting your approach when reality changes the plan."],ur:["Adaptive Navigator","Jab reality plan badal deti hai to aap comfortably apna tareeqa adjust kar lete hain."]},
+  Reactive:{en:["The Fast Responder","Your mind moves quickly when pressure appears, prioritizing immediate movement and action."],ur:["Fast Responder","Jab pressure aata hai aapka dimagh tezi se chalta hai \u2014 immediate action ko priority deta hai."]},
+  Social:{en:["The Human Signal Reader","You naturally notice people, reactions, and the social context around a situation."],ur:["Human Signal Reader","Aap naturally logon, reactions aur situation ke social context ko note karte hain."]},
+  Reflective:{en:["The Pattern Observer","You tend to learn by stepping back, connecting experiences, and examining what happened."],ur:["Pattern Observer","Aap peeche hat kar tajurbaat ko jor kar seekhne ka rakh rakhte hain."]}
+ };
+ return {counts,scores,primary,profile:profiles[primary]};
+}
+function showResult(instant){
+ const r=calculate(), t=T();
+ document.getElementById("loadingScreen").classList.add("hidden");
+ const box=document.getElementById("resultScreen");box.classList.remove("hidden");
+ const gn=lang==="ur"?{"Decision Making":"Faisle","Stress Response":"Stress Response","Focus Style":"Focus Style","Social Response":"Social Response","Adaptability":"Adaptability"}:{};
+ const scoreCards=Object.entries(r.scores).map(([k,v])=>`<div class="score-card"><div class="score-top"><span>${gn[k]||k}</span><span>${v}%</span></div><div class="scorebar"><span data-score="${v}"></span></div></div>`).join("");
+ const hidden=makeHidden(r,lang);
+ box.innerHTML=`
+ <div class="result-head"><div class="mini">${t.resultMini}</div><h2>${t.resultH2}</h2><p>${t.resultP}</p></div>
+ <div class="primary-pattern"><div class="label">${t.primaryLabel}</div><h3>${r.profile[lang][0]}</h3><p>${r.profile[lang][1]}</p></div>
+ <div class="scores">${scoreCards}</div>
+ <div class="mindmap"><h3>${t.mindmapTitle}</h3><div class="map">
+  <div class="node"><i class="fas fa-lightbulb"></i>${t.nodes[0]}</div><div class="node"><i class="fas fa-crosshairs"></i>${t.nodes[1]}</div><div class="node"><i class="fas fa-bolt"></i>${t.nodes[2]}</div><div class="node"><i class="fas fa-users"></i>${t.nodes[3]}</div><div class="node"><i class="fas fa-arrows-rotate"></i>${t.nodes[4]}</div>
+ </div></div>
+ <div class="hidden-pattern"><div class="tag"><i class="fas fa-eye"></i> ${t.hiddenTag}</div><blockquote>\u201c${hidden}\u201d</blockquote></div>
+ <div class="insights">
+  <div class="insight"><h4><i class="fas fa-star"></i> ${t.strengthH}</h4><p>${strength(r,lang)}</p></div>
+  <div class="insight"><h4><i class="fas fa-triangle-exclamation"></i> ${t.watchH}</h4><p>${watch(r,lang)}</p></div>
+ </div>
+ <div class="shift"><h3><i class="fas fa-arrows-left-right"></i> ${t.shiftH}</h3><div class="shift-flow">
+  <div class="shift-box"><small>${t.currentLbl}</small><strong>${current(r,lang)}</strong></div><div class="arrow">\u2192</div>
+  <div class="shift-box"><small>${t.shiftLbl}</small><strong>${shift(r,lang)}</strong></div>
+ </div></div>
+ <div class="actions"><button class="btn btn-primary" onclick="restart()"><i class="fas fa-rotate-right"></i> ${t.again}</button><button class="btn btn-secondary" onclick="share()"><i class="fas fa-share-nodes"></i> ${t.shareBtn}</button><button class="btn btn-secondary" onclick="download()"><i class="fas fa-download"></i> ${t.downloadBtn}</button></div>`;
+ setTimeout(()=>document.querySelectorAll(".scorebar span").forEach(x=>x.style.width=x.dataset.score+"%"),instant?0:200);
+}
+function makeHidden(r,l){
+ const m={
+  Analytical:{en:"You may not be avoiding decisions \u2014 you may be avoiding decisions where the outcome cannot be explained.",ur:"Shayad aap faislon se nahi bachte \u2014 aap un faislon se bachte hain jin ka outcome explain na ho sake."},
+  Adaptive:{en:"Your flexibility is a strength, but too much flexibility can quietly turn into changing direction before a strategy has time to work.",ur:"Aapki flexibility taqat hai, lekin zyada flexibility chupke se yeh ban sakti hai ke strategy kaam karte hue direction badal diya jaye."},
+  Reactive:{en:"Speed gives you momentum, but your fastest response is not always your most useful response.",ur:"Speed aapko momentum deti hai, lekin aapki sab se tez response hamesha sab se useful response nahi hoti."},
+  Social:{en:"You may understand a situation faster by reading people than by reading the instructions.",ur:"Shayad aap instructions parhne se zyada logon ko parh kar situation jaldi samajh lete hain."},
+  Reflective:{en:"You often gain clarity after the event by connecting what happened with why it happened.",ur:"Aap aksar waqey ke baad \u201ckya hua\u201d aur \u201ckyun hua\u201d ko jor kar wazahat pa lete hain."}
+ };
+ return m[r.primary][l];
+}
+function strength(r,l){
+ const m={
+  Analytical:{en:"You naturally search for logic and structure before committing.",ur:"Aap commit karne se pehle naturally logic aur structure talash karte hain."},
+  Adaptive:{en:"You can adjust without completely freezing when circumstances change.",ur:"Jab circumstances badalte hain to aap baghair rukay adjust kar sakte hain."},
+  Reactive:{en:"You can create momentum quickly when something needs immediate attention.",ur:"Jab kuch foran attention maangta hai to aap jaldi momentum bana sakte hain."},
+  Social:{en:"You naturally pick up interpersonal signals and can keep people aligned.",ur:"Aap naturally interpersonal signals samajh lete hain aur logon ko aligned rakhte hain."},
+  Reflective:{en:"You turn experiences into lessons instead of simply moving past them.",ur:"Aap tajurbaaton ko lessons mein badalte hain, sirf guzarne nahi dete."}
+ };
+ return m[r.primary][l];
+}
+function watch(r,l){
+ const m={
+  Analytical:{en:"More information does not always create more certainty; sometimes it only delays action.",ur:"Zyada information hamesha zyada certainty nahi deti \u2014 kabhi kabhi sirf action delay karti hai."},
+  Adaptive:{en:"Constant adjustment can make it difficult to stay with a good plan.",ur:"Musalsal adjustment achay plan ke saath rehne mushkil bana sakti hai."},
+  Reactive:{en:"A short pause can prevent an efficient reaction from becoming an avoidable mistake.",ur:"Chota sa pause efficient reaction ko avoidable mistake banne se bacha sakta hai."},
+  Social:{en:"Be careful not to let other people's reactions become the only evidence you use.",ur:"Khaiyal rahe ke doosron ki reactions aapka iklauta saboot na ban jayein."},
+  Reflective:{en:"Reflection is useful until it becomes replaying the same event without a new action.",ur:"Reflection useful hai jab tak wohi event baar baar replay na ho \u2014 bina naye action ke."}
+ };
+ return m[r.primary][l];
+}
+function current(r,l){
+ const m={
+  Analytical:{en:"Analysis before movement",ur:"Analysis pehle, movement baad mein"},
+  Adaptive:{en:"Changing with circumstances",ur:"Circumstances ke saath badalna"},
+  Reactive:{en:"Instant reaction",ur:"Foran reaction"},
+  Social:{en:"Reading the room first",ur:"Pehle room parhna"},
+  Reflective:{en:"Reviewing the experience",ur:"Experience ka jaiza lena"}
+ };
+ return m[r.primary][l];
+}
+function shift(r,l){
+ const m={
+  Analytical:{en:"Define \u2192 Decide \u2192 Move",ur:"Define karein \u2192 Faisla \u2192 Aage barhein"},
+  Adaptive:{en:"Choose a direction \u2192 Adapt intentionally",ur:"Direction chunein \u2192 Jaan boojh kar adapt karein"},
+  Reactive:{en:"Pause \u2192 Prioritize \u2192 Act",ur:"Ruken \u2192 Priority \u2192 Action"},
+  Social:{en:"Observe people + evidence",ur:"Logon ko dekhein + saboot bhi dekhein"},
+  Reflective:{en:"Pick a direction \u2192 Adjust deliberately",ur:"Direction chunein \u2192 Jaan boojh kar adjust karein"}
+ };
+ return m[r.primary][l];
+}
+function restart(){document.getElementById("resultScreen").classList.add("hidden");document.getElementById("startScreen").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+function share(){
+ const r=calculate(), t=T();
+ const text=t.shareText(r.profile[lang][0]);
+ if(navigator.share)navigator.share({title:"My Mind Pattern",text,url:location.href});
+ else navigator.clipboard.writeText(text+" "+location.href).then(()=>alert(t.copied));
+}
+function download(){
+ const r=calculate(), t=T();
+ const text=`MIND MATRIX \u2014 MIND PATTERN REPORT
+================================
+
+Primary Pattern: ${r.profile.en[0]}
+${r.profile.en[1]}
+
+Scores:
+${Object.entries(r.scores).map(([k,v])=>`${k}: ${v}%`).join("\n")}
+
+Hidden Pattern:
+${makeHidden(r,"en")}
+
+Natural Strength:
+${strength(r,"en")}
+
+Watch For:
+${watch(r,"en")}
+
+Pattern Shift:
+${current(r,"en")} \u2192 ${shift(r,"en")}
+
+Generated: ${new Date().toLocaleDateString()}
+`;
+ const blob=new Blob([text],{type:"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="MindMatrix_MindPattern_Report.txt";a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
