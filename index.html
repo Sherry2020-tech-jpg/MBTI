@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UTYPE | Intelligence Redefined</title>
+<title>Mind Matrix | Intelligence Redefined</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -20,7 +20,6 @@
 
 body{
     font-family:'Inter',sans-serif;
-    font-family:'Inter',sans-serif;
     background:
         radial-gradient(circle at 20% 10%, rgba(59,130,246,.15), transparent 40%),
         radial-gradient(circle at 80% 0%, rgba(96,165,250,.12), transparent 40%),
@@ -35,6 +34,43 @@ html{
 section{
     scroll-margin-top:140px;
 }
+
+/* ================= LANGUAGE TOGGLE ================= */
+.lang-toggle{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(37,99,235,0.15);
+    border:1.5px solid rgba(96,165,250,0.3);
+    border-radius:12px;
+    padding:6px 8px;
+    margin-left:10px;
+}
+
+.lang-toggle button{
+    background:transparent;
+    border:none;
+    color:#94a3b8;
+    font-weight:700;
+    font-size:13px;
+    padding:6px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:all .3s ease;
+    font-family:'Inter',sans-serif;
+}
+
+.lang-toggle button.active{
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+    color:white;
+    box-shadow:0 4px 15px rgba(37,99,235,0.4);
+}
+
+.lang-toggle button:hover:not(.active){
+    color:#60a5fa;
+    background:rgba(96,165,250,0.1);
+}
+
 /* ================= PREMIUM NAVBAR ================= */
 
 header{
@@ -106,7 +142,7 @@ header{
 .logo-main{font-weight:800;font-size:17px;color:white}
 .logo-sub{font-size:11px;color:#64748b}
 
-.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links{display:flex;gap:34px;list-style:none;align-items:center}
 .nav-links a{
     text-decoration:none;
     color:#db1c1c;
@@ -135,6 +171,7 @@ header{
 }
 
 .nav-links a:hover::before{width:80%}
+
 /* ========== NAVBAR MOBILE RESPONSIVE ========== */
 @media(max-width: 900px) {
     header {
@@ -168,6 +205,14 @@ header{
         font-size: 13px;
         padding: 5px 10px;
         font-weight: 600;
+    }
+    .lang-toggle{
+        margin-left:0;
+        padding:4px 6px;
+    }
+    .lang-toggle button{
+        font-size:12px;
+        padding:5px 10px;
     }
 }
 
@@ -211,6 +256,9 @@ header{
     .nav-links a:hover {
         transform: translateY(-1px);
     }
+    .lang-toggle{
+        margin-top:4px;
+    }
 }
 
 @media(max-width: 400px) {
@@ -235,7 +283,6 @@ header{
         padding: 3px 6px;
     }
 }
-
 
 
 /* ================= HERO ================= */
@@ -356,14 +403,28 @@ header{
     overflow:hidden;
     background:linear-gradient(135deg,#0f172a,#1e293b);
     color:white;
+
+    /* Premium outer border */
+    border-top:1px solid rgba(248, 244, 12, 0.945);
+    border-bottom:1px solid rgba(245, 241, 19, 0.952);
+
+    /* Soft section glow */
+    box-shadow:
+        inset 0 1px 0 rgba(238, 255, 2, 0.918),
+        inset 0 -1px 0 rgba(224, 240, 9, 0.911);
 }
+
 
 /* Moving soft glow */
 .about-glow{
     position:absolute;
     width:600px;
     height:600px;
-    background:radial-gradient(circle,rgba(37,99,235,.5),transparent 70%);
+    background:radial-gradient(
+        circle,
+        rgba(37,99,235,.5),
+        transparent 70%
+    );
     top:-200px;
     left:50%;
     transform:translateX(-50%);
@@ -372,28 +433,74 @@ header{
 }
 
 @keyframes floatGlow{
-    from{transform:translateX(-50%) translateY(0)}
-    to{transform:translateX(-50%) translateY(40px)}
+    from{
+        transform:translateX(-50%) translateY(0);
+    }
+    to{
+        transform:translateX(-50%) translateY(40px);
+    }
 }
 
+
+/* About content premium border */
 .about-content{
     position:relative;
     max-width:900px;
     margin:auto;
     z-index:2;
+
+    padding:55px 45px;
+
+    border:1px solid rgb(239, 243, 18);
+    border-radius:28px;
+
+    background:rgba(15,23,42,.35);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    transition:
+        border-color .4s ease,
+        box-shadow .4s ease,
+        transform .4s ease;
 }
 
-.about-content h2 {
-    font-size: 48px;
-    font-weight: 900;
-    margin-bottom: 25px;
-    background: linear-gradient(90deg, #60a5fa, #2563eb);
-    background-clip: text; /* standard property */
-    -webkit-background-clip: text; /* for Safari & Chrome */
-    color: transparent; /* fallback */
-    -webkit-text-fill-color: transparent; /* for Safari & Chrome */
+.about-content:hover{
+    transform:translateY(-5px);
+
+    border-color:rgba(96,165,250,.45);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.35),
+        0 0 40px rgba(37,99,235,.10),
+        inset 0 1px 0 rgba(255,255,255,.08);
 }
 
+
+/* Heading */
+.about-content h2{
+    font-size:48px;
+    font-weight:900;
+    margin-bottom:25px;
+
+    background:linear-gradient(
+        90deg,
+        #60a5fa,
+        #2563eb
+    );
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+}
+
+
+/* Paragraph */
 .about-content p{
     font-size:19px;
     line-height:1.8;
@@ -401,6 +508,7 @@ header{
     margin:auto;
     color:#cbd5e1;
 }
+
 
 /* Highlight stats */
 .about-highlights{
@@ -411,17 +519,95 @@ header{
     flex-wrap:wrap;
 }
 
+
+/* Individual stat with border */
+.about-highlights > div{
+    position:relative;
+
+    min-width:150px;
+    padding:25px 30px;
+
+    border:1px solid rgba(96,165,250,.18);
+    border-radius:18px;
+
+    background:rgba(30,41,59,.35);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 15px 40px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+
+/* Stat hover */
+.about-highlights > div:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(96,165,250,.45);
+
+    box-shadow:
+        0 20px 50px rgba(37,99,235,.15),
+        inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+
 .about-highlights h3{
     font-size:38px;
     font-weight:900;
     color:#60a5fa;
     margin-bottom:8px;
-    text-shadow:0 8px 20px rgba(37,99,235,.35);
+
+    text-shadow:
+        0 8px 20px rgba(37,99,235,.35);
 }
+
 
 .about-highlights span{
     font-size:14px;
     color:#94a3b8;
+}
+
+
+/* ===== MOBILE ===== */
+
+@media(max-width:768px){
+
+    .about-ultra{
+        padding:90px 15px;
+    }
+
+    .about-content{
+        padding:40px 25px;
+        border-radius:22px;
+    }
+
+    .about-content h2{
+        font-size:36px;
+    }
+
+    .about-content p{
+        font-size:16px;
+    }
+
+    .about-highlights{
+        gap:18px;
+        margin-top:45px;
+    }
+
+    .about-highlights > div{
+        min-width:130px;
+        padding:20px;
+    }
+
+    .about-highlights h3{
+        font-size:30px;
+    }
 }
 
 /* ================= SECTION HEAD ================= */
@@ -885,6 +1071,69 @@ header{
     margin-top:10px;
 }
 
+
+/* ================= ANIMATED ICONS - 16 PERSONALITY TYPES ================= */
+.slide-card .type-icon{
+    width:112px;
+    height:112px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:22px;
+    position:relative;
+    z-index:2;
+
+    background:radial-gradient(circle, rgba(37,99,235,.18), transparent 70%);
+
+    border:1.5px dashed rgba(96,165,250,.4);
+
+    animation:ringSpin 18s linear infinite;
+    transition:border-color .5s ease, box-shadow .5s ease, transform .5s ease;
+}
+
+/* ring rotation */
+@keyframes ringSpin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+
+/* icon inside badge */
+.slide-card .type-icon i{
+    margin-bottom:0 !important;
+    animation:iconFloat 3s ease-in-out infinite, iconGlow 3s ease-in-out infinite;
+    transition:color .5s ease;
+}
+
+/* staggered timing — har card ki animation alag waqt par */
+.slide-card:nth-child(2n) .type-icon i{animation-delay:.4s}
+.slide-card:nth-child(3n) .type-icon i{animation-delay:.8s}
+.slide-card:nth-child(4n) .type-icon i{animation-delay:1.2s}
+.slide-card:nth-child(5n) .type-icon{animation-delay:.9s}
+
+/* ring counter-rotation for depth */
+.slide-card:nth-child(2n) .type-icon{animation-direction:reverse}
+
+/* hover — badge glow + icon pop */
+.slide-card:hover .type-icon{
+    border:1.5px solid rgba(168,85,247,.7);
+    box-shadow:0 0 35px rgba(139,92,246,.35), inset 0 0 25px rgba(37,99,235,.2);
+    animation-duration:6s; /* hover par ring tez ghoomta hai */
+}
+
+.slide-card:hover .type-icon i{
+    color:#a855f7;
+    animation-duration:1.2s, 1.5s; /* icon tez float */
+}
+
+/* mobile size adjust */
+@media(max-width:768px){
+    .slide-card .type-icon{
+        width:92px;
+        height:92px;
+    }
+}
+
 /* ================= RESPONSIVE ================= */
 
 @media(max-width:768px){
@@ -907,6 +1156,128 @@ header{
     }
 }
 
+
+/* ================= ANIMATED VISUAL ICONS ================= */
+.cred-item span{
+    position:relative;
+    overflow:hidden;
+}
+
+/* icons ke andar ke fontawesome icons */
+.cred-item span i{
+    position:relative;
+    z-index:2;
+}
+
+/* icon background animated glow */
+.cred-item span::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:18px;
+    background:linear-gradient(135deg,#2563eb,#8b5cf6);
+    opacity:0;
+    transition:.5s ease;
+}
+
+.cred-item:hover span::before{opacity:1}
+
+/* --- Animation classes --- */
+@keyframes iconFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+}
+@keyframes iconSpin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+@keyframes iconPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.18)}
+}
+@keyframes iconGlow{
+    0%,100%{filter:drop-shadow(0 0 6px rgba(96,165,250,.7))}
+    50%{filter:drop-shadow(0 0 18px rgba(139,92,246,.9))}
+}
+@keyframes iconSwing{
+    0%,100%{transform:rotate(-10deg)}
+    50%{transform:rotate(10deg)}
+}
+
+.anim-float i{animation:iconFloat 2.6s ease-in-out infinite, iconGlow 3s ease-in-out infinite}
+.anim-spin  i{animation:iconSpin 7s linear infinite, iconGlow 3s ease-in-out infinite}
+.anim-pulse i{animation:iconPulse 2.2s ease-in-out infinite, iconGlow 3s ease-in-out infinite}
+.anim-swing i{animation:iconSwing 3s ease-in-out infinite, iconGlow 3s ease-in-out infinite}
+
+/* Services cards ke icons */
+.card .icon i{
+    transition:transform .4s ease;
+}
+.card .icon::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:22px;
+    background:linear-gradient(135deg,#2563eb,#8b5cf6);
+    opacity:0;
+    transition:.5s ease;
+}
+.card .icon{position:relative;overflow:hidden}
+.card:hover .icon::before{opacity:1}
+
+/* ================= HERO FLOATING DECO ICONS (sides, not center) ================= */
+.hero-deco{position:relative}
+
+.h-deco{
+    position:absolute;
+    font-size:44px;
+    color:#60a5fa;
+    z-index:2;
+    opacity:.85;
+}
+
+/* left-upper brain */
+.h-deco.d1{
+    top:15%; left:9%;
+    animation:decoFloat 5s ease-in-out infinite, iconGlow 4s ease-in-out infinite;
+}
+
+/* right atom */
+.h-deco.d2{
+    top:38%; right:8%;
+    font-size:52px;
+    color:#8b5cf6;
+    animation:iconSpin 12s linear infinite, decoFloat 6s ease-in-out infinite;
+}
+
+/* left-lower rocket (tilted, pointing up-right) */
+.h-deco.d3{
+    bottom:8%; left:14%;
+    font-size:38px;
+    color:#f472b6;
+    transform:rotate(-45deg);
+    animation:decoFloat 4.5s ease-in-out infinite .8s, iconGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes decoFloat{
+    0%,100%{translate:0 0}
+    50%{translate:0 -22px}
+}
+
+/* orbit rings around atom */
+.h-deco.d2::after{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border:1.5px dashed rgba(139,92,246,.4);
+    border-radius:50%;
+    animation:iconSpin 20s linear infinite reverse;
+}
+
+@media(max-width:900px){
+    .h-deco{display:none}
+}
+
 /* ================= CONTACT SECTION ================= */
 .contact-modern {
     padding: 100px 20px;
@@ -915,7 +1286,7 @@ header{
     border-radius: 30px;
     max-width: 1100px;
     margin: 80px auto;
-    box-shadow: 0 25px 60px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 25px 60px rgb(222, 238, 0);
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(96, 165, 250, 0.15);
@@ -1182,6 +1553,8 @@ footer{
 }
 </style>
 <base target="_blank">
+<base target="_blank">
+<base target="_blank">
 </head>
 
 <body>
@@ -1193,16 +1566,22 @@ footer{
         <div class="logo-badge">MM</div>
         <div class="logo-text">
             <span class="logo-main">Mind Matrix</span>
-            <span class="logo-sub">Decoding minds. Designing futures.</span>
+            <span class="logo-sub" data-key="tagline">Decoding minds. Designing futures.</span>
         </div>
     </div>
 
     <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#science">Science</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#home" data-key="nav_home">Home</a></li>
+    <li><a href="#services" data-key="nav_services">Services</a></li>
+    <li><a href="#science" data-key="nav_science">Science</a></li>
+    <li><a href="#about" data-key="nav_about">About</a></li>
+    <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+    <li>
+        <div class="lang-toggle">
+            <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+            <button id="btn-ur" onclick="setLang('ur')">UR</button>
+        </div>
+    </li>
 </ul>
 
 </nav>
@@ -1211,8 +1590,13 @@ footer{
 
 
 <section class="hero" id="home">
-    <h1>Discover Your <span>Psychological Potential</span></h1>
-    <p><b><i>Science-backed personality and career intelligence designed to give clarity, confidence, and real direction.</i></b></p>
+    <h1 data-key="hero_title">Discover Your <span>Psychological Potential</span></h1>
+    <p data-key="hero_sub"><b><i>Science-backed personality and career intelligence designed to give clarity, confidence, and real direction.</i></b></p>
+    <div class="hero-deco">
+        <i class="fa-solid fa-brain h-deco d1"></i>
+        <i class="fa-solid fa-atom h-deco d2"></i>
+        <i class="fa-solid fa-rocket h-deco d3"></i>
+    </div>
 </section>
 
 <div class="image-strip">
@@ -1239,8 +1623,8 @@ footer{
     <div class="about-glow"></div>
 
     <div class="about-content">
-        <h2>About Mind Matrix</h2>
-        <p>
+        <h2 data-key="about_title">About Mind Matrix</h2>
+        <p data-key="about_desc">
             <b><i>
             We blend psychology, data, and innovation to craft intelligent pathways 
             that unlock clarity, confidence, and powerful life direction.
@@ -1250,15 +1634,15 @@ footer{
         <div class="about-highlights">
             <div>
                 <h3>10K+</h3>
-                <span>Assessments Completed</span>
+                <span data-key="stat1">Assessments Completed</span>
             </div>
             <div>
                 <h3>95%</h3>
-                <span>Accuracy Rate</span>
+                <span data-key="stat2">Accuracy Rate</span>
             </div>
             <div>
-                <h3>Global</h3>
-                <span>Research Standards</span>
+                <h3 data-key="stat3_title">Global</h3>
+                <span data-key="stat3">Research Standards</span>
             </div>
         </div>
     </div>
@@ -1266,64 +1650,64 @@ footer{
 
 <section class="credibility" id="science">
     <div class="section-head fancy-head">
-        <h2>Built on Science</h2>
-        <p><b><i>Trusted psychological frameworks.</i></b></p>
+        <h2 data-key="science_title">Built on Science</h2>
+        <p data-key="science_sub"><b><i>Trusted psychological frameworks.</i></b></p>
     </div>
 
     <div class="credibility-box">
-        <div class="cred-item"><span>🧬</span><h4>Psychology Based</h4><p>Global standards</p></div>
-        <div class="cred-item"><span>📐</span><h4>Validated</h4><p>Scientific models</p></div>
-        <div class="cred-item"><span>🔒</span><h4>Privacy</h4><p>Data protection</p></div>
-        <div class="cred-item"><span>🎯</span><h4>Career Focus</h4><p>Real decisions</p></div>
+        <div class="cred-item"><span class="anim-float"><i class="fa-solid fa-dna"></i></span><h4 data-key="cred1_title">Psychology Based</h4><p data-key="cred1_desc">Global standards</p></div>
+        <div class="cred-item"><span class="anim-pulse"><i class="fa-solid fa-flask"></i></span><h4 data-key="cred2_title">Validated</h4><p data-key="cred2_desc">Scientific models</p></div>
+        <div class="cred-item"><span class="anim-swing"><i class="fa-solid fa-shield-halved"></i></span><h4 data-key="cred3_title">Privacy</h4><p data-key="cred3_desc">Data protection</p></div>
+        <div class="cred-item"><span class="anim-spin"><i class="fa-solid fa-bullseye"></i></span><h4 data-key="cred4_title">Career Focus</h4><p data-key="cred4_desc">Real decisions</p></div>
     </div>
 </section>
 
 <div class="section-head fancy-head">
-    <h2>What You’ll Discover</h2>
-    <p><b><i>Deep insights that go beyond surface-level personality tests.</i></b></p>
+    <h2 data-key="discover_title">What You'll Discover</h2>
+    <p data-key="discover_sub"><b><i>Deep insights that go beyond surface-level personality tests.</i></b></p>
 </div>
 
 <section class="services" id="services">
     <div class="card">
-        <div class="icon">🧠</div>
-        <h3>Personality Mapping</h3>
-        <p>Understand your mind.</p>
-        <a href="personality.html">Start</a>
+        <div class="icon anim-float"><i class="fa-solid fa-brain"></i></div>
+        <h3 data-key="svc1_title">Personality Mapping</h3>
+        <p data-key="svc1_desc">Understand your mind.</p>
+        <a href="personality.html" data-key="btn_start">Start</a>
     </div>
 
     <div class="card">
-        <div class="icon">🎯</div>
-        <h3>Career Intelligence</h3>
-        <p>Best-fit careers.</p>
-        <a href="career.html">Explore</a>
+        <div class="icon anim-pulse"><i class="fa-solid fa-bullseye"></i></div>
+        <h3 data-key="svc2_title">Career Intelligence</h3>
+        <p data-key="svc2_desc">Best-fit careers.</p>
+        <a href="career.html" data-key="btn_explore">Explore</a>
     </div>
 
     <div class="card">
-        <div class="icon">🚀</div>
-        <h3>Skill Optimization</h3>
-        <p>Boost growth.</p>
-        <a href="skills.html">View</a>
+        <div class="icon anim-swing"><i class="fa-solid fa-rocket"></i></div>
+        <h3 data-key="svc3_title">Skill Optimization</h3>
+        <p data-key="svc3_desc">Boost growth.</p>
+        <a href="skills.html" data-key="btn_view">View</a>
     </div>
 
     <div class="card">
-        <div class="icon">📊</div>
-        <h3>Analytics</h3>
-        <p>Track progress.</p>
-        <a href="analytics.html">See</a>
+        <div class="icon anim-spin"><i class="fa-solid fa-chart-line"></i></div>
+        <h3 data-key="svc4_title">Analytics</h3>
+        <p data-key="svc4_desc">Track progress.</p>
+        <a href="analytics.html" data-key="btn_see">See</a>
     </div>
 
     <div class="card">
-        <div class="icon">🧩</div>
-        <h3>Mind Patterns</h3>
-        <p>Decode behavior.</p>
-        <a href="mind-patterns.html">Analyze</a>
+        <div class="icon anim-pulse"><i class="fa-solid fa-puzzle-piece"></i></div>
+        <h3 data-key="svc5_title">Mind Patterns</h3>
+        <p data-key="svc5_desc">Decode behavior.</p>
+        <a href="mind-patterns.html" data-key="btn_analyze">Analyze</a>
     </div>
 
     <div class="card">
-        <div class="icon">⚡</div>
-        <h3>Performance</h3>
-        <p>Maximize focus.</p>
-        <a href="performance.html">Boost</a>
+        <div class="icon anim-float"><i class="fa-solid fa-bolt"></i></div>
+        <h3 data-key="svc6_title">Performance</h3>
+        <p data-key="svc6_desc">Maximize focus.</p>
+        <a href="performance.html" data-key="btn_boost">Boost</a>
     </div>
 </section>
 <section class="mbti-cinematic">
@@ -1331,8 +1715,8 @@ footer{
     <div class="cinematic-bg"></div>
 
     <div class="section-head fancy-head">
-        <h2>16 Personality Types</h2>
-        <p><b><i>Discover the psychology behind every ambitious mind.</i></b></p>
+        <h2 data-key="mbti_title">16 Personality Types</h2>
+        <p data-key="mbti_sub"><b><i>Discover the psychology behind every ambitious mind.</i></b></p>
     </div>
 
     <div class="slider-shell">
@@ -1341,54 +1725,54 @@ footer{
             <!-- ================= ORIGINAL 16 ================= -->
 
             <!-- ANALYSTS -->
-            <div class="slide-card"><i class="fa-solid fa-cube"></i><h1>INTJ</h1><span>The Architect</span></div>
-            <div class="slide-card"><i class="fa-solid fa-brain"></i><h1>INTP</h1><span>The Thinker</span></div>
-            <div class="slide-card"><i class="fa-solid fa-chess-queen"></i><h1>ENTJ</h1><span>The Commander</span></div>
-            <div class="slide-card"><i class="fa-solid fa-lightbulb"></i><h1>ENTP</h1><span>The Debater</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-cube"></i></span><h1>INTJ</h1><span data-key="type_intj">The Architect</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-brain"></i></span><h1>INTP</h1><span data-key="type_intp">The Thinker</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-chess-queen"></i></span><h1>ENTJ</h1><span data-key="type_entj">The Commander</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-lightbulb"></i></span><h1>ENTP</h1><span data-key="type_entp">The Debater</span></div>
 
             <!-- DIPLOMATS -->
-            <div class="slide-card"><i class="fa-solid fa-dove"></i><h1>INFJ</h1><span>The Advocate</span></div>
-            <div class="slide-card"><i class="fa-solid fa-leaf"></i><h1>INFP</h1><span>The Mediator</span></div>
-            <div class="slide-card"><i class="fa-solid fa-hands-helping"></i><h1>ENFJ</h1><span>The Protagonist</span></div>
-            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ENFP</h1><span>The Campaigner</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-dove"></i></span><h1>INFJ</h1><span data-key="type_infj">The Advocate</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-leaf"></i></span><h1>INFP</h1><span data-key="type_infp">The Mediator</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-hands-helping"></i></span><h1>ENFJ</h1><span data-key="type_enfj">The Protagonist</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-bolt"></i></span><h1>ENFP</h1><span data-key="type_enfp">The Campaigner</span></div>
 
             <!-- SENTINELS -->
-            <div class="slide-card"><i class="fa-solid fa-clipboard-check"></i><h1>ISTJ</h1><span>The Logistician</span></div>
-            <div class="slide-card"><i class="fa-solid fa-shield-heart"></i><h1>ISFJ</h1><span>The Defender</span></div>
-            <div class="slide-card"><i class="fa-solid fa-building-columns"></i><h1>ESTJ</h1><span>The Executive</span></div>
-            <div class="slide-card"><i class="fa-solid fa-users"></i><h1>ESFJ</h1><span>The Consul</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-clipboard-check"></i></span><h1>ISTJ</h1><span data-key="type_istj">The Logistician</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-shield-heart"></i></span><h1>ISFJ</h1><span data-key="type_isfj">The Defender</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-building-columns"></i></span><h1>ESTJ</h1><span data-key="type_estj">The Executive</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-users"></i></span><h1>ESFJ</h1><span data-key="type_esfj">The Consul</span></div>
 
             <!-- EXPLORERS -->
-            <div class="slide-card"><i class="fa-solid fa-wrench"></i><h1>ISTP</h1><span>The Virtuoso</span></div>
-            <div class="slide-card"><i class="fa-solid fa-palette"></i><h1>ISFP</h1><span>The Adventurer</span></div>
-            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ESTP</h1><span>The Entrepreneur</span></div>
-            <div class="slide-card"><i class="fa-solid fa-microphone"></i><h1>ESFP</h1><span>The Entertainer</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-wrench"></i></span><h1>ISTP</h1><span data-key="type_istp">The Virtuoso</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-palette"></i></span><h1>ISFP</h1><span data-key="type_isfp">The Adventurer</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-bolt"></i></span><h1>ESTP</h1><span data-key="type_estp">The Entrepreneur</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-microphone"></i></span><h1>ESFP</h1><span data-key="type_esfp">The Entertainer</span></div>
 
             <!-- ================= DUPLICATE (FULL COPY FOR SMOOTH LOOP) ================= -->
 
             <!-- ANALYSTS -->
-            <div class="slide-card"><i class="fa-solid fa-cube"></i><h1>INTJ</h1><span>The Architect</span></div>
-            <div class="slide-card"><i class="fa-solid fa-brain"></i><h1>INTP</h1><span>The Thinker</span></div>
-            <div class="slide-card"><i class="fa-solid fa-chess-queen"></i><h1>ENTJ</h1><span>The Commander</span></div>
-            <div class="slide-card"><i class="fa-solid fa-lightbulb"></i><h1>ENTP</h1><span>The Debater</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-cube"></i></span><h1>INTJ</h1><span data-key="type_intj">The Architect</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-brain"></i></span><h1>INTP</h1><span data-key="type_intp">The Thinker</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-chess-queen"></i></span><h1>ENTJ</h1><span data-key="type_entj">The Commander</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-lightbulb"></i></span><h1>ENTP</h1><span data-key="type_entp">The Debater</span></div>
 
             <!-- DIPLOMATS -->
-            <div class="slide-card"><i class="fa-solid fa-dove"></i><h1>INFJ</h1><span>The Advocate</span></div>
-            <div class="slide-card"><i class="fa-solid fa-leaf"></i><h1>INFP</h1><span>The Mediator</span></div>
-            <div class="slide-card"><i class="fa-solid fa-hands-helping"></i><h1>ENFJ</h1><span>The Protagonist</span></div>
-            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ENFP</h1><span>The Campaigner</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-dove"></i></span><h1>INFJ</h1><span data-key="type_infj">The Advocate</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-leaf"></i></span><h1>INFP</h1><span data-key="type_infp">The Mediator</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-hands-helping"></i></span><h1>ENFJ</h1><span data-key="type_enfj">The Protagonist</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-bolt"></i></span><h1>ENFP</h1><span data-key="type_enfp">The Campaigner</span></div>
 
             <!-- SENTINELS -->
-            <div class="slide-card"><i class="fa-solid fa-clipboard-check"></i><h1>ISTJ</h1><span>The Logistician</span></div>
-            <div class="slide-card"><i class="fa-solid fa-shield-heart"></i><h1>ISFJ</h1><span>The Defender</span></div>
-            <div class="slide-card"><i class="fa-solid fa-building-columns"></i><h1>ESTJ</h1><span>The Executive</span></div>
-            <div class="slide-card"><i class="fa-solid fa-users"></i><h1>ESFJ</h1><span>The Consul</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-clipboard-check"></i></span><h1>ISTJ</h1><span data-key="type_istj">The Logistician</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-shield-heart"></i></span><h1>ISFJ</h1><span data-key="type_isfj">The Defender</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-building-columns"></i></span><h1>ESTJ</h1><span data-key="type_estj">The Executive</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-users"></i></span><h1>ESFJ</h1><span data-key="type_esfj">The Consul</span></div>
 
             <!-- EXPLORERS -->
-            <div class="slide-card"><i class="fa-solid fa-wrench"></i><h1>ISTP</h1><span>The Virtuoso</span></div>
-            <div class="slide-card"><i class="fa-solid fa-palette"></i><h1>ISFP</h1><span>The Adventurer</span></div>
-            <div class="slide-card"><i class="fa-solid fa-bolt"></i><h1>ESTP</h1><span>The Entrepreneur</span></div>
-            <div class="slide-card"><i class="fa-solid fa-microphone"></i><h1>ESFP</h1><span>The Entertainer</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-wrench"></i></span><h1>ISTP</h1><span data-key="type_istp">The Virtuoso</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-palette"></i></span><h1>ISFP</h1><span data-key="type_isfp">The Adventurer</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-bolt"></i></span><h1>ESTP</h1><span data-key="type_estp">The Entrepreneur</span></div>
+            <div class="slide-card"><span class="type-icon"><i class="fa-solid fa-microphone"></i></span><h1>ESFP</h1><span data-key="type_esfp">The Entertainer</span></div>
 
         </div>
     </div>
@@ -1397,37 +1781,214 @@ footer{
 
 <section id="contact" class="contact-modern">
   <div class="contact-content">
-    <h2>Contact Us</h2>
-    <p>Reach out and start your transformation journey today.</p>
+    <h2 data-key="contact_title">Contact Us</h2>
+    <p data-key="contact_sub">Reach out and start your transformation journey today.</p>
 
     <div class="contact-cards">
       <div class="contact-card">
         <span>📧</span>
-        <h3>Email Us</h3>
+        <h3 data-key="email_title">Email Us</h3>
         <p>creativebaccotiya@gmail.com</p>
-        <a href="mailto:creativebaccotiya@gmail.com">Send Mail</a>
+        <a href="mailto:creativebaccotiya@gmail.com" data-key="btn_send">Send Mail</a>
       </div>
       <div class="contact-card">
         <span>📞</span>
-        <h3>Call Us</h3>
+        <h3 data-key="call_title">Call Us</h3>
         <p>+923198547089</p>
-        <a href="tel:+923198547089">Call Now</a>
+        <a href="tel:+923198547089" data-key="btn_call">Call Now</a>
       </div>
       <div class="contact-card">
         <span>🏢</span>
-        <h3>Visit Us</h3>
+        <h3 data-key="visit_title">Visit Us</h3>
         <p>Karachi, Pakistan</p>
-        <a href="#map">Locate</a>
+        <a href="#map" data-key="btn_locate">Locate</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-© 2026 PsycheMetric Intelligence Systems
+<span data-key="footer">&copy; 2026 PsycheMetric Intelligence Systems</span>
 </footer>
 
 <script>
+/* ========== LANGUAGE SYSTEM ========== */
+const translations = {
+    en: {
+        tagline: "Decoding minds. Designing futures.",
+        nav_home: "Home",
+        nav_services: "Services",
+        nav_science: "Science",
+        nav_about: "About",
+        nav_contact: "Contact",
+        hero_title: "Discover Your <span>Psychological Potential</span>",
+        hero_sub: "<b><i>Science-backed personality and career intelligence designed to give clarity, confidence, and real direction.</i></b>",
+        about_title: "About Mind Matrix",
+        about_desc: "<b><i>We blend psychology, data, and innovation to craft intelligent pathways that unlock clarity, confidence, and powerful life direction.</i></b>",
+        stat1: "Assessments Completed",
+        stat2: "Accuracy Rate",
+        stat3_title: "Global",
+        stat3: "Research Standards",
+        science_title: "Built on Science",
+        science_sub: "<b><i>Trusted psychological frameworks.</i></b>",
+        cred1_title: "Psychology Based",
+        cred1_desc: "Global standards",
+        cred2_title: "Validated",
+        cred2_desc: "Scientific models",
+        cred3_title: "Privacy",
+        cred3_desc: "Data protection",
+        cred4_title: "Career Focus",
+        cred4_desc: "Real decisions",
+        discover_title: "What You'll Discover",
+        discover_sub: "<b><i>Deep insights that go beyond surface-level personality tests.</i></b>",
+        svc1_title: "Personality Mapping",
+        svc1_desc: "Understand your mind.",
+        btn_start: "Start",
+        svc2_title: "Career Intelligence",
+        svc2_desc: "Best-fit careers.",
+        btn_explore: "Explore",
+        svc3_title: "Skill Optimization",
+        svc3_desc: "Boost growth.",
+        btn_view: "View",
+        svc4_title: "Analytics",
+        svc4_desc: "Track progress.",
+        btn_see: "See",
+        svc5_title: "Mind Patterns",
+        svc5_desc: "Decode behavior.",
+        btn_analyze: "Analyze",
+        svc6_title: "Performance",
+        svc6_desc: "Maximize focus.",
+        btn_boost: "Boost",
+        mbti_title: "16 Personality Types",
+        mbti_sub: "<b><i>Discover the psychology behind every ambitious mind.</i></b>",
+        type_intj: "The Architect",
+        type_intp: "The Thinker",
+        type_entj: "The Commander",
+        type_entp: "The Debater",
+        type_infj: "The Advocate",
+        type_infp: "The Mediator",
+        type_enfj: "The Protagonist",
+        type_enfp: "The Campaigner",
+        type_istj: "The Logistician",
+        type_isfj: "The Defender",
+        type_estj: "The Executive",
+        type_esfj: "The Consul",
+        type_istp: "The Virtuoso",
+        type_isfp: "The Adventurer",
+        type_estp: "The Entrepreneur",
+        type_esfp: "The Entertainer",
+        contact_title: "Contact Us",
+        contact_sub: "Reach out and start your transformation journey today.",
+        email_title: "Email Us",
+        btn_send: "Send Mail",
+        call_title: "Call Us",
+        btn_call: "Call Now",
+        visit_title: "Visit Us",
+        btn_locate: "Locate",
+        footer: "&copy; 2026 PsycheMetric Intelligence Systems"
+    },
+    ur: {
+        tagline: "Zehan ko samajhna. Mustaqbil banana.",
+        nav_home: "Home",
+        nav_services: "Khidmat",
+        nav_science: "Science",
+        nav_about: "About",
+        nav_contact: "Rabta",
+        hero_title: "Apni <span>Zehanee Salahiyat</span> Daryaft Karein",
+        hero_sub: "<b><i>Science ki buniyad par banaye gaye personality aur career tests jo aapko clarity, confidence aur sahi direction dein.</i></b>",
+        about_title: "Mind Matrix Ke Baare Mein",
+        about_desc: "<b><i>Hum psychology, data aur innovation ko mila kar aise smart raaste banate hain jo aapko clarity, confidence aur zindagi ka sahi rasta dikhate hain.</i></b>",
+        stat1: "Assessments Mukammal",
+        stat2: "Durusti Ka Rate",
+        stat3_title: "Global",
+        stat3: "Research Ke Mayar",
+        science_title: "Science Par Bunyaad",
+        science_sub: "<b><i>Bharose-mand psychological frameworks.</i></b>",
+        cred1_title: "Psychology Par Mabni",
+        cred1_desc: "Global mayar",
+        cred2_title: "Tasdeeq Shuda",
+        cred2_desc: "Scientific models",
+        cred3_title: "Privacy",
+        cred3_desc: "Data hifazat",
+        cred4_title: "Career Focus",
+        cred4_desc: "Asal faisle",
+        discover_title: "Aap Kya Janenge",
+        discover_sub: "<b><i>Gehri insights jo sirf surface-level tests se bahar jati hain.</i></b>",
+        svc1_title: "Shakhsiyat Ka Naqsha",
+        svc1_desc: "Apne zehan ko samajhein.",
+        btn_start: "Shuru Karein",
+        svc2_title: "Career Intelligence",
+        svc2_desc: "Behtareen careers.",
+        btn_explore: "Daryaft Karein",
+        svc3_title: "Skill Optimization",
+        svc3_desc: "Growth barhayein.",
+        btn_view: "Dekhein",
+        svc4_title: "Analytics",
+        svc4_desc: "Progress track karein.",
+        btn_see: "Dekhein",
+        svc5_title: "Zehan Ke Patterns",
+        svc5_desc: "Behavior samajhein.",
+        btn_analyze: "Tajziya Karein",
+        svc6_title: "Performance",
+        svc6_desc: "Focus barhayein.",
+        btn_boost: "Boost Karein",
+        mbti_title: "16 Shakhsiyat Ke Qisam",
+        mbti_sub: "<b><i>Har ambitious zehan ke peeche psychology ko daryaft karein.</i></b>",
+        type_intj: "The Architect (Mahir-e-Tameer)",
+        type_intp: "The Thinker (Mufakkir)",
+        type_entj: "The Commander (Salar)",
+        type_entp: "The Debater (Munazir)",
+        type_infj: "The Advocate (Himayat Kar)",
+        type_infp: "The Mediator (Sulah Kar)",
+        type_enfj: "The Protagonist (Markazi Shakhsiyat)",
+        type_enfp: "The Campaigner (Muhim Chalane Wala)",
+        type_istj: "The Logistician (Intizami Kar)",
+        type_isfj: "The Defender (Muhafiz)",
+        type_estj: "The Executive (Muntazim)",
+        type_esfj: "The Consul (Mashir)",
+        type_istp: "The Virtuoso (Ustad Karigar)",
+        type_isfp: "The Adventurer (Muhim-joo)",
+        type_estp: "The Entrepreneur (Karobari)",
+        type_esfp: "The Entertainer (Tamashai)",
+        contact_title: "Rabta Karein",
+        contact_sub: "Aaj hi rabta karein aur apni tabdeeli ka safar shuru karein.",
+        email_title: "Email Karein",
+        btn_send: "Mail Bhejein",
+        call_title: "Call Karein",
+        btn_call: "Abhi Call Karein",
+        visit_title: "Aain",
+        btn_locate: "Location Dekhein",
+        footer: "&copy; 2026 PsycheMetric Intelligence Systems"
+    }
+};
+
+let currentLang = localStorage.getItem('mindmatrix_lang') || 'en';
+
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('mindmatrix_lang', lang);
+
+    // Update toggle buttons
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-ur').classList.toggle('active', lang === 'ur');
+
+    // Update all elements with data-key
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang][key]) {
+            el.innerHTML = translations[lang][key];
+        }
+    });
+
+    // Update page direction for Urdu (optional, keeping LTR for Roman Urdu)
+    // document.documentElement.dir = lang === 'ur' ? 'rtl' : 'ltr';
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+    setLang(currentLang);
+});
+
 /* === ONLY CHANGE: animation repeat on scroll === */
 const observer=new IntersectionObserver(entries=>{
  entries.forEach(e=>{
