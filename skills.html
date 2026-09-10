@@ -1200,7 +1200,7 @@ header{
 
 .path-step-content{
     background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.06);
+    border:1px solid rgb(255, 230, 8);
     border-radius:18px;
     padding:22px 24px;
     transition:all .3s ease;
@@ -1249,7 +1249,7 @@ header{
     font-size:11px;
     font-weight:700;
     background:rgba(37,99,235,0.1);
-    border:1px solid rgba(37,99,235,0.2);
+    border:1px solid rgb(236, 204, 19);
     color:var(--accent);
     cursor:pointer;
     transition:all .2s ease;
@@ -1279,7 +1279,7 @@ header{
     border-spacing:0;
     border-radius:20px;
     overflow:hidden;
-    border:1px solid rgba(255,255,255,0.06);
+    border:1px solid rgb(241, 218, 6);
 }
 
 .comparison-table th,
@@ -1486,7 +1486,22 @@ footer{
 .modal-content .resource-list li:last-child{border:none}
 
 .modal-content .resource-list li i{color:var(--accent);font-size:16px}
+
+/* ===== HERO ORBIT BADGE ===== */
+.pattern-orbit{width:210px;height:210px;margin:45px auto 0;border:1px solid rgba(96,165,250,.18);border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:0 0 70px rgba(37,99,235,.12),inset 0 0 50px rgba(139,92,246,.08)}
+.pattern-orbit:before,.pattern-orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:spin 9s linear infinite}
+.pattern-orbit:before{inset:20px;border-top-color:var(--accent);border-bottom-color:var(--purple)}
+.pattern-orbit:after{inset:42px;border-right-color:var(--teal);animation-direction:reverse;animation-duration:6s}
+.orbit-core{width:92px;height:92px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.2));border:1px solid rgba(147,197,253,.3);box-shadow:0 0 45px rgba(37,99,235,.3);font-size:34px;color:#93c5fd;animation:pulseBadge 3s ease-in-out infinite}
+@media(max-width:500px){.pattern-orbit{width:170px;height:170px}.orbit-core{width:76px;height:76px;font-size:28px}}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{display:flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px}
+.lang-btn{padding:6px 14px;border-radius:10px;border:none;background:transparent;color:#94a3b8;font-weight:700;font-size:13px;cursor:pointer;transition:all .3s ease;font-family:'Inter',sans-serif}
+.lang-btn.active{background:linear-gradient(135deg,#2563eb,#60a5fa);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.lang-btn:hover:not(.active){color:#fff}
 </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 
@@ -1510,37 +1525,39 @@ footer{
         <li><a href="Index.html">Services</a></li>
         <li><a href="Index.html">About</a></li>
         <li><a href="Index.html">Contact</a></li>
+        <li><div class="lang-switcher"><button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button><button class="lang-btn" id="btnUr" onclick="setLanguage('ur')">UR</button></div></li>
     </ul>
 </nav>
 </header>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="home">
-    <h1>Optimize Your<br><span>Professional Skillset</span></h1>
-    <p><b><i>AI-powered skill analysis, personalized learning paths, and career optimization designed to accelerate your growth.</i></b></p>
+    <h1 id="heroTitle">Optimize Your<br><span>Professional Skillset</span></h1>
+    <p id="heroDesc"><b><i>AI-powered skill analysis, personalized learning paths, and career optimization designed to accelerate your growth.</i></b></p>
+ <div class="pattern-orbit"><div class="orbit-core"><i class="fas fa-bullseye"></i></div></div>
 </section>
 
 <!-- ===== FEATURES BAR ===== -->
 <div class="features-bar">
     <div class="feature-item" onclick="scrollToAssess()">
         <div class="feature-icon-wrap"><i class="fas fa-bullseye"></i></div>
-        <h4>Skill Radar</h4>
-        <p>360 degree competency analysis</p>
+        <h4 id="fb1t">Skill Radar</h4>
+        <p id="fb1d">360 degree competency analysis</p>
     </div>
     <div class="feature-item" onclick="scrollToAssess()">
         <div class="feature-icon-wrap"><i class="fas fa-route"></i></div>
-        <h4>Learning Path</h4>
-        <p>Personalized roadmap</p>
+        <h4 id="fb2t">Learning Path</h4>
+        <p id="fb2d">Personalized roadmap</p>
     </div>
     <div class="feature-item" onclick="scrollToAssess()">
         <div class="feature-icon-wrap"><i class="fas fa-crosshairs"></i></div>
-        <h4>Gap Analysis</h4>
-        <p>Identify weak areas</p>
+        <h4 id="fb3t">Gap Analysis</h4>
+        <p id="fb3d">Identify weak areas</p>
     </div>
     <div class="feature-item" onclick="scrollToAssess()">
         <div class="feature-icon-wrap"><i class="fas fa-trophy"></i></div>
-        <h4>Career Match</h4>
-        <p>Role compatibility score</p>
+        <h4 id="fb4t">Career Match</h4>
+        <p id="fb4d">Role compatibility score</p>
     </div>
 </div>
 
@@ -1610,8 +1627,10 @@ function scrollToAssess(){
 const skillCategories = {
     technical: {
         name: "Technical Skills",
+        urName: "Technical Skills",
         icon: "fas fa-code",
         description: "Programming, tools, and technical competencies",
+        urDesc: "Programming, tools aur technical maharat",
         skills: [
             "JavaScript / TypeScript",
             "Python",
@@ -1627,8 +1646,10 @@ const skillCategories = {
     },
     soft: {
         name: "Soft Skills",
+        urName: "Soft Skills",
         icon: "fas fa-users",
         description: "Communication, leadership, and interpersonal abilities",
+        urDesc: "Muzakira, qiyadat aur interpersonal salahiten",
         skills: [
             "Communication",
             "Leadership",
@@ -1644,8 +1665,10 @@ const skillCategories = {
     },
     creative: {
         name: "Creative Skills",
+        urName: "Creative Skills",
         icon: "fas fa-palette",
         description: "Design, content creation, and innovation",
+        urDesc: "Design, content creation aur innovation",
         skills: [
             "UI/UX Design",
             "Graphic Design",
@@ -1661,8 +1684,10 @@ const skillCategories = {
     },
     business: {
         name: "Business Skills",
+        urName: "Business Skills",
         icon: "fas fa-briefcase",
         description: "Management, strategy, and business acumen",
+        urDesc: "Management, strategy aur business samajh",
         skills: [
             "Project Management",
             "Data-Driven Decision Making",
@@ -1678,8 +1703,10 @@ const skillCategories = {
     },
     analytical: {
         name: "Analytical Skills",
+        urName: "Analytical Skills",
         icon: "fas fa-brain",
         description: "Research, analysis, and logical reasoning",
+        urDesc: "Tahqiq, tajzia aur logic",
         skills: [
             "Statistical Analysis",
             "Research Methodology",
@@ -1695,8 +1722,10 @@ const skillCategories = {
     },
     languages: {
         name: "Languages",
+        urName: "Languages",
         icon: "fas fa-language",
         description: "Spoken, written, and programming languages",
+        urDesc: "Bolne, likhne aur programming ki zubaanen",
         skills: [
             "English (Professional)",
             "Urdu / Hindi",
@@ -1715,48 +1744,64 @@ const skillCategories = {
 // ===== CAREER DATABASE =====
 const careerPaths = {
     "Software Engineer": {
+        urName: "Software Engineer",
+        urDesc: "Software systems aur applications design, develop aur maintain karein.",
         required: {
             technical: 85, soft: 60, creative: 40, business: 50, analytical: 70, languages: 60
         },
         description: "Design, develop, and maintain software systems and applications."
     },
     "Product Manager": {
+        urName: "Product Manager",
+        urDesc: "Product strategy, roadmap aur cross-functional teams ki qiyadat karein.",
         required: {
             technical: 60, soft: 85, creative: 60, business: 90, analytical: 80, languages: 70
         },
         description: "Lead product strategy, roadmap, and cross-functional teams."
     },
     "Data Scientist": {
+        urName: "Data Scientist",
+        urDesc: "Statistical aur ML techniques se data se insights nikaalein.",
         required: {
             technical: 90, soft: 50, creative: 50, business: 60, analytical: 95, languages: 60
         },
         description: "Extract insights from data using statistical and ML techniques."
     },
     "UX Designer": {
+        urName: "UX Designer",
+        urDesc: "User-centered digital experiences banayein.",
         required: {
             technical: 50, soft: 75, creative: 95, business: 60, analytical: 65, languages: 60
         },
         description: "Create intuitive, user-centered digital experiences."
     },
     "DevOps Engineer": {
+        urName: "DevOps Engineer",
+        urDesc: "Automation aur CI/CD se development aur operations ko jorein.",
         required: {
             technical: 95, soft: 60, creative: 40, business: 50, analytical: 75, languages: 55
         },
         description: "Bridge development and operations with automation and CI/CD."
     },
     "Technical Writer": {
+        urName: "Technical Writer",
+        urDesc: "Saaf aur comprehensive technical documentation banayein.",
         required: {
             technical: 70, soft: 75, creative: 80, business: 50, analytical: 60, languages: 95
         },
         description: "Create clear, comprehensive technical documentation."
     },
     "Marketing Strategist": {
+        urName: "Marketing Strategist",
+        urDesc: "Data-driven marketing campaigns banayein aur chalayein.",
         required: {
             technical: 40, soft: 85, creative: 90, business: 90, analytical: 80, languages: 85
         },
         description: "Develop and execute data-driven marketing campaigns."
     },
     "Project Manager": {
+        urName: "Project Manager",
+        urDesc: "Projects ko waqt aur budget mein plan, execute aur deliver karein.",
         required: {
             technical: 55, soft: 90, creative: 45, business: 85, analytical: 75, languages: 75
         },
@@ -1834,6 +1879,68 @@ let skillRatings = {};
 let radarChart = null;
 let barChart = null;
 
+
+// ===== LANGUAGE SYSTEM =====
+let currentLang='en';
+const T={
+en:{heroH1:"Optimize Your<br><span>Professional Skillset</span>",heroP:"<b><i>AI-powered skill analysis, personalized learning paths, and career optimization designed to accelerate your growth.</i></b>",
+fb1t:"Skill Radar",fb1d:"360 degree competency analysis",fb2t:"Learning Path",fb2d:"Personalized roadmap",fb3t:"Gap Analysis",fb3d:"Identify weak areas",fb4t:"Career Match",fb4d:"Role compatibility score",
+startTitle:'<span class="gradient-text">Unlock Your</span><br>Full Potential',startDesc:"Assess your skills across 6 professional domains, get AI-powered gap analysis, personalized learning paths, and career compatibility scores — all in one intelligent engine.",
+badge1:"6 Skill Domains",badge2:"3 Minutes",badge3:"100% Private",badge4:"AI Analysis",
+sf1t:"360 Degree Skill Radar",sf1d:"Interactive radar chart visualizing your strengths and weaknesses across all professional domains with percentile benchmarking",sf2t:"Smart Learning Path",sf2d:"Personalized step-by-step roadmap with curated resources, time estimates, and milestone tracking for your weakest areas",sf3t:"Career Gap Analysis",sf3d:"Compare your skill profile against 8 top career paths and see exactly which skills you need to land your dream role",sf4t:"Progress Tracking",sf4d:"Downloadable skill report with actionable recommendations, resource links, and a comparison table for continuous improvement",
+startBtn:"Start Assessment",priv1:"No Sign-up Required",priv2:"Data Never Stored",priv3:"Instant Results",
+s1num:"Step 1 of 3",pct:"% Complete",s1h:"Select Your Skill Domains",s1p:"Choose the areas you want to assess. Select at least 2 categories to proceed.",
+back:"Back",nextRate:"Rate Skills",
+s2num:"Step 2 of 3",s2h:"Rate Your Skills",s2p:"Click the stars to rate each skill from 1 (Beginner) to 10 (Expert). Be honest for accurate results.",
+beg:"Beginner",mid:"Intermediate",exp:"Expert",analyzeBtn:"Analyze Profile",
+loadT:"Analyzing Your Skill Profile...",loadP1:"We're processing your ratings across",loadP2:"domains to generate insights",
+fact1:"Did you know? The average professional has 15-20 distinct skills.",fact2:"Fun fact: Top performers invest 5+ hours weekly in skill development.",fact3:"Interesting: 85% of job success comes from soft skills, not technical.",fact4:"Cool fact: Learning in short bursts (20-30 min) improves retention by 40%.",fact5:"Amazing: The most in-demand skill changes every 2-3 years in tech.",fact6:"Wow: Multilingual professionals earn 5-20% more on average.",fact7:"Fact: Emotional intelligence is the #1 predictor of leadership success.",
+overall:"Overall Score",resT:"Skill Profile Analysis Complete",bestAlign:"Your strongest career alignment:",
+chart1:"Skill Radar",chart2:"Category Breakdown",breakH:"Detailed Skill Breakdown",recH:"AI Recommendations",pathH:"Personalized Learning Path",compH:"Career Compatibility Matrix",
+th1:"Career Path",th2:"Match Score",th3:"Skill Gaps",th4:"Description",ready:"Ready!",gapsTxt:"gaps",
+retake:"Retake Assessment",share:"Share Result",save:"Save Report",
+shareText:"I just analyzed my professional skills with Mind Matrix Skill Optimization Engine! Check out your own skill profile.",
+modalD1:"Resources for",modalD2:"Click any resource to learn more."},
+ur:{heroH1:"Apni<br><span>Professional Skills</span> Behtar Karein",heroP:"<b><i>AI-powered skill analysis, personalized learning paths aur career optimization — aapki growth tez karne ke liye.</i></b>",
+fb1t:"Skill Radar",fb1d:"Har pehlu se competency analysis",fb2t:"Learning Path",fb2d:"Aapke liye roadmap",fb3t:"Gap Analysis",fb3d:"Kamzor areas pehchanein",fb4t:"Career Match",fb4d:"Role compatibility score",
+startTitle:'<span class="gradient-text">Apna Poora</span><br>Potential Unlock Karein',startDesc:"6 professional domains mein apni skills assess karein, AI-powered gap analysis paayein, personalized learning paths aur career compatibility scores — sab ek intelligent engine mein.",
+badge1:"6 Skill Domains",badge2:"3 Minute",badge3:"100% Private",badge4:"AI Analysis",
+sf1t:"360 Degree Skill Radar",sf1d:"Interactive radar chart jo tamam domains mein aapki taqaton aur kamzoriyon ko dikhata hai",sf2t:"Smart Learning Path",sf2d:"Aapki kamzor areas ke liye curated resources aur time estimates ka step-by-step roadmap",sf3t:"Career Gap Analysis",sf3d:"Apni profile ko 8 top careers se compare karein aur dekhin dream role ke liye kya chahiye",sf4t:"Progress Tracking",sf4d:"Actionable recommendations, resource links aur comparison table ke saath downloadable report",
+startBtn:"Assessment Shuru Karein",priv1:"Sign-up Ki Zaroorat Nahi",priv2:"Data Kabhi Save Nahi Hota",priv3:"Fori Result",
+s1num:"Qadam 1 / 3",pct:"% Mukammal",s1h:"Apne Skill Domains Select Karein",s1p:"Woh areas chunein jo aap assess karna chahte hain. Aage barhne ke liye kam az kam 2 categories select karein.",
+back:"Wapas",nextRate:"Skills Rate Karein",
+s2num:"Qadam 2 / 3",s2h:"Apni Skills Rate Karein",s2p:"Har skill ko 1 (Beginner) se 10 (Expert) tak star click kar ke rate karein. Sahi result ke liye imandaar rahein.",
+beg:"Mubtadi",mid:"Wast",exp:"Expert",analyzeBtn:"Profile Analyze Karein",
+loadT:"Aapki Skill Profile Analyze Ho Rahi Hai...",loadP1:"Aapki ratings",loadP2:"domains mein process ho rahi hain — insights tayyar ho rahe hain",
+fact1:"Kya aap jante hain? Ek average professional ke paas 15-20 alag skills hoti hain.",fact2:"Maza ki baat: Top performers hafte mein 5+ ghante skill development mein lagate hain.",fact3:"Dilchasp: Job success ka 85% hissa soft skills se aata hai, technical se nahi.",fact4:"Cool fact: 20-30 minute ke chote sessions seekhne ki retention 40% barha dete hain.",fact5:"Hairat-angeez: Tech mein sab se zyada maang wali skill har 2-3 saal badalti hai.",fact6:"Wah: Multilingual professionals ko 5-20% zyada milta hai.",fact7:"Haqiqat: Emotional intelligence leadership success ki sab se badi nishani hai.",
+overall:"Overall Score",resT:"Skill Profile Analysis Mukammal",bestAlign:"Aapki sab se strong career alignment:",
+chart1:"Skill Radar",chart2:"Category Breakdown",breakH:"Tafseeli Skill Breakdown",recH:"AI Sifarishat",pathH:"Personalized Learning Path",compH:"Career Compatibility Matrix",
+th1:"Career Path",th2:"Match Score",th3:"Skill Gaps",th4:"Tafseel",ready:"Tayyar!",gapsTxt:"gaps",
+retake:"Dobara Assessment",share:"Result Share Karein",save:"Report Save Karein",
+shareText:"Maine Mind Matrix Skill Optimization Engine se apni professional skills analyze keen! Aap bhi apni skill profile check karein.",
+modalD1:"Resources for",modalD2:"Kisi bhi resource par click kar ke mazeed jaanein."}
+};
+const t=k=>(T[currentLang]&&T[currentLang][k])||T.en[k]||k;
+const cn=o=>currentLang==='ur'&&o.urName?o.urName:o.name;
+const cd=o=>currentLang==='ur'&&o.urDesc?o.urDesc:o.description;
+const cpName=n=>currentLang==='ur'&&careerPaths[n]&&careerPaths[n].urName?careerPaths[n].urName:n;
+const cpDesc=n=>currentLang==='ur'&&careerPaths[n]&&careerPaths[n].urDesc?careerPaths[n].urDesc:(careerPaths[n]?careerPaths[n].description:n);
+function setLanguage(l){
+currentLang=l;
+document.getElementById('btnEn').classList.toggle('active',l==='en');
+document.getElementById('btnUr').classList.toggle('active',l==='ur');
+document.getElementById('heroTitle').innerHTML=t('heroH1');
+document.getElementById('heroDesc').innerHTML=t('heroP');
+for(let i=1;i<=4;i++){
+const et=document.getElementById('fb'+i+'t'),ed=document.getElementById('fb'+i+'d');
+if(et)et.textContent=t('fb'+i+'t');if(ed)ed.textContent=t('fb'+i+'d');
+}
+const html=container.innerHTML;
+if(html.includes('start-screen'))renderStartScreen();
+else if(html.includes('category-grid'))renderCategorySelection();
+else if(html.includes('skill-rating-grid'))renderSkillRating();
+}
+
 const container = document.getElementById('skillContainer');
 const totalSteps = 3;
 
@@ -1842,69 +1949,26 @@ function renderStartScreen(){
     container.innerHTML = `
         <div class="start-screen fade-in">
             <div class="start-hero">
-                <h2>
-                    <span class="gradient-text">Unlock Your</span><br>
-                    Full Potential
-                </h2>
-                <p>Assess your skills across 6 professional domains, get AI-powered gap analysis, personalized learning paths, and career compatibility scores — all in one intelligent engine.</p>
+                <h2>${t('startTitle')}</h2>
+                <p>${t('startDesc')}</p>
             </div>
-
             <div class="floating-badges">
-                <div class="float-badge">
-                    <i class="fas fa-layer-group"></i> 6 Skill Domains
-                </div>
-                <div class="float-badge">
-                    <i class="fas fa-clock"></i> 3 Minutes
-                </div>
-                <div class="float-badge">
-                    <i class="fas fa-lock"></i> 100% Private
-                </div>
-                <div class="float-badge">
-                    <i class="fas fa-brain"></i> AI Analysis
-                </div>
+                <div class="float-badge"><i class="fas fa-layer-group"></i> ${t('badge1')}</div>
+                <div class="float-badge"><i class="fas fa-clock"></i> ${t('badge2')}</div>
+                <div class="float-badge"><i class="fas fa-lock"></i> ${t('badge3')}</div>
+                <div class="float-badge"><i class="fas fa-brain"></i> ${t('badge4')}</div>
             </div>
-
             <div class="start-features">
-                <div class="start-feature">
-                    <i class="fas fa-crosshairs"></i>
-                    <div>
-                        <h4>360 Degree Skill Radar</h4>
-                        <p>Interactive radar chart visualizing your strengths and weaknesses across all professional domains with percentile benchmarking</p>
-                    </div>
-                </div>
-                <div class="start-feature">
-                    <i class="fas fa-route"></i>
-                    <div>
-                        <h4>Smart Learning Path</h4>
-                        <p>Personalized step-by-step roadmap with curated resources, time estimates, and milestone tracking for your weakest areas</p>
-                    </div>
-                </div>
-                <div class="start-feature">
-                    <i class="fas fa-bullseye"></i>
-                    <div>
-                        <h4>Career Gap Analysis</h4>
-                        <p>Compare your skill profile against 8 top career paths and see exactly which skills you need to land your dream role</p>
-                    </div>
-                </div>
-                <div class="start-feature">
-                    <i class="fas fa-chart-line"></i>
-                    <div>
-                        <h4>Progress Tracking</h4>
-                        <p>Downloadable skill report with actionable recommendations, resource links, and a comparison table for continuous improvement</p>
-                    </div>
-                </div>
+                <div class="start-feature"><i class="fas fa-crosshairs"></i><div><h4>${t('sf1t')}</h4><p>${t('sf1d')}</p></div></div>
+                <div class="start-feature"><i class="fas fa-route"></i><div><h4>${t('sf2t')}</h4><p>${t('sf2d')}</p></div></div>
+                <div class="start-feature"><i class="fas fa-bullseye"></i><div><h4>${t('sf3t')}</h4><p>${t('sf3d')}</p></div></div>
+                <div class="start-feature"><i class="fas fa-chart-line"></i><div><h4>${t('sf4t')}</h4><p>${t('sf4d')}</p></div></div>
             </div>
-
-            <div class="cta-glow">
-                <button class="btn-start" onclick="startAssessment()">
-                    <i class="fas fa-play"></i> Start Assessment
-                </button>
-            </div>
-
+            <div class="cta-glow"><button class="btn-start" onclick="startAssessment()"><i class="fas fa-play"></i> ${t('startBtn')}</button></div>
             <div class="privacy-note">
-                <span><i class="fas fa-shield-alt"></i> No Sign-up Required</span>
-                <span><i class="fas fa-user-secret"></i> Data Never Stored</span>
-                <span><i class="fas fa-bolt"></i> Instant Results</span>
+                <span><i class="fas fa-shield-alt"></i> ${t('priv1')}</span>
+                <span><i class="fas fa-user-secret"></i> ${t('priv2')}</span>
+                <span><i class="fas fa-bolt"></i> ${t('priv3')}</span>
             </div>
         </div>
     `;
@@ -1922,47 +1986,34 @@ function startAssessment(){
 function renderCategorySelection(){
     currentStep = 0;
     const progress = 0;
-
     let categoriesHTML = '';
     for(const [key, cat] of Object.entries(skillCategories)){
         categoriesHTML += `
-            <div class="category-card ${selectedCategories.includes(key) ? 'selected' : ''}" 
+            <div class="category-card ${selectedCategories.includes(key) ? 'selected' : ''}"
                  onclick="toggleCategory('${key}')" data-key="${key}">
                 <div class="cat-icon"><i class="${cat.icon}"></i></div>
-                <h4>${cat.name}</h4>
-                <p>${cat.description}</p>
+                <h4>${cn(cat)}</h4>
+                <p>${cd(cat)}</p>
             </div>
         `;
     }
-
     container.innerHTML = `
         <div class="fade-in">
             <div class="progress-area">
                 <div class="progress-header">
-                    <span class="step-number">Step 1 of 3</span>
-                    <span>${Math.round(progress)}% Complete</span>
+                    <span class="step-number">${t('s1num')}</span>
+                    <span>0% ${t('pct')}</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width:${progress}%"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
             </div>
-
             <div class="assess-header">
-                <h3>Select Your Skill Domains</h3>
-                <p>Choose the areas you want to assess. Select at least 2 categories to proceed.</p>
+                <h3>${t('s1h')}</h3>
+                <p>${t('s1p')}</p>
             </div>
-
-            <div class="category-grid">
-                ${categoriesHTML}
-            </div>
-
+            <div class="category-grid">${categoriesHTML}</div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="renderStartScreen()">
-                    <i class="fas fa-arrow-left"></i> Back
-                </button>
-                <button class="btn btn-primary" id="nextBtn" onclick="goToSkillRating()" disabled>
-                    Rate Skills <i class="fas fa-arrow-right"></i>
-                </button>
+                <button class="btn btn-secondary" onclick="renderStartScreen()"><i class="fas fa-arrow-left"></i> ${t('back')}</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="goToSkillRating()" disabled>${t('nextRate')} <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     `;
@@ -1995,17 +2046,13 @@ function goToSkillRating(){
 // ===== RENDER SKILL RATING =====
 function renderSkillRating(){
     const progress = 33;
-
     let skillsHTML = '';
     selectedCategories.forEach(catKey => {
         const cat = skillCategories[catKey];
         skillsHTML += `
             <div class="skill-category-section">
-                <div class="skill-category-title">
-                    <i class="${cat.icon}"></i> ${cat.name}
-                </div>
+                <div class="skill-category-title"><i class="${cat.icon}"></i> ${cn(cat)}</div>
         `;
-
         cat.skills.forEach((skill, idx) => {
             const currentRating = skillRatings[skill] || 0;
             skillsHTML += `
@@ -2016,52 +2063,39 @@ function renderSkillRating(){
                     </div>
                     <div class="rating-stars" id="stars-${catKey}-${idx}">
                         ${[1,2,3,4,5,6,7,8,9,10].map(star => `
-                            <i class="fas fa-star ${star <= currentRating ? 'filled' : ''}" 
+                            <i class="fas fa-star ${star <= currentRating ? 'filled' : ''}"
                                onclick="rateSkill('${skill}', ${star}, '${catKey}', ${idx})"
                                onmouseenter="hoverSkill('${catKey}', ${idx}, ${star})"
                                onmouseleave="unhoverSkill('${catKey}', ${idx})"></i>
                         `).join('')}
                     </div>
                     <div class="rating-labels">
-                        <span>Beginner</span>
-                        <span>Intermediate</span>
-                        <span>Expert</span>
+                        <span>${t('beg')}</span>
+                        <span>${t('mid')}</span>
+                        <span>${t('exp')}</span>
                     </div>
                 </div>
             `;
         });
-
         skillsHTML += '</div>';
     });
-
     container.innerHTML = `
         <div class="fade-in">
             <div class="progress-area">
                 <div class="progress-header">
-                    <span class="step-number">Step 2 of 3</span>
-                    <span>${Math.round(progress)}% Complete</span>
+                    <span class="step-number">${t('s2num')}</span>
+                    <span>${Math.round(progress)}% ${t('pct')}</span>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width:${progress}%"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
             </div>
-
             <div class="assess-header">
-                <h3>Rate Your Skills</h3>
-                <p>Click the stars to rate each skill from 1 (Beginner) to 10 (Expert). Be honest for accurate results.</p>
+                <h3>${t('s2h')}</h3>
+                <p>${t('s2p')}</p>
             </div>
-
-            <div class="skill-rating-grid">
-                ${skillsHTML}
-            </div>
-
+            <div class="skill-rating-grid">${skillsHTML}</div>
             <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="renderCategorySelection()">
-                    <i class="fas fa-arrow-left"></i> Back
-                </button>
-                <button class="btn btn-primary" id="nextBtn" onclick="goToLoading()">
-                    Analyze Profile <i class="fas fa-arrow-right"></i>
-                </button>
+                <button class="btn btn-secondary" onclick="renderCategorySelection()"><i class="fas fa-arrow-left"></i> ${t('back')}</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="goToLoading()">${t('analyzeBtn')} <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     `;
@@ -2127,204 +2161,126 @@ const loadingFacts = [
 
 function showLoading(){
     let factIdx = 0;
+    const facts = [t('fact1'),t('fact2'),t('fact3'),t('fact4'),t('fact5'),t('fact6'),t('fact7')];
     container.innerHTML = `
         <div class="loading-screen fade-in">
             <div class="loading-spinner"></div>
-            <h3>Analyzing Your Skill Profile...</h3>
-            <p>We're processing your ratings across ${selectedCategories.length} domains to generate insights</p>
-            <div class="loading-facts" id="loadingFacts">${loadingFacts[0]}</div>
+            <h3>${t('loadT')}</h3>
+            <p>${t('loadP1')} ${selectedCategories.length} ${t('loadP2')}</p>
+            <div class="loading-facts" id="loadingFacts">${facts[0]}</div>
         </div>
     `;
-
     const factInterval = setInterval(() => {
-        factIdx = (factIdx + 1) % loadingFacts.length;
+        factIdx = (factIdx + 1) % facts.length;
         const el = document.getElementById('loadingFacts');
-        if(el) el.textContent = loadingFacts[factIdx];
+        if(el) el.textContent = facts[factIdx];
     }, 1500);
-
-    setTimeout(() => {
-        clearInterval(factInterval);
-        calculateAndShowResults();
-    }, 3500);
+    setTimeout(() => { clearInterval(factInterval); calculateAndShowResults(); }, 3500);
 }
 
 // ===== CALCULATE AND SHOW RESULTS =====
 function calculateAndShowResults(){
-    // Calculate category averages
+    const ur=currentLang==='ur';
     const categoryScores = {};
     selectedCategories.forEach(catKey => {
         const cat = skillCategories[catKey];
-        let total = 0;
-        let count = 0;
-        cat.skills.forEach(skill => {
-            if(skillRatings[skill]){
-                total += skillRatings[skill];
-                count++;
-            }
-        });
+        let total = 0, count = 0;
+        cat.skills.forEach(skill => { if(skillRatings[skill]){ total += skillRatings[skill]; count++; } });
         categoryScores[catKey] = count > 0 ? Math.round((total / count) * 10) : 0;
     });
-
-    // Fill missing categories with 0
-    Object.keys(skillCategories).forEach(key => {
-        if(!categoryScores[key]) categoryScores[key] = 0;
-    });
-
-    // Calculate overall score
+    Object.keys(skillCategories).forEach(key => { if(!categoryScores[key]) categoryScores[key] = 0; });
     const totalScore = Object.values(categoryScores).reduce((a,b) => a+b, 0);
     const overallScore = Math.round(totalScore / 6);
 
-    // Find best career match
-    let bestCareer = null;
-    let bestMatchScore = -1;
-
+    let bestCareer = null, bestMatchScore = -1;
     for(const [career, data] of Object.entries(careerPaths)){
-        let matchScore = 0;
-        let totalWeight = 0;
+        let matchScore = 0, totalWeight = 0;
         for(const [cat, required] of Object.entries(data.required)){
             const userScore = categoryScores[cat] || 0;
             matchScore += (100 - Math.abs(required - userScore)) * (required / 100);
             totalWeight += required / 100;
         }
         const normalizedScore = matchScore / totalWeight;
-        if(normalizedScore > bestMatchScore){
-            bestMatchScore = normalizedScore;
-            bestCareer = career;
-        }
+        if(normalizedScore > bestMatchScore){ bestMatchScore = normalizedScore; bestCareer = career; }
     }
 
-    // Find top skills and weak skills
     const allSkills = [];
     selectedCategories.forEach(catKey => {
         skillCategories[catKey].skills.forEach(skill => {
-            if(skillRatings[skill]){
-                allSkills.push({name: skill, rating: skillRatings[skill], category: catKey});
-            }
+            if(skillRatings[skill]) allSkills.push({name: skill, rating: skillRatings[skill], category: catKey});
         });
     });
-
     allSkills.sort((a,b) => b.rating - a.rating);
     const topSkills = allSkills.slice(0, 5);
     const weakSkills = allSkills.filter(s => s.rating <= 5).sort((a,b) => a.rating - b.rating).slice(0, 5);
 
-    // Generate recommendations
     const recommendations = [];
     if(weakSkills.length > 0){
-        recommendations.push({
-            priority: 'high',
-            icon: 'fas fa-exclamation-triangle',
-            title: 'Priority Skills to Develop',
-            desc: `Your lowest-rated skills are: ${weakSkills.slice(0,3).map(s => s.name).join(', ')}. Focus on these first for maximum impact.`,
-            tags: weakSkills.slice(0,3).map(s => s.name)
-        });
+        recommendations.push({ priority:'high', icon:'fas fa-exclamation-triangle',
+            title: ur?'Pehle In Skills Par Kaam Karein':'Priority Skills to Develop',
+            desc: ur?`Aapki sab se kam ratings: ${weakSkills.slice(0,3).map(s => s.name).join(', ')}. Zyada asar ke liye pehle in par focus karein.`:`Your lowest-rated skills are: ${weakSkills.slice(0,3).map(s => s.name).join(', ')}. Focus on these first for maximum impact.`,
+            tags: weakSkills.slice(0,3).map(s => s.name) });
     }
-
     if(bestCareer){
-        const careerData = careerPaths[bestCareer];
         const gaps = [];
-        for(const [cat, required] of Object.entries(careerData.required)){
-            const userScore = categoryScores[cat] || 0;
-            if(userScore < required - 10){
-                gaps.push(skillCategories[cat].name);
-            }
+        for(const [cat, required] of Object.entries(careerPaths[bestCareer].required)){
+            if((categoryScores[cat] || 0) < required - 10) gaps.push(cn(skillCategories[cat]));
         }
-        recommendations.push({
-            priority: 'growth',
-            icon: 'fas fa-rocket',
-            title: `Path to ${bestCareer}`,
-            desc: `Your best career match! Gap areas: ${gaps.length > 0 ? gaps.join(', ') : 'Minimal gaps - you are well-prepared!'}`,
-            tags: [bestCareer, ...gaps]
-        });
+        recommendations.push({ priority:'growth', icon:'fas fa-rocket',
+            title: ur?`Raasta: ${cpName(bestCareer)}`:`Path to ${bestCareer}`,
+            desc: ur?`Aapka best career match! Gap areas: ${gaps.length > 0 ? gaps.join(', ') : 'Minimal gaps - aap tayyar hain!'}`:`Your best career match! Gap areas: ${gaps.length > 0 ? gaps.join(', ') : 'Minimal gaps - you are well-prepared!'}`,
+            tags: [cpName(bestCareer), ...gaps] });
     }
+    recommendations.push({ priority:'medium', icon:'fas fa-chart-line',
+        title: ur?'Skill Diversification':'Skill Diversification',
+        desc: ur?'T-shaped professional banne ke liye apni strong categories mein qareebi skills explore karein.':'Consider exploring adjacent skills in your strong categories to become a T-shaped professional.',
+        tags: ['Cross-training', 'T-shaped skills'] });
+    recommendations.push({ priority:'low', icon:'fas fa-certificate',
+        title: ur?'Certification Ke Mawaqe':'Certification Opportunities',
+        desc: ur?'Industry certifications aapki skills validate kar ke earning potential 15-25% barha sakti hain.':'Industry certifications can validate your skills and increase earning potential by 15-25%.',
+        tags: ['Certifications', 'Credentials'] });
 
-    recommendations.push({
-        priority: 'medium',
-        icon: 'fas fa-chart-line',
-        title: 'Skill Diversification',
-        desc: 'Consider exploring adjacent skills in your strong categories to become a T-shaped professional.',
-        tags: ['Cross-training', 'T-shaped skills']
-    });
-
-    recommendations.push({
-        priority: 'low',
-        icon: 'fas fa-certificate',
-        title: 'Certification Opportunities',
-        desc: 'Industry certifications can validate your skills and increase earning potential by 15-25%.',
-        tags: ['Certifications', 'Credentials']
-    });
-
-    // Generate learning path
     const learningPath = [];
     if(weakSkills.length > 0){
-        learningPath.push({
-            step: 1,
-            title: `Master ${weakSkills[0].name}`,
-            duration: '2-4 weeks',
-            desc: `Focus on your weakest skill first. Start with fundamentals and practice daily.`,
-            resources: learningResources[weakSkills[0].name] || ['Online Course', 'Practice Projects', 'Community Forum']
-        });
+        learningPath.push({ step:1, title: ur?`${weakSkills[0].name} mein Maharat`:`Master ${weakSkills[0].name}`, duration:'2-4 weeks',
+            desc: ur?'Sab se kamzor skill par pehle focus karein. Bunyaad se shuru karein aur rozana practice karein.':'Focus on your weakest skill first. Start with fundamentals and practice daily.',
+            resources: learningResources[weakSkills[0].name] || ['Online Course', 'Practice Projects', 'Community Forum'] });
     }
     if(weakSkills.length > 1){
-        learningPath.push({
-            step: 2,
-            title: `Improve ${weakSkills[1].name}`,
-            duration: '3-5 weeks',
-            desc: `Build on your foundation. Work on real-world projects to solidify understanding.`,
-            resources: learningResources[weakSkills[1].name] || ['Advanced Course', 'Portfolio Project', 'Peer Review']
-        });
+        learningPath.push({ step:2, title: ur?`${weakSkills[1].name} Behtar Karein`:`Improve ${weakSkills[1].name}`, duration:'3-5 weeks',
+            desc: ur?'Foundation par aur banayein. Samajh pakki karne ke liye real-world projects par kaam karein.':'Build on your foundation. Work on real-world projects to solidify understanding.',
+            resources: learningResources[weakSkills[1].name] || ['Advanced Course', 'Portfolio Project', 'Peer Review'] });
     }
-    learningPath.push({
-        step: learningPath.length + 1,
-        title: 'Strengthen Soft Skills',
-        duration: 'Ongoing',
-        desc: 'Practice communication, leadership, and teamwork through collaborative projects.',
-        resources: ['Toastmasters', 'Team Projects', 'Mentorship', 'Feedback Sessions']
-    });
-    learningPath.push({
-        step: learningPath.length + 1,
-        title: 'Build Portfolio',
-        duration: '4-6 weeks',
-        desc: 'Create projects that demonstrate your improved skills. Document your learning journey.',
-        resources: ['GitHub Portfolio', 'Case Studies', 'Blog Posts', 'Open Source']
-    });
-    learningPath.push({
-        step: learningPath.length + 1,
-        title: 'Get Certified',
-        duration: '2-3 months',
-        desc: 'Validate your skills with industry-recognized certifications. Update your resume and LinkedIn.',
-        resources: ['Industry Certifications', 'LinkedIn Learning', 'Professional Networks', 'Job Applications']
-    });
+    learningPath.push({ step:learningPath.length+1, title: ur?'Soft Skills Mazboot Karein':'Strengthen Soft Skills', duration:'Ongoing',
+        desc: ur?'Collaborative projects ke zariye communication, leadership aur teamwork practice karein.':'Practice communication, leadership, and teamwork through collaborative projects.',
+        resources: ['Toastmasters', 'Team Projects', 'Mentorship', 'Feedback Sessions'] });
+    learningPath.push({ step:learningPath.length+1, title: ur?'Portfolio Banayein':'Build Portfolio', duration:'4-6 weeks',
+        desc: ur?'Aisi projects banayein jo behtari dikhayein. Apni learning journey document karein.':'Create projects that demonstrate your improved skills. Document your learning journey.',
+        resources: ['GitHub Portfolio', 'Case Studies', 'Blog Posts', 'Open Source'] });
+    learningPath.push({ step:learningPath.length+1, title: ur?'Certification Lein':'Get Certified', duration:'2-3 months',
+        desc: ur?'Industry-recognized certifications se skills validate karein. Resume aur LinkedIn update karein.':'Validate your skills with industry-recognized certifications. Update your resume and LinkedIn.',
+        resources: ['Industry Certifications', 'LinkedIn Learning', 'Professional Networks', 'Job Applications'] });
 
-    // Career comparison table
     const careerComparisons = [];
     for(const [career, data] of Object.entries(careerPaths)){
-        let matchScore = 0;
-        let totalWeight = 0;
-        let gaps = [];
+        let matchScore = 0, totalWeight = 0, gaps = [];
         for(const [cat, required] of Object.entries(data.required)){
             const userScore = categoryScores[cat] || 0;
             matchScore += (100 - Math.abs(required - userScore)) * (required / 100);
             totalWeight += required / 100;
-            if(userScore < required - 15) gaps.push(skillCategories[cat].name);
+            if(userScore < required - 15) gaps.push(cat);
         }
-        const score = Math.round(matchScore / totalWeight);
-        careerComparisons.push({
-            career,
-            score,
-            gaps: gaps.length,
-            description: data.description
-        });
+        careerComparisons.push({ career, score: Math.round(matchScore / totalWeight), gaps: gaps.length, description: cpDesc(career) });
     }
     careerComparisons.sort((a,b) => b.score - a.score);
-
-    // Render results
     renderResultsDashboard(overallScore, categoryScores, topSkills, weakSkills, recommendations, learningPath, careerComparisons, bestCareer);
 }
 
 function renderResultsDashboard(overallScore, categoryScores, topSkills, weakSkills, recommendations, learningPath, careerComparisons, bestCareer){
-    const catLabels = Object.values(skillCategories).map(c => c.name);
+    const catLabels = Object.values(skillCategories).map(c => cn(c));
     const catData = Object.keys(skillCategories).map(k => categoryScores[k]);
     const catColors = ['#2563eb', '#8b5cf6', '#ec4899', '#f59e0b', '#22c55e', '#14b8a6'];
+    const ur = currentLang==='ur';
 
     container.innerHTML = `
         <div class="result-screen fade-in">
@@ -2332,37 +2288,23 @@ function renderResultsDashboard(overallScore, categoryScores, topSkills, weakSki
                 <div class="result-score-ring">
                     <svg viewBox="0 0 160 160">
                         <circle class="score-circle-bg" cx="80" cy="80" r="70"/>
-                        <circle class="score-circle" cx="80" cy="80" r="70" 
+                        <circle class="score-circle" cx="80" cy="80" r="70"
                                 stroke-dashoffset="${440 - (440 * overallScore / 100)}"/>
                     </svg>
                     <div class="score-text">
                         <div class="score-number">${overallScore}%</div>
-                        <div class="score-label">Overall Score</div>
+                        <div class="score-label">${t('overall')}</div>
                     </div>
                 </div>
-                <div class="result-title">Skill Profile Analysis Complete</div>
-                <div class="result-subtitle">
-                    ${bestCareer ? `Your strongest career alignment: <b style="color:var(--accent)">${bestCareer}</b>` : 'Complete your assessment to see career matches'}
-                </div>
+                <div class="result-title">${t('resT')}</div>
+                <div class="result-subtitle">${bestCareer ? `${t('bestAlign')} <b style="color:var(--accent)">${cpName(bestCareer)}</b>` : ''}</div>
             </div>
-
             <div class="charts-grid">
-                <div class="chart-card">
-                    <h4><i class="fas fa-crosshairs"></i> Skill Radar</h4>
-                    <div class="chart-wrapper">
-                        <canvas id="radarChart"></canvas>
-                    </div>
-                </div>
-                <div class="chart-card">
-                    <h4><i class="fas fa-chart-bar"></i> Category Breakdown</h4>
-                    <div class="chart-wrapper">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
+                <div class="chart-card"><h4><i class="fas fa-crosshairs"></i> ${t('chart1')}</h4><div class="chart-wrapper"><canvas id="radarChart"></canvas></div></div>
+                <div class="chart-card"><h4><i class="fas fa-chart-bar"></i> ${t('chart2')}</h4><div class="chart-wrapper"><canvas id="barChart"></canvas></div></div>
             </div>
-
             <div class="skill-breakdown">
-                <h4><i class="fas fa-list-check" style="margin-right:8px;color:var(--accent)"></i>Detailed Skill Breakdown</h4>
+                <h4><i class="fas fa-list-check" style="margin-right:8px;color:var(--accent)"></i>${t('breakH')}</h4>
                 ${Object.keys(skillCategories).map(catKey => {
                     const cat = skillCategories[catKey];
                     const score = categoryScores[catKey];
@@ -2370,39 +2312,32 @@ function renderResultsDashboard(overallScore, categoryScores, topSkills, weakSki
                     if(score >= 80) fillClass = 'fill-excellent';
                     else if(score >= 60) fillClass = 'fill-good';
                     else if(score >= 40) fillClass = 'fill-average';
-
                     return `
                         <div class="skill-bar-item">
                             <div class="skill-bar-header">
-                                <span><i class="${cat.icon}" style="margin-right:8px;color:var(--accent)"></i>${cat.name}</span>
+                                <span><i class="${cat.icon}" style="margin-right:8px;color:var(--accent)"></i>${cn(cat)}</span>
                                 <span class="skill-score">${score}%</span>
                             </div>
-                            <div class="skill-bar-track">
-                                <div class="skill-bar-fill ${fillClass}" style="width:0%" data-width="${score}%"></div>
-                            </div>
+                            <div class="skill-bar-track"><div class="skill-bar-fill ${fillClass}" style="width:0%" data-width="${score}%"></div></div>
                         </div>
                     `;
                 }).join('')}
             </div>
-
             <div class="recommendations">
-                <h4><i class="fas fa-lightbulb" style="margin-right:8px;color:var(--gold)"></i>AI Recommendations</h4>
+                <h4><i class="fas fa-lightbulb" style="margin-right:8px;color:var(--gold)"></i>${t('recH')}</h4>
                 <div class="rec-grid">
                     ${recommendations.map(rec => `
                         <div class="rec-card priority-${rec.priority}">
                             <div class="rec-icon"><i class="${rec.icon}"></i></div>
                             <h5>${rec.title}</h5>
                             <p>${rec.desc}</p>
-                            <div class="rec-actions">
-                                ${rec.tags.map(tag => `<span class="rec-tag">${tag}</span>`).join('')}
-                            </div>
+                            <div class="rec-actions">${rec.tags.map(tag => `<span class="rec-tag">${tag}</span>`).join('')}</div>
                         </div>
                     `).join('')}
                 </div>
             </div>
-
             <div class="learning-path">
-                <h4><i class="fas fa-map-signs" style="margin-right:8px;color:var(--success)"></i>Personalized Learning Path</h4>
+                <h4><i class="fas fa-map-signs" style="margin-right:8px;color:var(--success)"></i>${t('pathH')}</h4>
                 <div class="path-timeline">
                     ${learningPath.map((step, idx) => `
                         <div class="path-step ${idx === 0 ? 'completed' : ''}">
@@ -2414,75 +2349,39 @@ function renderResultsDashboard(overallScore, categoryScores, topSkills, weakSki
                                 </div>
                                 <p>${step.desc}</p>
                                 <div class="step-resources">
-                                    ${step.resources.map(res => `
-                                        <span class="step-resource-tag" onclick="showResourceModal('${res}', '${step.title}')">${res}</span>
-                                    `).join('')}
+                                    ${step.resources.map(res => `<span class="step-resource-tag" onclick="showResourceModal('${res}', '${step.title}')">${res}</span>`).join('')}
                                 </div>
                             </div>
                         </div>
                     `).join('')}
                 </div>
             </div>
-
             <div class="comparison-section">
-                <h4><i class="fas fa-trophy" style="margin-right:8px;color:var(--gold)"></i>Career Compatibility Matrix</h4>
+                <h4><i class="fas fa-trophy" style="margin-right:8px;color:var(--gold)"></i>${t('compH')}</h4>
                 <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Career Path</th>
-                            <th>Match Score</th>
-                            <th>Skill Gaps</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>${t('th1')}</th><th>${t('th2')}</th><th>${t('th3')}</th><th>${t('th4')}</th></tr></thead>
                     <tbody>
                         ${careerComparisons.map(c => `
                             <tr>
-                                <td>${c.career}</td>
+                                <td>${cpName(c.career)}</td>
                                 <td style="color:${c.score >= 80 ? 'var(--success)' : c.score >= 60 ? 'var(--accent)' : 'var(--warning)'};font-weight:800">${c.score}%</td>
-                                <td>${c.gaps > 0 ? `<span style="color:var(--danger)">${c.gaps} gaps</span>` : '<span style="color:var(--success)">Ready!</span>'}</td>
+                                <td>${c.gaps > 0 ? `<span style="color:var(--danger)">${c.gaps} ${t('gapsTxt')}</span>` : `<span style="color:var(--success)">${t('ready')}</span>`}</td>
                                 <td>${c.description}</td>
                             </tr>
                         `).join('')}
                     </tbody>
                 </table>
             </div>
-
             <div class="result-actions">
-                <button class="btn btn-primary" onclick="restartAssessment()">
-                    <i class="fas fa-redo"></i> Retake Assessment
-                </button>
-                <button class="btn btn-secondary" onclick="shareResult()">
-                    <i class="fas fa-share-alt"></i> Share Result
-                </button>
-                <button class="btn btn-secondary" onclick="downloadReport()">
-                    <i class="fas fa-download"></i> Save Report
-                </button>
+                <button class="btn btn-primary" onclick="restartAssessment()"><i class="fas fa-redo"></i> ${t('retake')}</button>
+                <button class="btn btn-secondary" onclick="shareResult()"><i class="fas fa-share-alt"></i> ${t('share')}</button>
+                <button class="btn btn-secondary" onclick="downloadReport()"><i class="fas fa-download"></i> ${t('save')}</button>
             </div>
         </div>
     `;
-
-    // Animate bars
-    setTimeout(() => {
-        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
-            bar.style.width = bar.dataset.width;
-        });
-    }, 500);
-
-    // Animate score ring
-    setTimeout(() => {
-        const circle = document.querySelector('.score-circle');
-        if(circle){
-            circle.style.strokeDashoffset = 440 - (440 * overallScore / 100);
-        }
-    }, 300);
-
-    // Initialize charts
-    setTimeout(() => {
-        initCharts(catLabels, catData, catColors);
-    }, 100);
-
-    // Confetti
+    setTimeout(() => { document.querySelectorAll('.skill-bar-fill').forEach(bar => { bar.style.width = bar.dataset.width; }); }, 500);
+    setTimeout(() => { const circle = document.querySelector('.score-circle'); if(circle){ circle.style.strokeDashoffset = 440 - (440 * overallScore / 100); } }, 300);
+    setTimeout(() => { initCharts(catLabels, catData, catColors); }, 100);
     createConfetti();
 }
 
@@ -2614,7 +2513,7 @@ function restartAssessment(){
 }
 
 function shareResult(){
-    const text = `I just analyzed my professional skills with Mind Matrix Skill Optimization Engine! Check out your own skill profile.`;
+    const text = t('shareText');
     if(navigator.share){
         navigator.share({ title: 'My Skill Profile', text: text, url: window.location.href });
     } else {
@@ -2672,7 +2571,7 @@ Visit: ${window.location.href}`;
 function showResourceModal(resource, stepTitle){
     const modal = document.getElementById('resourceModal');
     document.getElementById('modalTitle').textContent = resource;
-    document.getElementById('modalDesc').textContent = `Resources for ${stepTitle}. Click any resource to learn more.`;
+    document.getElementById('modalDesc').textContent = currentLang==='ur'?`${t('modalD1')} ${stepTitle}. ${t('modalD2')}`:`Resources for ${stepTitle}. Click any resource to learn more.`;
 
     const resources = [
         { name: resource, icon: 'fas fa-book' },
