@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-:root{--primary:#2563eb;--accent:#60a5fa;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--pink:#ec4899;--gold:#fbbf24;}
+:root{--primary:#2563eb;--accent:#60a5fa;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--purple:#8b5cf6;--pink:#ec4899;--gold:#fbbf24;--teal:#14b8a6;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:radial-gradient(circle at 20% 10%, rgba(59,130,246,.15), transparent 40%),radial-gradient(circle at 80% 0%, rgba(96,165,250,.12), transparent 40%),radial-gradient(circle at 50% 100%, rgba(236,72,153,.08), transparent 50%),linear-gradient(135deg,#020617,#0f172a 60%,#020617);color:#e2e8f0;overflow-x:hidden;min-height:100vh;}
 html{scroll-behavior:smooth}
@@ -219,7 +219,22 @@ footer{background:#0f172a;color:#94a3b8;text-align:center;padding:60px 20px;bord
 .toast-notification{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(15,23,42,0.95);border:1px solid rgba(37,99,235,0.3);border-radius:50px;padding:14px 28px;font-size:14px;font-weight:600;color:#60a5fa;z-index:1000;box-shadow:0 10px 40px rgba(0,0,0,0.4);transition:transform .4s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;gap:10px;}
 .toast-notification.show{transform:translateX(-50%) translateY(0);}
 .toast-notification i{animation:pulsePlay 1.5s ease-in-out infinite;}
+
+/* ===== HERO ORBIT BADGE ===== */
+.pattern-orbit{width:210px;height:210px;margin:45px auto 0;border:1px solid rgba(96,165,250,.18);border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:0 0 70px rgba(37,99,235,.12),inset 0 0 50px rgba(139,92,246,.08)}
+.pattern-orbit:before,.pattern-orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:spin 9s linear infinite}
+.pattern-orbit:before{inset:20px;border-top-color:var(--accent);border-bottom-color:var(--purple)}
+.pattern-orbit:after{inset:42px;border-right-color:var(--teal);animation-direction:reverse;animation-duration:6s}
+.orbit-core{width:92px;height:92px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.2));border:1px solid rgba(147,197,253,.3);box-shadow:0 0 45px rgba(37,99,235,.3);font-size:34px;color:#93c5fd;animation:pulseBadge 3s ease-in-out infinite}
+@media(max-width:500px){.pattern-orbit{width:170px;height:170px}.orbit-core{width:76px;height:76px;font-size:28px}}
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher{display:flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px}
+.lang-btn{padding:6px 14px;border-radius:10px;border:none;background:transparent;color:#94a3b8;font-weight:700;font-size:13px;cursor:pointer;transition:all .3s ease;font-family:'Inter',sans-serif}
+.lang-btn.active{background:linear-gradient(135deg,#2563eb,#60a5fa);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.lang-btn:hover:not(.active){color:#fff}
 </style>
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -227,87 +242,156 @@ footer{background:#0f172a;color:#94a3b8;text-align:center;padding:60px 20px;bord
 <header>
 <nav class="navbar">
 <div class="logo"><div class="logo-badge">MM</div><div class="logo-text"><span class="logo-main">Mind Matrix</span><span class="logo-sub">Decoding minds. Designing futures.</span></div></div>
-<ul class="nav-links"><li><a href="Index.html">Home</a></li><li><a href="Index.html">Services</a></li><li><a href="Index.html">Science</a></li><li><a href="Index.html">About</a></li><li><a href="Index.html">Contact</a></li></ul>
+<ul class="nav-links"><li><a href="Index.html">Home</a></li><li><a href="Index.html">Services</a></li><li><a href="Index.html">Science</a></li><li><a href="Index.html">About</a></li><li><a href="Index.html">Contact</a></li><li><div class="lang-switcher"><button class="lang-btn active" id="btnEn" onclick="setLanguage('en')">EN</button><button class="lang-btn" id="btnUr" onclick="setLanguage('ur')">UR</button></div></li></ul>
 </nav>
 </header>
-<section class="hero" id="home"><h1>Unlock Your<br><span>Career Potential</span></h1><p><b><i>AI-powered career intelligence that maps your skills, passions, and personality to the perfect professional path.</i></b></p></section>
+<section class="hero" id="home"><h1 id="heroTitle">Unlock Your<br><span>Career Potential</span></h1><p id="heroDesc"><b><i>AI-powered career intelligence that maps your skills, passions, and personality to the perfect professional path.</i></b></p>
+ <div class="pattern-orbit"><div class="orbit-core"><i class="fas fa-compass"></i></div></div>
+</section>
 <section class="career-engine"><div class="engine-container" id="engineContainer"></div></section>
 <footer><p> 2026 PsycheMetric Intelligence Systems</p><p style="margin-top:10px;font-size:13px;color:#64748b;">Built with <3 in Karachi, Pakistan</p></footer>
 <script>
+
+// ===== LANGUAGE SYSTEM =====
+let currentLang='en';
+const T={
+en:{heroH1:"Unlock Your<br><span>Career Potential</span>",heroP:"<b><i>AI-powered career intelligence that maps your skills, passions, and personality to the perfect professional path.</i></b>",
+startTitle:'<span class="gradient-text">Discover Your</span><br>Ideal Career Path',startDesc:"Our AI-powered engine analyzes your personality, skills, and interests to match you with careers where you will thrive and succeed.",
+badge1:"AI-Powered",badge2:"Salary Insights",badge3:"Growth Roadmap",badge4:"Instant Analysis",
+f1t:"Deep Analysis",f1d:"Multi-dimensional assessment covering personality, skills, values, and market trends",f2t:"Precision Matching",f2d:"Proprietary algorithm matches you with careers based on 50+ data points",f3t:"Clear Roadmap",f3d:"Step-by-step action plan with skills to develop and milestones to achieve",f4t:"Salary Intelligence",f4d:"Real market data on compensation, growth rates, and industry demand",
+startBtn:"Start Career Assessment",
+s1num:"Step 1 of 3",s1title:"What excites you most?",s1desc:"Select all areas that spark your interest. Do not overthink, go with your gut feeling. We will auto-advance in 10 seconds once you pick at least one. Take your time!",
+hint1:"Select at least 1 interest - auto-proceeds in 10 seconds. Take your time!",toast1:"Proceeding to Skills Assessment...",
+s2num:"Step 2 of 3",s2title:"Rate Your Core Skills",s2desc:"Drag the sliders to reflect your current confidence level. Adjust any slider - auto-proceeds in 10 seconds so you have plenty of time to think. You can always go back to change your answers.",toast2:"Proceeding to Profile and SW Analysis...",
+s3num:"Step 3 of 3",s3title:"Profile and Self-Awareness",s3desc:"Optional: Fill in your details and select your strengths and weaknesses for personalized advice. You can skip everything and proceed directly to analysis.",
+nameH:"Your Name",namePh:"Enter your name (optional)",ageH:"Age",agePh:"e.g. 25 (optional)",eduH:"Education Level",selLev:"Select level (optional)",statH:"Current Status",selStat:"Select status (optional)",goalH:"Career Goal (Optional)",goalPh:"What does your dream career look like? (optional)",
+sw1:"Your Strengths",upTo3:"(select up to 3)",sw2:"Areas to Improve",maxS:"Max 3 strengths allowed",maxW:"Max 3 weaknesses allowed",
+back1:"Back to Interests",next1:"Next Step",back2:"Back to Skills",analyze:"Analyze My Career",
+loadT:"Building Your Career Intelligence...",loadP1:"Our AI is analyzing",loadP2:"interest areas and",loadP3:"skill dimensions",
+fact1:"Analyzing your skill matrix...",fact2:"Matching with market demand data...",fact3:"Calculating growth potential...",fact4:"Building your personalized roadmap...",fact5:"Almost there - preparing your report...",
+swCard1:"Your Strengths",swCard2:"Growth Areas",emptyS:"No strengths selected - but every person has unique strengths to discover!",emptyW:"No weaknesses selected - self-awareness is the first step to growth!",
+swAnH:"Strength & Weakness Analysis",swLeverage:"How to Leverage Your Strengths",swTurn:"How to Turn Weaknesses Into Strengths",
+sugH:"Personalized Suggestions",gH:"Market Intelligence",g1:"Salary Range",g2:"Job Growth",g3:"Key Skills",
+roadH:"Your Growth Roadmap",r1t:"Build Foundation",r1d:"Master core skills: ",r2t:"Gain Experience",r2d:"Internships, freelancing, or personal projects. Build a portfolio that showcases your abilities.",r3t:"Network & Grow",r3d:"Connect with industry professionals. Attend events, join communities, find a mentor.",r4t:"Specialize & Lead",r4d:"Develop expertise in a niche. Take on leadership roles and stay updated with industry trends.",
+retake:"Retake Assessment",share:"Share Result",save:"Save Report",
+shareText:"I discovered my ideal career path using Mind Matrix Career Intelligence! What is your perfect career?"},
+ur:{heroH1:"Apna<br><span>Career Potential</span> Unlock Karein",heroP:"<b><i>AI-powered career intelligence jo aapki skills, passions aur personality ko behtareen professional raaste se map karti hai.</i></b>",
+startTitle:'<span class="gradient-text">Apna Behtareen</span><br>Career Rasta Dhoondhen',startDesc:"Hamara AI-powered engine aapki personality, skills aur interests analyze kar ke aise careers se match karta hai jahan aap kamyab honge.",
+badge1:"AI-Based",badge2:"Salary Maloomat",badge3:"Growth Roadmap",badge4:"Fori Analysis",
+f1t:"Gheri Analysis",f1d:"Personality, skills, values aur market trends par multi-dimensional assessment",f2t:"Durust Matching",f2d:"Proprietary algorithm 50+ data points ke saath aapko careers se match karta hai",f3t:"Saaf Roadmap",f3d:"Skills aur milestones ka step-by-step action plan",f4t:"Salary Intelligence",f4d:"Compensation, growth rates aur industry demand par real market data",
+startBtn:"Career Assessment Shuru Karein",
+s1num:"Qadam 1 / 3",s1title:"Kya cheez aapko sab se zyada excite karti hai?",s1desc:"Wo sab areas select karein jo aapko attract karte hain. Zyada mat sochiye, dil ki suniye. Ek select karte hi 10 second mein auto-advance hoga. Apna waqt lein!",
+hint1:"Kam az kam 1 interest select karein - 10 second mein auto-proceed. Apna waqt lein!",toast1:"Skills Assessment ki taraf badh rahe hain...",
+s2num:"Qadam 2 / 3",s2title:"Apni Core Skills Rate Karein",s2desc:"Sliders drag kar ke apna current confidence level dikhayein. Koi bhi slider adjust karein - 10 second mein auto-proceed. Jawab wapas ja kar badal sakte hain.",toast2:"Profile aur SW Analysis ki taraf badh rahe hain...",
+s3num:"Qadam 3 / 3",s3title:"Profile aur Khud Shanasi",s3desc:"Optional: Tafseeli mashware ke liye apni maloomat bharein aur apni taqaten/kamzoriyan select karein. Sab kuch chhod kar seedha analysis par bhi ja sakte hain.",
+nameH:"Aapka Naam",namePh:"Apna naam likhein (optional)",ageH:"Umar",agePh:"misal: 25 (optional)",eduH:"Taleem",selLev:"Level select karein (optional)",statH:"Mojooda Status",selStat:"Status select karein (optional)",goalH:"Career Goal (Optional)",goalPh:"Aapka dream career kaisa hai? (optional)",
+sw1:"Aapki Taqatain",upTo3:"(max 3 select karein)",sw2:"Behtari Ke Mawaqe",maxS:"Sirf 3 taqatan select ho sakti hain",maxW:"Sirf 3 kamzoriyan select ho sakti hain",
+back1:"Interests par Wapas",next1:"Agla Step",back2:"Skills par Wapas",analyze:"Mera Career Analyze Karein",
+loadT:"Aapki Career Intelligence Tayyar Ho Rahi Hai...",loadP1:"Hamara AI",loadP2:"interest areas aur",loadP3:"skill dimensions analyze kar raha hai",
+fact1:"Aapki skill matrix analyze ho rahi hai...",fact2:"Market demand data se matching...",fact3:"Growth potential calculate ho raha hai...",fact4:"Aapka personalized roadmap ban raha hai...",fact5:"Bas ho gaya - report tayyar ho rahi hai...",
+swCard1:"Aapki Taqatain",swCard2:"Behtari Ke Mawaqe",emptyS:"Koi taqat select nahi ki - lekin har shakhs ki koi na koi khobi hoti hai!",emptyW:"Koi kamzori select nahi ki - khud shanasi behtari ka pehla qadam hai!",
+swAnH:"Taaqat aur Kamzori Analysis",swLeverage:"Apni Taqaton Se Faida Kaise Karein",swTurn:"Kamzorion Ko Taqat Kaise Banayein",
+sugH:"Makhsoos Mashwaray",gH:"Market Maloomat",g1:"Salary Range",g2:"Job Growth",g3:"Key Skills",
+roadH:"Aapka Growth Roadmap",r1t:"Foundation Banayein",r1d:"Core skills mein maharat: ",r2t:"Tajurbah Hasil Karein",r2d:"Internships, freelancing ya personal projects. Aisi portfolio banayein jo aapki salahiyaten dikhaye.",r3t:"Network Banayein",r3d:"Industry professionals se raabta karein. Events attend karein, communities join karein, mentor dhoondhein.",r4t:"Specialize aur Qiyadat",r4d:"Kisi niche mein expertise banayein. Leadership roles lein aur industry trends se updated rahein.",
+retake:"Dobara Assessment",share:"Result Share Karein",save:"Report Save Karein",
+shareText:"Maine Mind Matrix Career Intelligence se apna ideal career path discover kiya! Aapka perfect career kya hai?"}
+};
+const t=k=>(T[currentLang]&&T[currentLang][k])||T.en[k]||k;
+const cur=o=>currentLang==='ur'&&o.ur?o.ur:o.label;
+const curn=o=>currentLang==='ur'&&o.urName?o.urName:o.name;
+const curd=o=>currentLang==='ur'&&o.urDesc?o.urDesc:o.desc;
+const advFor=(en,ur)=>currentLang==='ur'&&ur?ur:en;
+function captureProfile(){const g=id=>document.getElementById(id);if(!g('userName'))return;formData.profile={name:g('userName').value,age:g('userAge').value,edu:g('userEducation').value,status:g('userStatus').value,goal:g('userGoal').value};}
+function setLanguage(l){
+currentLang=l;
+document.getElementById('btnEn').classList.toggle('active',l==='en');
+document.getElementById('btnUr').classList.toggle('active',l==='ur');
+document.getElementById('heroTitle').innerHTML=t('heroH1');
+document.getElementById('heroDesc').innerHTML=t('heroP');
+const html=container.innerHTML;
+if(html.includes('start-screen'))renderStartScreen();
+else if(html.includes('interestTags'))renderStep1();
+else if(html.includes('skillSliders'))renderStep2();
+else if(html.includes('strengthTags')){captureProfile();renderStep3();}
+}
+
+// ===== URDU LABELS FOR DATA =====
+const ico={id:"",ur:"",icon:""};
+
 const container=document.getElementById("engineContainer");
 let currentStep=0;
 let formData={};
 let autoProceedTimer=null;
 
 const careerDatabase={
-tech:{name:"Software Engineering",desc:"Build the future through code. Perfect for analytical minds who love solving complex problems.",match:95,salary:"$95K - $180K",growth:"22% (Much faster than average)",skills:["Python","JavaScript","System Design","Problem Solving"],tags:["Remote Friendly","High Demand","Creative"]},
-data:{name:"Data Science",desc:"Transform raw data into actionable insights. Ideal for pattern-seekers and statistical thinkers.",match:92,salary:"$100K - $165K",growth:"35% (Explosive growth)",skills:["Python","SQL","Machine Learning","Statistics"],tags:["High Salary","Strategic","Research"]},
-design:{name:"UX/UI Design",desc:"Craft beautiful, intuitive experiences. For creative souls who understand human behavior.",match:88,salary:"$75K - $140K",growth:"16% (Above average)",skills:["Figma","User Research","Prototyping","Visual Design"],tags:["Creative","Collaborative","Impactful"]},
-marketing:{name:"Digital Marketing",desc:"Connect brands with audiences. Perfect for communicators who understand psychology.",match:85,salary:"$60K - $120K",growth:"10% (Steady growth)",skills:["SEO","Content Strategy","Analytics","Social Media"],tags:["Dynamic","Social","Results-Driven"]},
-finance:{name:"Financial Analysis",desc:"Guide smart investment decisions. For detail-oriented minds who love numbers and strategy.",match:90,salary:"$70K - $150K",growth:"9% (Steady)",skills:["Excel","Financial Modeling","Risk Analysis","Research"],tags:["Stable","High Impact","Analytical"]},
-healthcare:{name:"Healthcare Administration",desc:"Lead healthcare organizations. For compassionate leaders who want to make a difference.",match:87,salary:"$65K - $130K",growth:"32% (Very high demand)",skills:["Leadership","Healthcare Policy","Operations","Communication"],tags:["Meaningful","Growing","Stable"]},
-consulting:{name:"Management Consulting",desc:"Solve complex business challenges. For strategic thinkers who thrive under pressure.",match:93,salary:"$90K - $200K",growth:"14% (Strong)",skills:["Strategy","Analysis","Presentation","Problem Solving"],tags:["Prestigious","Travel","Fast-Paced"]},
-entrepreneurship:{name:"Entrepreneurship",desc:"Build your own empire. For risk-takers with vision, drive, and resilience.",match:89,salary:"Unlimited Potential",growth:"Variable (High upside)",skills:["Leadership","Sales","Finance","Vision"],tags:["Freedom","High Risk/Reward","Innovative"]},
-research:{name:"Scientific Research",desc:"Push the boundaries of human knowledge. For curious minds who love discovery and experimentation.",match:91,salary:"$65K - $140K",growth:"12% (Steady)",skills:["Research Methods","Data Analysis","Critical Thinking","Writing"],tags:["Impactful","Intellectual","Structured"]},
-education:{name:"Education & Training",desc:"Shape the next generation. For patient mentors who find joy in helping others grow.",match:86,salary:"$50K - $95K",growth:"8% (Stable)",skills:["Teaching","Communication","Empathy","Organization"],tags:["Meaningful","Stable","Social Impact"]},
-media:{name:"Content Creation & Media",desc:"Tell stories that move people. For expressive individuals who understand audience engagement.",match:84,salary:"$45K - $110K",growth:"18% (Growing fast)",skills:["Storytelling","Video Editing","Social Media","Creativity"],tags:["Creative","Flexible","Trending"]},
-law:{name:"Legal & Compliance",desc:"Uphold justice and protect rights. For detail-oriented advocates with strong ethics.",match:88,salary:"$80K - $200K",growth:"9% (Steady)",skills:["Research","Negotiation","Writing","Critical Thinking"],tags:["Prestigious","Stable","High Impact"]},
-engineering:{name:"Mechanical/Civil Engineering",desc:"Design and build the physical world. For practical problem-solvers who love tangible results.",match:90,salary:"$75K - $145K",growth:"7% (Stable)",skills:["CAD","Physics","Project Management","Math"],tags:["Tangible","Stable","Innovative"]}
+tech:{urName:"Software Engineering",urDesc:"Code ke zariye mustaqbil banayein. Analytical minds jo complex masail hal karte hain un ke liye perfect.",name:"Software Engineering",desc:"Build the future through code. Perfect for analytical minds who love solving complex problems.",match:95,salary:"$95K - $180K",growth:"22% (Much faster than average)",skills:["Python","JavaScript","System Design","Problem Solving"],tags:["Remote Friendly","High Demand","Creative"]},
+data:{urName:"Data Science",urDesc:"Raw data ko actionable insights mein badlein. Pattern talash karne walon aur statistical thinkers ke liye.",name:"Data Science",desc:"Transform raw data into actionable insights. Ideal for pattern-seekers and statistical thinkers.",match:92,salary:"$100K - $165K",growth:"35% (Explosive growth)",skills:["Python","SQL","Machine Learning","Statistics"],tags:["High Salary","Strategic","Research"]},
+design:{urName:"UX/UI Design",urDesc:"Khubsurat, intuitive experiences banayein. Un creative logon ke liye jo insani behavior samajhte hain.",name:"UX/UI Design",desc:"Craft beautiful, intuitive experiences. For creative souls who understand human behavior.",match:88,salary:"$75K - $140K",growth:"16% (Above average)",skills:["Figma","User Research","Prototyping","Visual Design"],tags:["Creative","Collaborative","Impactful"]},
+marketing:{urName:"Digital Marketing",urDesc:"Brands ko audiences se jorein. Un communicators ke liye jo psychology samajhte hain.",name:"Digital Marketing",desc:"Connect brands with audiences. Perfect for communicators who understand psychology.",match:85,salary:"$60K - $120K",growth:"10% (Steady growth)",skills:["SEO","Content Strategy","Analytics","Social Media"],tags:["Dynamic","Social","Results-Driven"]},
+finance:{urName:"Financial Analysis",urDesc:"Smart investment decisions mein madad karein. Numbers aur strategy pasand karne walon ke liye.",name:"Financial Analysis",desc:"Guide smart investment decisions. For detail-oriented minds who love numbers and strategy.",match:90,salary:"$70K - $150K",growth:"9% (Steady)",skills:["Excel","Financial Modeling","Risk Analysis","Research"],tags:["Stable","High Impact","Analytical"]},
+healthcare:{urName:"Healthcare Intizam",urDesc:"Healthcare organizations ki qiyadat karein. Farq paida karna chahene wale compassionate leaders ke liye.",name:"Healthcare Administration",desc:"Lead healthcare organizations. For compassionate leaders who want to make a difference.",match:87,salary:"$65K - $130K",growth:"32% (Very high demand)",skills:["Leadership","Healthcare Policy","Operations","Communication"],tags:["Meaningful","Growing","Stable"]},
+consulting:{urName:"Management Consulting",urDesc:"Complex business masail hal karein. Pressure mein chamakne wale strategic thinkers ke liye.",name:"Management Consulting",desc:"Solve complex business challenges. For strategic thinkers who thrive under pressure.",match:93,salary:"$90K - $200K",growth:"14% (Strong)",skills:["Strategy","Analysis","Presentation","Problem Solving"],tags:["Prestigious","Travel","Fast-Paced"]},
+entrepreneurship:{urName:"Apna Business",urDesc:"Apni empire banayein. Vision, jazba aur resilience rakhne wale risk-takers ke liye.",name:"Entrepreneurship",desc:"Build your own empire. For risk-takers with vision, drive, and resilience.",match:89,salary:"Unlimited Potential",growth:"Variable (High upside)",skills:["Leadership","Sales","Finance","Vision"],tags:["Freedom","High Risk/Reward","Innovative"]},
+research:{urName:"Scientific Research",urDesc:"Insani ilm ki hudood aage barhayein. Discovery aur experimentation pasand karne wale curious minds ke liye.",name:"Scientific Research",desc:"Push the boundaries of human knowledge. For curious minds who love discovery and experimentation.",match:91,salary:"$65K - $140K",growth:"12% (Steady)",skills:["Research Methods","Data Analysis","Critical Thinking","Writing"],tags:["Impactful","Intellectual","Structured"]},
+education:{urName:"Taleem o Tarbiyat",urDesc:"Agli nasal ko shape dein. Doosron ki growth mein khushi dhoondne wale patient mentors ke liye.",name:"Education & Training",desc:"Shape the next generation. For patient mentors who find joy in helping others grow.",match:86,salary:"$50K - $95K",growth:"8% (Stable)",skills:["Teaching","Communication","Empathy","Organization"],tags:["Meaningful","Stable","Social Impact"]},
+media:{urName:"Content aur Media",urDesc:"Aisi kahaniyan sunayein jo logon ko hila dein. Audience engagement samajhne wale expressive logon ke liye.",name:"Content Creation & Media",desc:"Tell stories that move people. For expressive individuals who understand audience engagement.",match:84,salary:"$45K - $110K",growth:"18% (Growing fast)",skills:["Storytelling","Video Editing","Social Media","Creativity"],tags:["Creative","Flexible","Trending"]},
+law:{urName:"Qanoon aur Compliance",urDesc:"Insaf ki hifazat karein. Mazboot ethics rakhne wale detail-oriented advocates ke liye.",name:"Legal & Compliance",desc:"Uphold justice and protect rights. For detail-oriented advocates with strong ethics.",match:88,salary:"$80K - $200K",growth:"9% (Steady)",skills:["Research","Negotiation","Writing","Critical Thinking"],tags:["Prestigious","Stable","High Impact"]},
+engineering:{urName:"Mechanical/Civil Engineering",urDesc:"Physical duniya design aur banayein. Tangible results pasand karne wale practical problem-solvers ke liye.",name:"Mechanical/Civil Engineering",desc:"Design and build the physical world. For practical problem-solvers who love tangible results.",match:90,salary:"$75K - $145K",growth:"7% (Stable)",skills:["CAD","Physics","Project Management","Math"],tags:["Tangible","Stable","Innovative"]}
 };
 
 const interests=[
-{id:"tech",label:"Technology & Coding",icon:"&#128187;"},
-{id:"data",label:"Data Science & AI",icon:"&#128202;"},
-{id:"design",label:"Design & Creativity",icon:"&#127912;"},
-{id:"marketing",label:"Marketing & Sales",icon:"&#128227;"},
-{id:"finance",label:"Finance & Investing",icon:"&#128176;"},
-{id:"healthcare",label:"Healthcare & Wellness",icon:"&#127973;"},
-{id:"consulting",label:"Consulting & Strategy",icon:"&#128188;"},
-{id:"entrepreneurship",label:"Business & Startups",icon:"&#128640;"},
-{id:"research",label:"Research & Science",icon:"&#128300;"},
-{id:"education",label:"Teaching & Education",icon:"&#128218;"},
-{id:"media",label:"Content & Media",icon:"&#127916;"},
-{id:"law",label:"Law & Compliance",icon:"&#9878;"},
-{id:"engineering",label:"Engineering & Build",icon:"&#127959;"}
+{id:"tech",label:"Technology & Coding",ur:"Technology & Coding",icon:"&#128187;"},
+{id:"data",label:"Data Science & AI",ur:"Data Science & AI",icon:"&#128202;"},
+{id:"design",label:"Design & Creativity",ur:"Design aur Creativity",icon:"&#127912;"},
+{id:"marketing",label:"Marketing & Sales",ur:"Marketing aur Sales",icon:"&#128227;"},
+{id:"finance",label:"Finance & Investing",ur:"Finance aur Investing",icon:"&#128176;"},
+{id:"healthcare",label:"Healthcare & Wellness",ur:"Sehat aur Wellness",icon:"&#127973;"},
+{id:"consulting",label:"Consulting & Strategy",ur:"Consulting & Strategy",icon:"&#128188;"},
+{id:"entrepreneurship",label:"Business & Startups",ur:"Business aur Startups",icon:"&#128640;"},
+{id:"research",label:"Research & Science",ur:"Research & Science",icon:"&#128300;"},
+{id:"education",label:"Teaching & Education",ur:"Teaching aur Education",icon:"&#128218;"},
+{id:"media",label:"Content & Media",ur:"Content aur Media",icon:"&#127916;"},
+{id:"law",label:"Law & Compliance",ur:"Qanoon aur Compliance",icon:"&#9878;"},
+{id:"engineering",label:"Engineering & Build",ur:"Engineering & Build",icon:"&#127959;"}
 ];
 
 const skills=[
-{id:"analytical",name:"Analytical Thinking",icon:"&#129504;"},
-{id:"creative",name:"Creativity",icon:"&#10024;"},
-{id:"communication",name:"Communication",icon:"&#128483;"},
-{id:"leadership",name:"Leadership",icon:"&#128081;"},
-{id:"technical",name:"Technical Aptitude",icon:"&#9881;"},
-{id:"social",name:"Social Skills",icon:"&#129309;"}
+{id:"analytical",name:"Analytical Thinking",ur:"Tahqiqi Soch",icon:"&#129504;"},
+{id:"creative",name:"Creativity",ur:"Takhleeq",icon:"&#10024;"},
+{id:"communication",name:"Communication",ur:"Muzakira",icon:"&#128483;"},
+{id:"leadership",name:"Leadership",ur:"Qiyadat",icon:"&#128081;"},
+{id:"technical",name:"Technical Aptitude",ur:"Technical Maharat",icon:"&#9881;"},
+{id:"social",name:"Social Skills",ur:"Social Skills",icon:"&#129309;"}
 ];
 
 const strengthsList=[
-{id:"problem_solving",label:"Problem Solving",icon:"&#129513;"},
+{id:"problem_solving",label:"Problem Solving",ur:"Masaail Hal Karna",icon:"&#129513;"},
 {id:"creativity",label:"Creativity",icon:"&#128161;"},
 {id:"communication",label:"Communication",icon:"&#128488;"},
 {id:"leadership",label:"Leadership",icon:"&#127919;"},
-{id:"adaptability",label:"Adaptability",icon:"&#127754;"},
-{id:"attention_detail",label:"Attention to Detail",icon:"&#128269;"},
-{id:"teamwork",label:"Teamwork",icon:"&#129309;"},
-{id:"time_management",label:"Time Management",icon:"&#9200;"},
-{id:"critical_thinking",label:"Critical Thinking",icon:"&#129300;"},
-{id:"empathy",label:"Empathy",icon:"&#10084;"},
-{id:"resilience",label:"Resilience",icon:"&#128170;"},
-{id:"strategic",label:"Strategic Thinking",icon:"&#9821;"}
+{id:"adaptability",label:"Adaptability",ur:"Asani Se Dhalna",icon:"&#127754;"},
+{id:"attention_detail",label:"Attention to Detail",ur:"Tafseel Par Tawajah",icon:"&#128269;"},
+{id:"teamwork",label:"Teamwork",ur:"Team Ka Kaam",icon:"&#129309;"},
+{id:"time_management",label:"Time Management",ur:"Waqt Ka Bandobast",icon:"&#9200;"},
+{id:"critical_thinking",label:"Critical Thinking",ur:"Tanqeedi Soch",icon:"&#129300;"},
+{id:"empathy",label:"Empathy",ur:"Humdardi",icon:"&#10084;"},
+{id:"resilience",label:"Resilience",ur:"Mushkil Mein Sabit Qadmi",icon:"&#128170;"},
+{id:"strategic",label:"Strategic Thinking",ur:"Strategic Soch",icon:"&#9821;"}
 ];
 
 const weaknessesList=[
-{id:"perfectionism",label:"Perfectionism",icon:"&#128207;"},
-{id:"procrastination",label:"Procrastination",icon:"&#128164;"},
-{id:"public_speaking",label:"Public Speaking",icon:"&#127908;"},
-{id:"delegation",label:"Delegation",icon:"&#128581;"},
-{id:"impatience",label:"Impatience",icon:"&#9203;"},
-{id:"overthinking",label:"Overthinking",icon:"&#128260;"},
-{id:"conflict_avoidance",label:"Conflict Avoidance",icon:"&#128683;"},
-{id:"organization",label:"Organization",icon:"&#128203;"},
-{id:"networking",label:"Networking",icon:"&#128376;"},
-{id:"stress_management",label:"Stress Management",icon:"&#128560;"},
+{id:"perfectionism",label:"Perfectionism",ur:"Kamal Pasandi",icon:"&#128207;"},
+{id:"procrastination",label:"Procrastination",ur:"Kaam Talna",icon:"&#128164;"},
+{id:"public_speaking",label:"Public Speaking",ur:"Khulay Stage Par Bolna",icon:"&#127908;"},
+{id:"delegation",label:"Delegation",ur:"Kaam Saumpna",icon:"&#128581;"},
+{id:"impatience",label:"Impatience",ur:"Besi Sabri",icon:"&#9203;"},
+{id:"overthinking",label:"Overthinking",ur:"Zyaada Sochna",icon:"&#128260;"},
+{id:"conflict_avoidance",label:"Conflict Avoidance",ur:"Takraav Se Bachna",icon:"&#128683;"},
+{id:"organization",label:"Organization",ur:"Nizam-O-Zabt",icon:"&#128203;"},
+{id:"networking",label:"Networking",ur:"Networking",icon:"&#128376;"},
+{id:"stress_management",label:"Stress Management",ur:"Stress Ka Bandobast",icon:"&#128560;"},
 {id:"technical_skills",label:"Technical Skills",icon:"&#128187;"},
-{id:"creativity_weak",label:"Creative Thinking",icon:"&#127912;"}
+{id:"creativity_weak",label:"Creative Thinking",ur:"Creative Soch",icon:"&#127912;"}
 ];
 
 const strengthAdvice={
@@ -340,6 +424,34 @@ technical_skills:"<strong>Why It Holds You Back:</strong> In an increasingly dig
 creativity_weak:"<strong>Why It Holds You Back:</strong> In a world of AI and automation, creative problem-solving is your irreplaceable human advantage. <br><br><strong>Action Plan:</strong> Consume diverse content outside your field (art, music, nature, history). Practice daily brainstorming - 10 ideas per day, no judgment. Use lateral thinking puzzles. Collaborate with creative people. Keep an idea journal. Take an improv class. Travel or explore new neighborhoods. Constraints breed creativity - add artificial limits to spark ideas. <br><br><strong>Career Impact:</strong> In Design, Marketing, and Entrepreneurship, creativity is the primary differentiator. Even in technical fields, creative solutions to old problems create breakthroughs. AI can optimize; humans must imagine."
 };
 
+
+const adviceUr={
+problem_solving:"<strong>Career Faida:</strong> Masail ko chote hisson mein torna aapki rare taqat hai.<br><br><strong>Best Careers:</strong> Software Engineering, Data Science, Management Consulting.<br><br><strong>Kaise Barhayein:</strong> Ambiguous challenges wale roles lein, hackathons join karein, case-study portfolio banayein.",
+creativity:"<strong>Career Faida:</strong> Naya sochna aapko bheed se alag karta hai.<br><br><strong>Best Careers:</strong> UX/UI Design, Content Creation, Marketing Strategy.<br><br><strong>Kaise Barhayein:</strong> Idea journal rakhein, apna creative process publicly share karein.",
+communication:"<strong>Career Faida:</strong> Mushkil ideas ko saaf alfaaz mein bayan karna har field mein superpower hai.<br><br><strong>Best Careers:</strong> Marketing, Consulting, Sales, Teaching, Leadership.<br><br><strong>Kaise Barhayein:</strong> Storytelling frameworks practice karein, Toastmasters join karein.",
+leadership:"<strong>Career Faida:</strong> Log aap par bharosa karte hain aur aapki baat maante hain.<br><br><strong>Best Careers:</strong> Management Consulting, Entrepreneurship, Executive Roles.<br><br><strong>Kaise Barhayein:</strong> Chote teams se lead karna shuru karein, leadership styles seekhein.",
+adaptability:"<strong>Career Faida:</strong> Badalte mahol mein aap aage nikalte hain jahan doosre atak jate hain.<br><br><strong>Best Careers:</strong> Startups, Tech, Digital Marketing, Consulting.<br><br><strong>Kaise Barhayein:</strong> Khud ko naye situations mein daalein, alag industries mein kaam karein.",
+attention_detail:"<strong>Career Faida:</strong> Aapki saa?t-gi costly ghaltiyan rokti hai.<br><br><strong>Best Careers:</strong> Finance, Law, Data Science, Quality Assurance.<br><br><strong>Kaise Barhayein:</strong> Checklists aur systems banayein, Six Sigma certification consider karein.",
+teamwork:"<strong>Career Faida:</strong> Aap team ko uske parts ke jama se zyada bana dete hain.<br><br><strong>Best Careers:</strong> Consulting, Healthcare, Education, HR.<br><br><strong>Kaise Barhayein:</strong> Team facilitator roles lein, collaboration tools deeply seekhein.",
+time_management:"<strong>Career Faida:</strong> Deadline par delivery aapki reputation banati hai.<br><br><strong>Best Careers:</strong> Project Management, Consulting, Operations.<br><br><strong>Kaise Barhayein:</strong> Apne productivity systems doosron ko sikhayein, PMP/Agile certification lein.",
+critical_thinking:"<strong>Career Faida:</strong> Aap farzi baaton aur weak arguments foran pehchante hain.<br><br><strong>Best Careers:</strong> Research, Law, Finance, Strategy Consulting.<br><br><strong>Kaise Barhayein:</strong> Logical fallacies aur cognitive biases seekhein, analytical essays likhein.",
+empathy:"<strong>Career Faida:</strong> Doosron ko samajhna bharosa aur behtar results dono deta hai.<br><br><strong>Best Careers:</strong> Healthcare, Education, UX Design, HR, Sales.<br><br><strong>Kaise Barhayein:</strong> Active listening practice karein, user-facing roles lein.",
+resilience:"<strong>Career Faida:</strong> Aap gir kar uthte hain aur har martaba mazboot hote hain.<br><br><strong>Best Careers:</strong> Entrepreneurship, Consulting, Sales, High-growth Tech.<br><br><strong>Kaise Barhayein:</strong> Apni comeback stories document karein, support network banayein.",
+strategic:"<strong>Career Faida:</strong> Aap aage ke kai qadam pehle soch lete hain — yeh executive-level thinking hai.<br><br><strong>Best Careers:</strong> Management Consulting, Strategy, Entrepreneurship.<br><br><strong>Kaise Barhayein:</strong> Strategy frameworks seekhein, chess khelein, hypothetical strategic plans likhein.",
+perfectionism:"<strong>Rukavat Kyun:</strong> Kamal pasandi deadlines miss karwati, burnout laati aur analysis paralysis paida karti hai.<br><br><strong>Action Plan:</strong> Pehli draft ke liye 'good enough' standard rakhein, timeboxing use karein, 'ship then iterate' practice karein.",
+procrastination:"<strong>Rukavat Kyun:</strong> Tala hua kaam stress barhata hai; procrastination aksar failure ke khauf ka libaas hai.<br><br><strong>Action Plan:</strong> 2-Minute Rule use karein, Pomodoro chunks banayein, sab se mushkil kaam pehle karein, distractions hatayein.",
+public_speaking:"<strong>Rukavat Kyun:</strong> Bolne ka khauf leadership opportunities rokta hai; na kahin gaya idea ka asar zero hai.<br><br><strong>Action Plan:</strong> 1-on-1 se shuru kar ke chote groups phir baray audiences tak jayein, Toastmasters join karein, PREP framework use karein.",
+delegation:"<strong>Rukavat Kyun:</strong> Sab khud karna aapki growth 24 ghanton par limit karta hai.<br><br><strong>Action Plan:</strong> 70% Rule — agar koi kaam koi aur 70% utna acha kar sakta hai to saump dein, clear instructions dein.",
+impatience:"<strong>Rukavat Kyun:</strong> Jaldi ghalat decisions, toote rishtay aur adhoore projects laati hai.<br><br><strong>Action Plan:</strong> 10-10-10 rule use karein, process goals banayein, chote milestones celebrate karein, meditation karein.",
+overthinking:"<strong>Rukavat Kyun:</strong> Analysis paralysis waqt zaya karti hai; aksar decisions reversible hote hain.<br><br><strong>Action Plan:</strong> Decision deadlines rakhein, 37% information par faisla karein, low-stakes decisions par gut trust karein.",
+conflict_avoidance:"<strong>Rukavat Kyun:</strong> Hal na hua takraav aur barhta hai; bachna khud naya takraav paida karta hai.<br><br><strong>Action Plan:</strong> Conflict ko 'mila kar masla hal karna' samjhein, 'I' statements use karein, DESC model seekhein, 24 ghante mein address karein.",
+organization:"<strong>Rukavat Kyun:</strong> Be-nizami missed deadlines aur musalsal stress laati hai.<br><br><strong>Action Plan:</strong> EK system chunein (Notion/Todoist), subah priorities review karein, Eisenhower Matrix use karein, workspace saaf rakhein.",
+networking:"<strong>Rukavat Kyun:</strong> Zyada tar mawaqe logon ke zariye aate hain, job boards se nahi.<br><br><strong>Action Plan:</strong> Har hafte 1 meaningful connection banayein, 48 ghante mein follow-up karein, pehle value dein phir maangein.",
+stress_management:"<strong>Rukavat Kyun:</strong> Musalsal stress soch, creativity aur decision-making sab kam karta hai.<br><br><strong>Action Plan:</strong> 7-8 ghante neend, 20-min exercise, 10-min meditation — rozana. Boundaries rakhein, asli vacation lein.",
+technical_skills:"<strong>Rukavat Kyun:</strong> Digital duniya mein technical na-hona aapke options aur earning potential kam karta hai.<br><br><strong>Action Plan:</strong> No-code tools se confidence banayein, phir Python seekhein, tutorials nahi projects banayein, coding communities join karein.",
+creativity_weak:"<strong>Rukavat Kyun:</strong> AI ke daur mein creative problem-solving aapki sab se badi irreplaceable human taqat hai.<br><br><strong>Action Plan:</strong> Roz 10 ideas likhein, apne field se bahar ka content parhein, idea journal rakhein, creative logon ke saath collaborate karein."
+};
+
 const careerSWAdvice={
 tech:{strengthMatch:["problem_solving","technical","critical_thinking","attention_detail"],weaknessWatch:["technical_skills","overthinking","perfectionism"]},
 data:{strengthMatch:["analytical","attention_detail","critical_thinking","problem_solving"],weaknessWatch:["technical_skills","overthinking","organization"]},
@@ -357,12 +469,12 @@ engineering:{strengthMatch:["problem_solving","technical","attention_detail","an
 };
 
 function renderStartScreen(){
-container.innerHTML=`<div class="start-screen fade-in"><div class="start-hero"><h2><span class="gradient-text">Discover Your</span><br>Ideal Career Path</h2><p>Our AI-powered engine analyzes your personality, skills, and interests to match you with careers where you will thrive and succeed.</p></div><div class="floating-badges"><div class="float-badge"><i class="fas fa-brain"></i> AI-Powered</div><div class="float-badge"><i class="fas fa-chart-line"></i> Salary Insights</div><div class="float-badge"><i class="fas fa-route"></i> Growth Roadmap</div><div class="float-badge"><i class="fas fa-bolt"></i> Instant Analysis</div></div><div class="start-features"><div class="start-feature"><i class="fas fa-microscope"></i><div><h4>Deep Analysis</h4><p>Multi-dimensional assessment covering personality, skills, values, and market trends</p></div></div><div class="start-feature"><i class="fas fa-bullseye"></i><div><h4>Precision Matching</h4><p>Proprietary algorithm matches you with careers based on 50+ data points</p></div></div><div class="start-feature"><i class="fas fa-map-marked-alt"></i><div><h4>Clear Roadmap</h4><p>Step-by-step action plan with skills to develop and milestones to achieve</p></div></div><div class="start-feature"><i class="fas fa-coins"></i><div><h4>Salary Intelligence</h4><p>Real market data on compensation, growth rates, and industry demand</p></div></div></div><div class="cta-glow"><button class="btn-start" onclick="startAssessment()"><i class="fas fa-play"></i> Start Career Assessment</button></div></div>`;
+container.innerHTML=`<div class="start-screen fade-in"><div class="start-hero"><h2>${t('startTitle')}</h2><p>${t('startDesc')}</p></div><div class="floating-badges"><div class="float-badge"><i class="fas fa-brain"></i> ${t('badge1')}</div><div class="float-badge"><i class="fas fa-chart-line"></i> ${t('badge2')}</div><div class="float-badge"><i class="fas fa-route"></i> ${t('badge3')}</div><div class="float-badge"><i class="fas fa-bolt"></i> ${t('badge4')}</div></div><div class="start-features"><div class="start-feature"><i class="fas fa-microscope"></i><div><h4>${t('f1t')}</h4><p>${t('f1d')}</p></div></div><div class="start-feature"><i class="fas fa-bullseye"></i><div><h4>${t('f2t')}</h4><p>${t('f2d')}</p></div></div><div class="start-feature"><i class="fas fa-map-marked-alt"></i><div><h4>${t('f3t')}</h4><p>${t('f3d')}</p></div></div><div class="start-feature"><i class="fas fa-coins"></i><div><h4>${t('f4t')}</h4><p>${t('f4d')}</p></div></div></div><div class="cta-glow"><button class="btn-start" onclick="startAssessment()"><i class="fas fa-play"></i> ${t('startBtn')}</button></div></div>`;
 }
 
 function startAssessment(){
 currentStep=0;
-formData={interests:[],skills:{},strengths:[],weaknesses:[]};
+formData={interests:[],skills:{},strengths:[],weaknesses:[],profile:{}};
 renderStep1();
 }
 
@@ -375,7 +487,7 @@ setTimeout(()=>toast.classList.remove("show"),2000);
 }
 
 function renderStep1(){
-container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">Step 1 of 3</span></div><div class="step-title">What excites you most?</div><div class="step-desc">Select all areas that spark your interest. Do not overthink, go with your gut feeling. We will auto-advance in 10 seconds once you pick at least one. Take your time!</div><div class="interest-tags" id="interestTags">${interests.map(i=>`<div class="interest-tag" onclick="toggleInterest(this,'${i.id}')" data-id="${i.id}"><span>${i.icon}</span> ${i.label}<i class="fas fa-check check-icon"></i></div>`).join("")}</div><div class="auto-hint"><i class="fas fa-magic"></i><span>Select at least 1 interest - auto-proceeds in 10 seconds. Take your time!</span></div></div></div>`;
+container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">${t('s1num')}</span></div><div class="step-title">${t('s1title')}</div><div class="step-desc">${t('s1desc')}</div><div class="interest-tags" id="interestTags">${interests.map(i=>`<div class="interest-tag" onclick="toggleInterest(this,'${i.id}')" data-id="${i.id}"><span>${i.icon}</span> ${cur(i)}<i class="fas fa-check check-icon"></i></div>`).join("")}</div><div class="auto-hint"><i class="fas fa-magic"></i><span>${t('hint1')}</span></div></div></div>`;
 }
 
 function toggleInterest(el,id){
@@ -384,15 +496,14 @@ if(el.classList.contains("selected")){if(!formData.interests.includes(id))formDa
 else{formData.interests=formData.interests.filter(i=>i!==id);}
 if(formData.interests.length>=1){
 clearTimeout(autoProceedTimer);
-autoProceedTimer=setTimeout(()=>{showToast("Proceeding to Skills Assessment...");setTimeout(()=>renderStep2(),800);},10000);
+autoProceedTimer=setTimeout(()=>{showToast(t('toast1'));setTimeout(()=>renderStep2(),800);},10000);
 }
 }
 
 function renderStep2(){
 currentStep=1;
 skillChanged=false;
-container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">Step 2 of 3</span></div><div class="step-title">Rate Your Core Skills</div><div class="step-desc">Drag the sliders to reflect your current confidence level. Adjust any slider - auto-proceeds in 10 seconds so you have plenty of time to think. You can always go back to change your answers.</div><div class="skill-sliders" id="skillSliders">${skills.map(s=>`<div class="skill-item"><div class="skill-header"><span class="skill-name"><span>${s.icon}</span> ${s.name}</span><span class="skill-value" id="val-${s.id}">50%</span></div><div class="slider-track"><div class="slider-fill" id="fill-${s.id}" style="width:50%"></div></div><input type="range" min="0" max="100" value="50" oninput="updateSkill('${s.id}',this.value)" style="width:100%;margin-top:8px;"></div>`).join("")}</div></div><div class="form-nav"><button class="btn btn-secondary" onclick="renderStep1()"><i class="fas fa-arrow-left"></i> Back to Interests</button><button class="btn btn-primary" onclick="renderStep3()">Next Step <i class="fas fa-arrow-right"></i></button></div></div>`;
-skills.forEach(s=>formData.skills[s.id]=50);
+container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">${t('s2num')}</span></div><div class="step-title">${t('s2title')}</div><div class="step-desc">${t('s2desc')}</div><div class="skill-sliders" id="skillSliders">${skills.map(s=>`<div class="skill-item"><div class="skill-header"><span class="skill-name"><span>${s.icon}</span> ${cur(s)}</span><span class="skill-value" id="val-${s.id}">${formData.skills[s.id]||50}%</span></div><div class="slider-track"><div class="slider-fill" id="fill-${s.id}" style="width:${formData.skills[s.id]||50}%"></div></div><input type="range" min="0" max="100" value="${formData.skills[s.id]||50}" oninput="updateSkill('${s.id}',this.value)" style="width:100%;margin-top:8px;"></div>`).join("")}</div></div><div class="form-nav"><button class="btn btn-secondary" onclick="renderStep1()"><i class="fas fa-arrow-left"></i> ${t('back1')}</button><button class="btn btn-primary" onclick="renderStep3()">${t('next1')} <i class="fas fa-arrow-right"></i></button></div></div>`;
 }
 
 let skillChanged=false;
@@ -403,36 +514,38 @@ document.getElementById("fill-"+id).style.width=value+"%";
 if(!skillChanged){
 skillChanged=true;
 clearTimeout(autoProceedTimer);
-autoProceedTimer=setTimeout(()=>{showToast("Proceeding to Profile and SW Analysis...");setTimeout(()=>renderStep3(),800);},10000);
+autoProceedTimer=setTimeout(()=>{showToast(t('toast2'));setTimeout(()=>renderStep3(),800);},10000);
 }
 }
 
 function renderStep3(){
 currentStep=2;
-container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">Step 3 of 3</span></div><div class="step-title">Profile and Self-Awareness</div><div class="step-desc">Optional: Fill in your details and select your strengths and weaknesses for personalized advice. You can skip everything and proceed directly to analysis.</div><div class="form-grid"><div class="form-group"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="userName" placeholder="Enter your name (optional)"></div><div class="form-group"><label><i class="fas fa-birthday-cake"></i> Age</label><input type="number" id="userAge" placeholder="e.g. 25 (optional)" min="16" max="70"></div><div class="form-group"><label><i class="fas fa-graduation-cap"></i> Education Level</label><select id="userEducation"><option value="">Select level (optional)</option><option value="highschool">High School</option><option value="bachelor">Bachelor's Degree</option><option value="master">Master's Degree</option><option value="phd">PhD / Doctorate</option><option value="self">Self-Taught</option></select></div><div class="form-group"><label><i class="fas fa-briefcase"></i> Current Status</label><select id="userStatus"><option value="">Select status (optional)</option><option value="student">Student</option><option value="employed">Employed</option><option value="seeking">Job Seeking</option><option value="career_change">Career Change</option><option value="entrepreneur">Entrepreneur</option></select></div><div class="form-group full-width"><label><i class="fas fa-star"></i> Career Goal (Optional)</label><textarea id="userGoal" placeholder="What does your dream career look like? (optional)"></textarea></div></div><div class="sw-section"><h4><i class="fas fa-dumbbell"></i> Your Strengths <span style="font-size:13px;color:#64748b;font-weight:400;">(select up to 3)</span></h4><div class="sw-tags" id="strengthTags">${strengthsList.map(s=>`<div class="sw-tag" onclick="toggleStrength(this,'${s.id}')" data-id="${s.id}"><span>${s.icon}</span> ${s.label}<i class="fas fa-check check-icon"></i></div>`).join("")}</div></div><div class="sw-section"><h4><i class="fas fa-exclamation-triangle"></i> Areas to Improve <span style="font-size:13px;color:#64748b;font-weight:400;">(select up to 3)</span></h4><div class="sw-tags" id="weaknessTags">${weaknessesList.map(w=>`<div class="sw-tag weakness" onclick="toggleWeakness(this,'${w.id}')" data-id="${w.id}"><span>${w.icon}</span> ${w.label}<i class="fas fa-check check-icon"></i></div>`).join("")}</div></div></div><div class="form-nav"><button class="btn btn-secondary" onclick="renderStep2()"><i class="fas fa-arrow-left"></i> Back to Skills</button><button class="btn btn-primary" onclick="analyzeCareer()"><i class="fas fa-magic"></i> Analyze My Career</button></div></div>`;
+const P=formData.profile||{};
+const eduOpts=[["highschool","High School"],["bachelor","Bachelor's Degree"],["master","Master's Degree"],["phd","PhD / Doctorate"],["self","Self-Taught"]];
+const statOpts=[["student","Student"],["employed","Employed"],["seeking","Job Seeking"],["career_change","Career Change"],["entrepreneur","Entrepreneur"]];
+container.innerHTML=`<div class="fade-in"><div class="form-step"><div class="step-header"><span class="step-number">${t('s3num')}</span></div><div class="step-title">${t('s3title')}</div><div class="step-desc">${t('s3desc')}</div><div class="form-grid"><div class="form-group"><label><i class="fas fa-user"></i> ${t('nameH')}</label><input type="text" id="userName" value="${P.name||''}" placeholder="${t('namePh')}"></div><div class="form-group"><label><i class="fas fa-birthday-cake"></i> ${t('ageH')}</label><input type="number" id="userAge" value="${P.age||''}" placeholder="${t('agePh')}" min="16" max="70"></div><div class="form-group"><label><i class="fas fa-graduation-cap"></i> ${t('eduH')}</label><select id="userEducation"><option value="">${t('selLev')}</option>${eduOpts.map(o=>`<option value="${o[0]}" ${P.edu===o[0]?'selected':''}>${o[1]}</option>`).join("")}</select></div><div class="form-group"><label><i class="fas fa-briefcase"></i> ${t('statH')}</label><select id="userStatus"><option value="">${t('selStat')}</option>${statOpts.map(o=>`<option value="${o[0]}" ${P.status===o[0]?'selected':''}>${o[1]}</option>`).join("")}</select></div><div class="form-group full-width"><label><i class="fas fa-star"></i> ${t('goalH')}</label><textarea id="userGoal" placeholder="${t('goalPh')}">${P.goal||''}</textarea></div></div><div class="sw-section"><h4><i class="fas fa-dumbbell"></i> ${t('sw1')} <span style="font-size:13px;color:#64748b;font-weight:400;">${t('upTo3')}</span></h4><div class="sw-tags" id="strengthTags">${strengthsList.map(s=>`<div class="sw-tag ${formData.strengths.includes(s.id)?'selected':''}" onclick="toggleStrength(this,'${s.id}')" data-id="${s.id}"><span>${s.icon}</span> ${cur(s)}<i class="fas fa-check check-icon"></i></div>`).join("")}</div></div><div class="sw-section"><h4><i class="fas fa-exclamation-triangle"></i> ${t('sw2')} <span style="font-size:13px;color:#64748b;font-weight:400;">${t('upTo3')}</span></h4><div class="sw-tags" id="weaknessTags">${weaknessesList.map(w=>`<div class="sw-tag weakness ${formData.weaknesses.includes(w.id)?'selected':''}" onclick="toggleWeakness(this,'${w.id}')" data-id="${w.id}"><span>${w.icon}</span> ${cur(w)}<i class="fas fa-check check-icon"></i></div>`).join("")}</div></div></div><div class="form-nav"><button class="btn btn-secondary" onclick="renderStep2()"><i class="fas fa-arrow-left"></i> ${t('back2')}</button><button class="btn btn-primary" onclick="analyzeCareer()"><i class="fas fa-magic"></i> ${t('analyze')}</button></div></div>`;
 }
 
 function toggleStrength(el,id){
 const max=3;
 if(el.classList.contains("selected")){el.classList.remove("selected");formData.strengths=formData.strengths.filter(s=>s!==id);}
-else{if(formData.strengths.length>=max){showToast("Max 3 strengths allowed");return;}el.classList.add("selected");formData.strengths.push(id);}
+else{if(formData.strengths.length>=max){showToast(t('maxS'));return;}el.classList.add("selected");formData.strengths.push(id);}
 }
 
 function toggleWeakness(el,id){
 const max=3;
 if(el.classList.contains("selected")){el.classList.remove("selected");formData.weaknesses=formData.weaknesses.filter(w=>w!==id);}
-else{if(formData.weaknesses.length>=max){showToast("Max 3 weaknesses allowed");return;}el.classList.add("selected");formData.weaknesses.push(id);}
+else{if(formData.weaknesses.length>=max){showToast(t('maxW'));return;}el.classList.add("selected");formData.weaknesses.push(id);}
 }
 
 
 
 function analyzeCareer(){
-const nameInput=document.getElementById("userName");
-const name=nameInput?nameInput.value||"Future Leader":"Future Leader";
-formData.name=name;
+captureProfile();
+formData.name=(formData.profile&&formData.profile.name)||"Future Leader";
 let factIdx=0;
-const facts=["Analyzing your skill matrix...","Matching with market demand data...","Calculating growth potential...","Building your personalized roadmap...","Almost there - preparing your report..."];
-container.innerHTML=`<div class="loading-screen fade-in"><div class="loading-spinner"></div><h3>Building Your Career Intelligence...</h3><p>Our AI is analyzing ${formData.interests.length} interest areas and ${Object.keys(formData.skills).length} skill dimensions</p><div class="loading-facts" id="loadingFacts">${facts[0]}</div></div>`;
+const facts=[t('fact1'),t('fact2'),t('fact3'),t('fact4'),t('fact5')];
+container.innerHTML=`<div class="loading-screen fade-in"><div class="loading-spinner"></div><h3>${t('loadT')}</h3><p>${t('loadP1')} ${formData.interests.length} ${t('loadP2')} ${Object.keys(formData.skills).length} ${t('loadP3')}</p><div class="loading-facts" id="loadingFacts">${facts[0]}</div></div>`;
 const factInterval=setInterval(()=>{factIdx=(factIdx+1)%facts.length;const el=document.getElementById("loadingFacts");if(el)el.textContent=facts[factIdx];},1200);
 setTimeout(()=>{clearInterval(factInterval);showResults();},5000);
 }
@@ -460,30 +573,37 @@ const matchedStrengths=formData.strengths.filter(s=>swData.strengthMatch.include
 const matchedWeaknesses=formData.weaknesses.filter(w=>swData.weaknessWatch.includes(w));
 const suggestions=[];
 if(matchedStrengths.length>0){
-suggestions.push({icon:"fa-trophy",title:"Leverage Your Strengths",text:`Your strengths in ${matchedStrengths.map(s=>strengthsList.find(x=>x.id===s)?.label).join(", ")} give you a natural advantage in ${topMatch.name}. Focus on roles that require these abilities.`});
+const names=matchedStrengths.map(s=>cur(strengthsList.find(x=>x.id===s))).join(", ");
+suggestions.push({icon:"fa-trophy",title:currentLang==='ur'?"Apni Taqaton Se Faida Uthayein":"Leverage Your Strengths",text:currentLang==='ur'?`Aapki taqaten (${names}) aapko ${curn(topMatch)} mein qudrati faida deti hain. In abilities ko maangne wale roles par focus karein.`:`Your strengths in ${names} give you a natural advantage in ${curn(topMatch)}. Focus on roles that require these abilities.`});
 }
 if(matchedWeaknesses.length>0){
-suggestions.push({icon:"fa-seedling",title:"Focus Areas for Growth",text:`Work on ${matchedWeaknesses.map(w=>weaknessesList.find(x=>x.id===w)?.label).join(", ")} to excel in ${topMatch.name}. These are common challenges in this field.`});
+const names=matchedWeaknesses.map(w=>cur(weaknessesList.find(x=>x.id===w))).join(", ");
+suggestions.push({icon:"fa-seedling",title:currentLang==='ur'?"Behtari Ke Ye Mawaqe":"Focus Areas for Growth",text:currentLang==='ur'?`${curn(topMatch)} mein aage nikalne ke liye ${names} par kaam karein. Ye is field mein aam challenges hain.`:`Work on ${names} to excel in ${curn(topMatch)}. These are common challenges in this field.`});
 }
-suggestions.push({icon:"fa-route",title:"Recommended Next Steps",text:`Start with online courses in ${topMatch.skills.slice(0,2).join(" and ")}. Build a portfolio project within 30 days to demonstrate your commitment.`});
-suggestions.push({icon:"fa-users",title:"Network Strategically",text:`Connect with professionals in ${topMatch.name} on LinkedIn. Join communities and industry Discord servers.`});
-
-container.innerHTML=`<div class="result-screen fade-in" style="display:block"><div class="result-hero"><div class="result-title">${formData.name}'s Career Report</div><div class="result-subtitle">Your Top Match: ${topMatch.name}</div><div class="result-desc">${topMatch.desc}</div></div><div class="career-matches">${matches.slice(0,4).map((m,i)=>`<div class="career-card"><span class="match-score">${m.adjustedMatch}% Match</span><h4><i class="fas fa-${getIcon(m.id)}"></i> ${m.name}</h4><p>${m.desc}</p><div class="career-tags">${m.tags.map(t=>`<span class="career-tag">${t}</span>`).join("")}</div></div>`).join("")}</div><div class="sw-analysis"><div class="sw-card strength"><h4><i class="fas fa-dumbbell"></i> Your Strengths</h4><ul>${formData.strengths.length>0?formData.strengths.map(s=>`<li><i class="fas fa-check-circle"></i> ${strengthsList.find(x=>x.id===s)?.label}</li>`).join(""):`<li><i class="fas fa-info-circle"></i> No strengths selected - but every person has unique strengths to discover!</li>`}</ul></div><div class="sw-card weakness"><h4><i class="fas fa-exclamation-triangle"></i> Growth Areas</h4><ul>${formData.weaknesses.length>0?formData.weaknesses.map(w=>`<li><i class="fas fa-arrow-up"></i> ${weaknessesList.find(x=>x.id===w)?.label}</li>`).join(""):`<li><i class="fas fa-info-circle"></i> No weaknesses selected - self-awareness is the first step to growth!</li>`}</ul></div></div>
+suggestions.push({icon:"fa-route",title:currentLang==='ur'?"Agle Steps Ki Sifarish":"Recommended Next Steps",text:currentLang==='ur'?`${topMatch.skills.slice(0,2).join(" aur ")} mein online courses se shuru karein. 30 dinon ke andar ek portfolio project banayein.`:`Start with online courses in ${topMatch.skills.slice(0,2).join(" and ")}. Build a portfolio project within 30 days to demonstrate your commitment.`});
+suggestions.push({icon:"fa-users",title:currentLang==='ur'?"Strategic Networking":"Network Strategically",text:currentLang==='ur'?`LinkedIn par ${curn(topMatch)} ke professionals se jurein. Communities aur industry Discord servers join karein.`:`Connect with professionals in ${curn(topMatch)} on LinkedIn. Join communities and industry Discord servers.`});
+const road=[
+{n:1,it:"fa-book",et:t('r1t'),ed:t('r1d')+topMatch.skills.slice(0,2).join(", ")+". "+(currentLang==='ur'?"Online courses lein aur projects banayein.":"Take online courses and build projects.")},
+{n:2,it:"fa-briefcase",et:t('r2t'),ed:t('r2d')},
+{n:3,it:"fa-users",et:t('r3t'),ed:t('r3d')},
+{n:4,it:"fa-crown",et:t('r4t'),ed:t('r4d')}
+];
+container.innerHTML=`<div class="result-screen fade-in" style="display:block"><div class="result-hero"><div class="result-title">${currentLang==='ur'?formData.name+" ka Career Report":formData.name+"'s Career Report"}</div><div class="result-subtitle">${currentLang==='ur'?"Aapka Top Match: ":"Your Top Match: "}${curn(topMatch)}</div><div class="result-desc">${curd(topMatch)}</div></div><div class="career-matches">${matches.slice(0,4).map((m,i)=>`<div class="career-card"><span class="match-score">${m.adjustedMatch}% ${currentLang==='ur'?"Match":"Match"}</span><h4><i class="fas fa-${getIcon(m.id)}"></i> ${curn(m)}</h4><p>${curd(m)}</p><div class="career-tags">${m.tags.map(tg=>`<span class="career-tag">${tg}</span>`).join("")}</div></div>`).join("")}</div><div class="sw-analysis"><div class="sw-card strength"><h4><i class="fas fa-dumbbell"></i> ${t('swCard1')}</h4><ul>${formData.strengths.length>0?formData.strengths.map(s=>`<li><i class="fas fa-check-circle"></i> ${cur(strengthsList.find(x=>x.id===s))}</li>`).join(""):`<li><i class="fas fa-info-circle"></i> ${t('emptyS')}</li>`}</ul></div><div class="sw-card weakness"><h4><i class="fas fa-exclamation-triangle"></i> ${t('swCard2')}</h4><ul>${formData.weaknesses.length>0?formData.weaknesses.map(w=>`<li><i class="fas fa-arrow-up"></i> ${cur(weaknessesList.find(x=>x.id===w))}</li>`).join(""):`<li><i class="fas fa-info-circle"></i> ${t('emptyW')}</li>`}</ul></div></div>
 
 <div class="suggestions-section" style="margin-top:30px;">
-<h4><i class="fas fa-user-graduate"></i> Strength & Weakness Analysis</h4>
-${formData.strengths.length>0?`<div style="margin-bottom:24px;"><h5 style="color:#4ade80;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-star"></i> How to Leverage Your Strengths</h5>${formData.strengths.map(s=>{
+<h4><i class="fas fa-user-graduate"></i> ${t('swAnH')}</h4>
+${formData.strengths.length>0?`<div style="margin-bottom:24px;"><h5 style="color:#4ade80;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-star"></i> ${t('swLeverage')}</h5>${formData.strengths.map(s=>{
 const st=strengthsList.find(x=>x.id===s);
-const adv=strengthAdvice[s];
-return `<div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:14px;padding:18px 20px;margin-bottom:12px;"><h6 style="color:#4ade80;font-size:14px;font-weight:700;margin-bottom:8px;">${st?.icon} ${st?.label}</h6><div style="color:#94a3b8;font-size:13px;line-height:1.7;">${adv}</div></div>`;
+const adv=advFor(strengthAdvice[s],adviceUr[s]);
+return `<div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:14px;padding:18px 20px;margin-bottom:12px;"><h6 style="color:#4ade80;font-size:14px;font-weight:700;margin-bottom:8px;">${st?.icon} ${cur(st)}</h6><div style="color:#94a3b8;font-size:13px;line-height:1.7;">${adv}</div></div>`;
 }).join("")}</div>`:''}
 
-${formData.weaknesses.length>0?`<div style="margin-bottom:24px;"><h5 style="color:#f87171;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-heart"></i> How to Turn Weaknesses Into Strengths</h5>${formData.weaknesses.map(w=>{
+${formData.weaknesses.length>0?`<div style="margin-bottom:24px;"><h5 style="color:#f87171;font-size:16px;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><i class="fas fa-heart"></i> ${t('swTurn')}</h5>${formData.weaknesses.map(w=>{
 const wk=weaknessesList.find(x=>x.id===w);
-const adv=weaknessAdvice[w];
-return `<div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:14px;padding:18px 20px;margin-bottom:12px;"><h6 style="color:#f87171;font-size:14px;font-weight:700;margin-bottom:8px;">${wk?.icon} ${wk?.label}</h6><div style="color:#94a3b8;font-size:13px;line-height:1.7;">${adv}</div></div>`;
+const adv=advFor(weaknessAdvice[w],adviceUr[w]);
+return `<div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:14px;padding:18px 20px;margin-bottom:12px;"><h6 style="color:#f87171;font-size:14px;font-weight:700;margin-bottom:8px;">${wk?.icon} ${cur(wk)}</h6><div style="color:#94a3b8;font-size:13px;line-height:1.7;">${adv}</div></div>`;
 }).join("")}</div>`:''}
-</div><div class="suggestions-section"><h4><i class="fas fa-star"></i> Personalized Suggestions</h4>${suggestions.map(s=>`<div class="suggestion-item"><div class="sug-icon"><i class="fas ${s.icon}"></i></div><div><h5>${s.title}</h5><p>${s.text}</p></div></div>`).join("")}</div><div class="growth-section"><h4><i class="fas fa-chart-line"></i> Market Intelligence</h4><div class="growth-grid"><div class="growth-item"><div class="growth-value">${topMatch.salary}</div><div class="growth-label">Salary Range</div></div><div class="growth-item"><div class="growth-value">${topMatch.growth}</div><div class="growth-label">Job Growth</div></div><div class="growth-item"><div class="growth-value">${topMatch.skills.length}</div><div class="growth-label">Key Skills</div></div></div></div><div class="roadmap-section"><h4><i class="fas fa-route"></i> Your Growth Roadmap</h4><div class="roadmap-steps"><div class="roadmap-step"><div class="step-icon">1</div><div class="step-content"><h5>Build Foundation</h5><p>Master core skills: ${topMatch.skills.slice(0,2).join(", ")}. Take online courses and build projects.</p></div></div><div class="roadmap-step"><div class="step-icon">2</div><div class="step-content"><h5>Gain Experience</h5><p>Internships, freelancing, or personal projects. Build a portfolio that showcases your abilities.</p></div></div><div class="roadmap-step"><div class="step-icon">3</div><div class="step-content"><h5>Network & Grow</h5><p>Connect with industry professionals. Attend events, join communities, find a mentor.</p></div></div><div class="roadmap-step"><div class="step-icon">4</div><div class="step-content"><h5>Specialize & Lead</h5><p>Develop expertise in a niche. Take on leadership roles and stay updated with industry trends.</p></div></div></div></div><div class="result-actions"><button class="btn btn-primary" onclick="restartAssessment()"><i class="fas fa-redo"></i> Retake Assessment</button><button class="btn btn-secondary" onclick="shareResult()"><i class="fas fa-share-alt"></i> Share Result</button><button class="btn btn-secondary" onclick="downloadReport()"><i class="fas fa-download"></i> Save Report</button></div></div>`;
+</div><div class="suggestions-section"><h4><i class="fas fa-star"></i> ${t('sugH')}</h4>${suggestions.map(s=>`<div class="suggestion-item"><div class="sug-icon"><i class="fas ${s.icon}"></i></div><div><h5>${s.title}</h5><p>${s.text}</p></div></div>`).join("")}</div><div class="growth-section"><h4><i class="fas fa-chart-line"></i> ${t('gH')}</h4><div class="growth-grid"><div class="growth-item"><div class="growth-value">${topMatch.salary}</div><div class="growth-label">${t('g1')}</div></div><div class="growth-item"><div class="growth-value">${topMatch.growth}</div><div class="growth-label">${t('g2')}</div></div><div class="growth-item"><div class="growth-value">${topMatch.skills.length}</div><div class="growth-label">${t('g3')}</div></div></div></div><div class="roadmap-section"><h4><i class="fas fa-route"></i> ${t('roadH')}</h4><div class="roadmap-steps">${road.map(r=>`<div class="roadmap-step"><div class="step-icon">${r.n}</div><div class="step-content"><h5>${r.et}</h5><p>${r.ed}</p></div></div>`).join("")}</div></div><div class="result-actions"><button class="btn btn-primary" onclick="restartAssessment()"><i class="fas fa-redo"></i> ${t('retake')}</button><button class="btn btn-secondary" onclick="shareResult()"><i class="fas fa-share-alt"></i> ${t('share')}</button><button class="btn btn-secondary" onclick="downloadReport()"><i class="fas fa-download"></i> ${t('save')}</button></div></div>`;
 createConfetti();
 }
 
@@ -517,7 +637,7 @@ renderStartScreen();
 }
 
 function shareResult(){
-const text="I discovered my ideal career path using Mind Matrix Career Intelligence! What is your perfect career?";
+const text=t('shareText');
 if(navigator.share){navigator.share({title:"My Career Intelligence",text:text,url:window.location.href});}
 else{navigator.clipboard.writeText(text).then(()=>{alert("Result copied to clipboard!");});}
 }
