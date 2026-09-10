@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mind Matrix | Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+ --primary:#2563eb;--accent:#60a5fa;--purple:#8b5cf6;--pink:#ec4899;
+ --teal:#14b8a6;--gold:#fbbf24;--success:#22c55e;--danger:#ef4444;
+ --bg:#020617;--bg2:#0f172a;--card:rgba(15,23,42,.78);
+ --line:rgba(96,165,250,.22);--muted:#94a3b8;--text:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ font-family:Inter,sans-serif;color:var(--text);background:
+ radial-gradient(circle at 15% 10%,rgba(37,99,235,.16),transparent 32%),
+ radial-gradient(circle at 85% 15%,rgba(139,92,246,.13),transparent 30%),
+ radial-gradient(circle at 50% 90%,rgba(20,184,166,.08),transparent 35%),
+ linear-gradient(135deg,#020617,#0b1224 55%,#020617);
+ min-height:100vh;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.25;
+ background-image:linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px);
+ background-size:55px 55px
+}
+button{font:inherit}
+header{position:sticky;top:20px;z-index:999;}
+.navbar{
+ max-width:1100px;margin:auto;padding:14px 30px;
+ display:flex;justify-content:space-between;align-items:center;
+ border-radius:20px;background:#020617;backdrop-filter:blur(14px);
+ border:1px solid rgb(61,21,204);
+ box-shadow:0 10px 30px rgba(83,40,40,0.753), inset 0 1px 0 rgba(16,55,180,0.6);
+ position:relative;overflow:hidden;
+}
+.navbar:before{
+ content:"";position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;
+ background:linear-gradient(45deg,#2563eb,#60a5fa,#8b5cf6,#ec4899,#2563eb);
+ background-size:400% 400%;border-radius:22px;z-index:-1;
+ animation:borderGlow 6s ease infinite;opacity:.6;
+}
+.logo{display:flex;align-items:center;gap:12px;color:white;text-decoration:none;font-weight:900;letter-spacing:-.5px}
+.logo-badge{
+ width:44px;height:44px;border-radius:14px;
+ background:linear-gradient(135deg,#2563eb,#60a5fa);
+ display:flex;align-items:center;justify-content:center;
+ color:white;font-weight:900;font-size:14px;
+ box-shadow:0 10px 25px rgba(37,99,235,.4);
+ animation:pulseBadge 3s ease-in-out infinite;position:relative;
+}
+.logo-badge:after{
+ content:"";position:absolute;inset:-3px;border-radius:17px;
+ background:linear-gradient(135deg,transparent,rgba(96,165,250,.4),transparent);
+ animation:rotateGlow 3s linear infinite;
+}
+.logo-main{font-weight:800;font-size:17px;color:white}.logo-sub{font-size:11px;color:#64748b}
+.nav-links{display:flex;gap:34px;list-style:none;align-items:center;}
+.nav-links a{
+ text-decoration:none;color:#e5e7eb;font-weight:600;
+ position:relative;padding:6px 14px;border-radius:10px;
+ transition:.3s ease;overflow:hidden;
+}
+.nav-links a:before{
+ content:"";position:absolute;bottom:0;left:50%;width:0;height:2px;
+ background:linear-gradient(90deg,#2563eb,#60a5fa);
+ transition:all .3s ease;transform:translateX(-50%);
+}
+.nav-links a:hover{background:rgba(37,99,235,.1);color:#60a5fa;transform:translateY(-2px)}
+.nav-links a:hover:before{width:80%}
+.lang-switcher{display:flex;gap:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:4px}
+.lang-btn{padding:6px 14px;border-radius:10px;border:none;background:transparent;color:#94a3b8;font-weight:700;font-size:13px;cursor:pointer;transition:all .3s ease;font-family:Inter,sans-serif}
+.lang-btn.active{background:linear-gradient(135deg,#2563eb,#60a5fa);color:white;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+.lang-btn:hover:not(.active){color:white}
+main{position:relative;z-index:1}
+.hero{max-width:1150px;margin:auto;text-align:center;padding:88px 20px 45px}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);
+ border-radius:999px;background:rgba(37,99,235,.08);color:#93c5fd;font-size:11px;font-weight:800;
+ letter-spacing:1.5px;text-transform:uppercase;animation:fadeUp .8s ease both
+}
+.hero h1{font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-4px;margin:22px auto 20px;max-width:950px;animation:fadeUp .9s .1s both}
+.hero h1 span{background:linear-gradient(90deg,#fff,#60a5fa,#a78bfa);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:700px;margin:auto;color:#94a3b8;line-height:1.8;font-size:16px;animation:fadeUp .9s .2s both}
+.pattern-orbit{width:210px;height:210px;margin:42px auto 0;border:1px solid rgba(96,165,250,.18);border-radius:50%;display:grid;place-items:center;position:relative;box-shadow:0 0 70px rgba(37,99,235,.12),inset 0 0 50px rgba(139,92,246,.08)}
+.pattern-orbit:before,.pattern-orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(139,92,246,.2);animation:spin 9s linear infinite}
+.pattern-orbit:before{inset:20px;border-top-color:var(--accent);border-bottom-color:var(--purple)}
+.pattern-orbit:after{inset:42px;border-right-color:var(--teal);animation-direction:reverse;animation-duration:6s}
+.orbit-core{width:92px;height:92px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.2));border:1px solid rgba(147,197,253,.3);box-shadow:0 0 45px rgba(37,99,235,.3);font-size:34px}
+.feature-bar{max-width:1150px;margin:15px auto 45px;padding:0 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feature{padding:20px;border:1px solid rgba(96,165,250,.13);background:rgba(255,255,255,.025);border-radius:18px;transition:.3s}
+.feature:hover{transform:translateY(-5px);border-color:var(--line);box-shadow:0 20px 45px rgba(0,0,0,.2)}
+.feature i{color:#60a5fa;font-size:18px;margin-bottom:10px}.feature h4{font-size:13px}.feature p{font-size:11px;color:#64748b;margin-top:5px}
+#app{max-width:1000px;margin:auto;padding:0 20px 90px}
+.panel{
+ background:linear-gradient(145deg,rgba(15,23,42,.9),rgba(2,6,23,.78));
+ border:1px solid rgba(96,165,250,.2);border-radius:30px;padding:42px;
+ box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.04);
+ position:relative;overflow:hidden
+}
+.panel:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 0,rgba(37,99,235,.1),transparent 35%);pointer-events:none}
+.start-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+.start-copy h2{font-size:38px;letter-spacing:-1.5px;margin:15px 0}.start-copy p{color:#94a3b8;line-height:1.8}
+.start-list{display:grid;gap:12px;margin:25px 0}.start-list div{display:flex;gap:12px;align-items:center;color:#cbd5e1;font-size:13px}
+.start-list i{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:rgba(37,99,235,.13);color:#60a5fa}
+.btn{border:0;border-radius:15px;padding:14px 25px;cursor:pointer;font-weight:800;color:#fff;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),#60a5fa);box-shadow:0 12px 35px rgba(37,99,235,.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(37,99,235,.4)}
+.btn-secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.scanner{
+ height:300px;border:1px solid rgba(96,165,250,.15);border-radius:25px;position:relative;
+ display:grid;place-items:center;background:radial-gradient(circle,rgba(37,99,235,.12),transparent 55%)
+}
+.scan-ring{width:170px;height:170px;border-radius:50%;border:1px solid rgba(96,165,250,.25);position:relative}
+.scan-ring:before{content:"";position:absolute;left:50%;top:50%;width:260px;height:1px;background:linear-gradient(90deg,transparent,#60a5fa,transparent);transform:translate(-50%,-50%);animation:scan 2.4s infinite}
+.scan-ring:after{content:"";position:absolute;inset:18px;border-radius:50%;border:1px dashed rgba(139,92,246,.4);animation:spin 8s linear infinite}
+.scan-core{position:absolute;inset:52px;border-radius:24px;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.25));display:grid;place-items:center;font-size:36px;box-shadow:0 0 50px rgba(37,99,235,.25)}
+.loading{text-align:center;padding:65px}.loader{width:72px;height:72px;border:3px solid rgba(255,255,255,.08);border-top-color:#60a5fa;border-right-color:#8b5cf6;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 25px}
+.loading h3{font-size:23px}.loading p{color:#64748b;margin-top:8px}
+.hidden{display:none!important}
+
+/* ===== PERFORMANCE ARENA ===== */
+.arena-wrap{animation:fadeUp .4s ease}
+.phase-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.phase-name{color:#60a5fa;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.phase-count{color:#64748b;font-size:12px;font-weight:700}
+.phase-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-bottom:18px}
+.phase-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--purple));transition:.4s}
+.arena{
+ height:380px;border:1px solid rgba(96,165,250,.18);border-radius:22px;position:relative;overflow:hidden;
+ background:
+ radial-gradient(circle at 50% 50%,rgba(37,99,235,.1),transparent 60%),
+ linear-gradient(rgba(96,165,250,.05) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(96,165,250,.05) 1px,transparent 1px);
+ background-size:auto,44px 44px,44px 44px;
+ touch-action:manipulation;user-select:none;-webkit-user-select:none;cursor:crosshair
+}
+.arena-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;color:#64748b;font-size:12px;pointer-events:none}
+.banner{position:absolute;inset:0;display:grid;place-items:center;background:rgba(2,6,23,.72);backdrop-filter:blur(4px);z-index:5}
+.banner-inner{text-align:center;animation:fadeUp .4s ease}
+.banner-inner .b-phase{color:#60a5fa;font-size:12px;font-weight:900;letter-spacing:2px}
+.banner-inner h3{font-size:30px;margin:8px 0 6px;letter-spacing:-.5px}
+.banner-inner p{color:#94a3b8;font-size:13px}
+.count-num{font-size:90px;font-weight:900;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;color:transparent;animation:countPop .7s ease}
+@keyframes countPop{0%{transform:scale(1.6);opacity:0}60%{transform:scale(1);opacity:1}100%{transform:scale(1)}}
+.target{
+ position:absolute;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;z-index:3;
+ background:radial-gradient(circle at 35% 35%,#93c5fd,#2563eb 60%,#1e40af);
+ box-shadow:0 0 25px rgba(37,99,235,.55),inset 0 2px 6px rgba(255,255,255,.3);
+ animation:targetIn .22s ease;
+}
+.target:after{content:"";position:absolute;inset:16px;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+@keyframes targetIn{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.pgrid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);place-items:center;z-index:2}
+.pcell{width:64px;height:64px;border-radius:50%;border:1px solid rgba(96,165,250,.2);background:rgba(255,255,255,.04);cursor:pointer;transition:.18s;position:relative}
+.pcell.hot{background:radial-gradient(circle at 35% 35%,#fde68a,#f59e0b 65%);border-color:#fbbf24;box-shadow:0 0 35px rgba(251,191,36,.6);animation:targetIn .2s ease}
+.pcell.bad{background:rgba(239,68,68,.35);border-color:#ef4444;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.rtrack{position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%);height:64px;border-radius:99px;border:1px solid rgba(96,165,250,.25);background:rgba(255,255,255,.04);z-index:2}
+.rzone{position:absolute;top:6px;bottom:6px;left:50%;transform:translateX(-50%);width:14%;border-radius:99px;background:rgba(20,184,166,.22);border:1px solid rgba(20,184,166,.5);box-shadow:0 0 22px rgba(20,184,166,.25) inset}
+.rmarker{position:absolute;top:50%;left:50%;width:34px;height:34px;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 35%,#c4b5fd,#8b5cf6 65%);box-shadow:0 0 22px rgba(139,92,246,.6);z-index:3}
+.rlabel{position:absolute;top:calc(50% - 70px);left:0;right:0;text-align:center;color:#5eead4;font-size:11px;font-weight:800;letter-spacing:1.5px;pointer-events:none}
+
+.result-head{text-align:center}.result-head .mini{color:#60a5fa;font-size:11px;font-weight:800;letter-spacing:1.5px}.result-head h2{font-size:44px;margin:10px 0}.result-head p{color:#94a3b8;max-width:650px;margin:auto;line-height:1.7}
+.primary-pattern{
+ margin:35px auto;padding:25px;max-width:620px;border:1px solid rgba(139,92,246,.3);border-radius:24px;
+ background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(139,92,246,.13))
+}
+.primary-pattern .label{color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:1.5px}.primary-pattern h3{font-size:30px;margin:8px 0}.primary-pattern p{color:#a5b4fc;line-height:1.6}
+.scores{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin:30px 0}
+.score-card{border:1px solid rgba(96,165,250,.13);background:rgba(255,255,255,.025);border-radius:19px;padding:20px}
+.score-top{display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px}.score-top span:last-child{color:#60a5fa;font-weight:800}.scorebar{height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}.scorebar span{display:block;width:0;height:100%;background:linear-gradient(90deg,#2563eb,#8b5cf6);transition:1.3s}
+.insights{display:grid;grid-template-columns:1fr 1fr;gap:15px}.insight{padding:23px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025)}.insight h4{margin-bottom:10px}.insight p{color:#94a3b8;line-height:1.7;font-size:13px}
+.shift{margin:25px 0;padding:25px;border-radius:22px;border:1px solid rgba(20,184,166,.22);background:rgba(20,184,166,.05)}.shift h3{margin-bottom:15px}.shift-flow{display:grid;grid-template-columns:1fr 50px 1fr;align-items:center;gap:12px}.shift-box{padding:17px;border-radius:15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}.shift-box small{color:#64748b}.shift-box strong{display:block;margin-top:5px}.arrow{text-align:center;color:#5eead4;font-size:22px}
+.mindmap{margin:25px 0;border:1px solid rgba(96,165,250,.15);border-radius:25px;padding:28px;background:radial-gradient(circle at center,rgba(37,99,235,.08),transparent 60%)}
+.mindmap h3{text-align:center;margin-bottom:25px}.map{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center}
+.node{padding:15px 8px;text-align:center;border:1px solid rgba(96,165,250,.18);border-radius:16px;background:rgba(255,255,255,.035);font-size:11px;font-weight:800;transition:.3s}.node i{display:block;color:#60a5fa;font-size:19px;margin-bottom:8px}.node:hover{transform:translateY(-5px);border-color:#60a5fa;box-shadow:0 10px 30px rgba(37,99,235,.12)}
+.hidden-pattern{margin:25px 0;padding:28px;border-radius:23px;border:1px solid rgba(251,191,36,.22);background:linear-gradient(135deg,rgba(251,191,36,.06),rgba(236,72,153,.04))}.hidden-pattern .tag{color:#fbbf24;font-size:11px;font-weight:900;letter-spacing:1.5px}.hidden-pattern blockquote{font-size:20px;line-height:1.65;margin-top:10px;color:#f8fafc}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+footer{text-align:center;padding:45px 20px;border-top:1px solid rgba(255,255,255,.06);color:#64748b;font-size:12px}
+@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}@keyframes rotateGlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes borderGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes scan{0%{transform:translate(-50%,-95px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translate(-50%,95px);opacity:0}}
+@media(max-width:800px){.nav-links{display:none}.feature-bar{grid-template-columns:repeat(2,1fr)}.start-grid{grid-template-columns:1fr}.panel{padding:28px 20px}.scores,.insights{grid-template-columns:1fr}.map{grid-template-columns:repeat(2,1fr)}.map .node:last-child{grid-column:span 2}.arena{height:320px}}
+@media(max-width:500px){.hero{padding-top:55px}.hero h1{letter-spacing:-2px}.feature-bar{grid-template-columns:1fr}.pattern-orbit{width:170px;height:170px}.scanner{height:240px}.shift-flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.arena{height:280px}}
+</style>
+</head>
+<body>
+
+<header>
+<nav class="navbar">
+ <a href="Index.html" class="logo">
+  <span class="logo-badge"><i class="fas fa-brain"></i></span>
+  <span><span class="logo-main">Mind Matrix</span><span class="logo-sub">DECODING MINDS. DESIGNING FUTURES.</span></span>
+ </a>
+ <ul class="nav-links">
+  <li><a href="Index.html">Home</a></li>
+  <li><a href="Index.html#services">Services</a></li>
+  <li><a href="Index.html#science">Science</a></li>
+  <li><a href="Index.html#about">About</a></li>
+  <li><a href="Index.html#contact">Contact</a></li>
+  <li><div class="lang-switcher"><button class="lang-btn active" id="enBtn" onclick="setLang('en')">EN</button><button class="lang-btn" id="ruBtn" onclick="setLang('ur')">UR</button></div></li>
+ </ul>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+ <div class="eyebrow"><i class="fas fa-gauge-high"></i> Performance Intelligence</div>
+ <h1 id="heroTitle">Measure how you perform when it <span>actually counts.</span></h1>
+ <p id="heroDesc">Not opinions. Not labels. Three short interactive tasks measure your reaction, precision, and rhythm — then map how your mind performs under light pressure.</p>
+ <div class="pattern-orbit"><div class="orbit-core"><i class="fas fa-stopwatch"></i></div></div>
+</section>
+
+<div class="feature-bar">
+ <div class="feature"><i class="fas fa-bolt"></i><h4>Interactive Tasks</h4><p>You perform, we measure — no questionnaires</p></div>
+ <div class="feature"><i class="fas fa-chart-radar"></i><h4>Performance Mapping</h4><p>Five real performance dimensions</p></div>
+ <div class="feature"><i class="fas fa-eye"></i><h4>Hidden Insight</h4><p>Discover what pressure reveals in you</p></div>
+ <div class="feature"><i class="fas fa-arrows-rotate"></i><h4>Performance Shift</h4><p>Turn raw output into reliable output</p></div>
+</div>
+
+<section id="app">
+ <div id="startScreen" class="panel">
+  <div class="start-grid">
+   <div class="start-copy">
+    <div class="eyebrow">Not another productivity quiz</div>
+    <h2>Run your performance scan.</h2>
+    <p>Complete 3 fast micro-tasks — hit moving targets, catch the glowing signal, and time your clicks to the zone. Your real behavior builds a performance profile showing how you start, execute, adjust, hold, and recover.</p>
+    <div class="start-list">
+     <div><i class="fas fa-check"></i> 3 interactive micro-tasks (~40 seconds)</div>
+     <div><i class="fas fa-check"></i> 5 performance dimensions measured live</div>
+     <div><i class="fas fa-check"></i> Hidden Pattern + Performance Shift</div>
+     <div><i class="fas fa-check"></i> Instant private result — no data storage</div>
+    </div>
+    <button class="btn btn-primary" onclick="startScan()"><i class="fas fa-play"></i> <span id="startBtnTxt">Start Performance Scan</span></button>
+   </div>
+   <div class="scanner"><div class="scan-ring"><div class="scan-core"><i class="fas fa-gauge-high"></i></div></div></div>
+  </div>
+ </div>
+
+ <div id="quizScreen" class="panel hidden"></div>
+ <div id="loadingScreen" class="panel hidden loading">
+   <div class="loader"></div><h3>Analyzing your performance data...</h3><p>Converting raw output into your performance profile.</p>
+ </div>
+ <div id="resultScreen" class="panel hidden"></div>
+</section>
+</main>
+
+<footer>
+ <p>© 2026 Mind Matrix Intelligence Systems</p>
+ <p style="margin-top:8px">Performance Scan is a self-reflection experience, not a clinical or professional assessment.</p>
+</footer>
+
+<script>
+const PHASES=[
+ {key:"reaction",name:"Phase 1 — Reaction",icon:"fa-bolt",title:"Hit the targets",desc:"Targets will appear one by one. Tap each one as fast as you can.",hint:"Tap each target as fast as possible — 8 targets"},
+ {key:"precision",name:"Phase 2 — Precision",icon:"fa-crosshairs",title:"Catch the signal",desc:"One circle glows at a time. Only tap the glowing one — wrong taps cost you.",hint:"Only tap the GLOWING circle — avoid the rest"},
+ {key:"rhythm",name:"Phase 3 — Rhythm",icon:"fa-wave-square",title:"Time the zone",desc:"A marker slides left and right. Click when it crosses the green center zone.",hint:"Click anywhere when the marker is inside the green zone"}
+];
+
+let perf={react:[],precC:0,precW:0,rhythm:[],attempts:[]};
+let lang="en",phaseIdx=0,attempt=0,t0=0,hotIdx=-1,hotTimer=null,rafId=null,rPos=50,rDir=1,rSpeed=1.4,rFrozen=false,lastIdx=-1;
+
+const ur={
+ heroTitle:"Dekhein jab waqt <span>pressure ban jaye</span> tab aap kaise perform karte hain.",
+ heroDesc:"Raaye nahi, label nahi. Teeno chote interactive tasks aapki reaction, precision aur rhythm measure karte hain — phir batate hain pressure mein aapka mind kaise operate karta hai.",
+ startBtn:"Performance Scan shuru karein"
+};
+
+function setLang(x){
+ lang=x;
+ document.getElementById("enBtn").classList.toggle("active",x==="en");
+ document.getElementById("ruBtn").classList.toggle("active",x==="ur");
+ document.getElementById("heroTitle").innerHTML=x==="ur"?ur.heroTitle:"Measure how you perform when it <span>actually counts.</span>";
+ document.getElementById("heroDesc").textContent=x==="ur"?ur.heroDesc:"Not opinions. Not labels. Three short interactive tasks measure your reaction, precision, and rhythm — then map how your mind performs under light pressure.";
+ document.getElementById("startBtnTxt").textContent=x==="ur"?ur.startBtn:"Start Performance Scan";
+}
+
+function startScan(){
+ perf={react:[],precC:0,precW:0,rhythm:[],attempts:[]};
+ phaseIdx=0;
+ document.getElementById("startScreen").classList.add("hidden");
+ document.getElementById("resultScreen").classList.add("hidden");
+ beginPhase(0);
+}
+
+function beginPhase(i){
+ phaseIdx=i;attempt=0;
+ const p=PHASES[i];
+ const q=document.getElementById("quizScreen");q.classList.remove("hidden");
+ q.innerHTML=`
+ <div class="arena-wrap">
+  <div class="phase-top"><span class="phase-name"><i class="fas ${p.icon}"></i> ${p.name}</span><span class="phase-count" id="pCount">0 / 8</span></div>
+  <div class="phase-bar"><span id="pBar" style="width:0%"></span></div>
+  <div class="arena" id="arena">
+   <div class="banner" id="banner"><div class="banner-inner">
+     <div class="b-phase">${p.name}</div><h3><i class="fas ${p.icon}"></i> ${p.title}</h3><p>${p.desc}</p>
+   </div></div>
+   <div class="arena-hint" id="aHint">${p.hint}</div>
+  </div>
+ </div>`;
+ window.scrollTo({top:document.getElementById("app").offsetTop-80,behavior:"smooth"});
+ setTimeout(()=>countdown(3,()=>startTask(p.key)),1100);
+}
+
+function countdown(n,cb){
+ const b=document.getElementById("banner");
+ if(!b)return;
+ if(n>0){b.innerHTML=`<div class="banner-inner"><div class="count-num">${n}</div></div>`;setTimeout(()=>countdown(n-1,cb),720);}
+ else{b.innerHTML=`<div class="banner-inner"><div class="count-num" style="font-size:54px">GO</div></div>`;setTimeout(()=>{const bb=document.getElementById("banner");if(bb)bb.remove();cb();},420);}
+}
+
+function updProgress(){
+ document.getElementById("pCount").textContent=attempt+" / 8";
+ document.getElementById("pBar").style.width=(attempt/8*100)+"%";
+}
+
+/* ---------- PHASE 1: REACTION ---------- */
+function startTask(key){
+ if(key==="reaction")showTarget();
+ else if(key==="precision")startPrecision();
+ else startRhythm();
+}
+
+function showTarget(){
+ const arena=document.getElementById("arena");if(!arena)return;
+ const t=document.createElement("button");t.className="target";
+ const pad=20,w=arena.clientWidth-56-pad*2,h=arena.clientHeight-56-pad*2-30;
+ t.style.left=(pad+Math.random()*w)+"px";
+ t.style.top=(pad+Math.random()*h)+"px";
+ arena.appendChild(t);
+ t0=performance.now();
+ t.addEventListener("pointerdown",function h(){
+  const ms=performance.now()-t0;
+  perf.react.push(ms);
+  perf.attempts.push(Math.max(0,1-ms/900));
+  attempt++;updProgress();
+  t.remove();
+  if(attempt<8)setTimeout(showTarget,320);else phaseDone();
+ },{once:true});
+}
+
+/* ---------- PHASE 2: PRECISION ---------- */
+function startPrecision(){
+ const arena=document.getElementById("arena");if(!arena)return;
+ const g=document.createElement("div");g.className="pgrid";
+ for(let i=0;i<9;i++){const c=document.createElement("button");c.className="pcell";c.dataset.i=i;g.appendChild(c);}
+ arena.appendChild(g);
+ g.addEventListener("pointerdown",e=>{
+  const c=e.target.closest(".pcell");if(!c||rFrozen)return;
+  const i=+c.dataset.i;
+  if(i===hotIdx){
+   perf.precC++;perf.attempts.push(1);advancePrecision();
+  }else{
+   perf.precW++;c.classList.add("bad");setTimeout(()=>c.classList.remove("bad"),300);
+  }
+ });
+ lightCell();
+}
+function lightCell(){
+ const cells=document.querySelectorAll(".pcell");if(!cells.length)return;
+ let i;do{i=Math.floor(Math.random()*9);}while(i===lastIdx);lastIdx=i;
+ hotIdx=i;cells.forEach(c=>c.classList.remove("hot"));cells[i].classList.add("hot");
+ hotTimer=setTimeout(()=>{perf.attempts.push(0);advancePrecision();},950);
+}
+function advancePrecision(){
+ clearTimeout(hotTimer);
+ const cells=document.querySelectorAll(".pcell");
+ if(cells[hotIdx])cells[hotIdx].classList.remove("hot");
+ hotIdx=-1;attempt++;updProgress();
+ if(attempt<8)setTimeout(lightCell,300);else phaseDone();
+}
+
+/* ---------- PHASE 3: RHYTHM ---------- */
+function startRhythm(){
+ const arena=document.getElementById("arena");if(!arena)return;
+ const tr=document.createElement("div");tr.className="rtrack";
+ tr.innerHTML=`<div class="rlabel">TAP WHEN INSIDE THE ZONE</div><div class="rzone"></div><div class="rmarker" id="rmark"></div>`;
+ arena.appendChild(tr);
+ const mark=document.getElementById("rmark");
+ rFrozen=false;
+ function loop(){
+  rPos+=rDir*rSpeed;
+  if(rPos>=96){rPos=96;rDir=-1}if(rPos<=4){rPos=4;rDir=1}
+  mark.style.left=rPos+"%";
+  rafId=requestAnimationFrame(loop);
+ }
+ loop();
+ arena.addEventListener("pointerdown",e=>{
+  if(rFrozen||attempt>=8)return;
+  if(e.target.closest(".rmarker")||e.target.closest(".rtrack")||e.target===arena||e.target.closest(".arena")){
+   const dist=Math.abs(rPos-50)/46;
+   perf.rhythm.push(dist);
+   perf.attempts.push(Math.max(0,1-dist));
+   attempt++;updProgress();
+   rFrozen=true;mark.style.boxShadow="0 0 35px rgba(20,184,166,.9)";
+   setTimeout(()=>{
+    rFrozen=false;if(mark)mark.style.boxShadow="";
+    if(attempt>=8){cancelAnimationFrame(rafId);phaseDone();}
+   },260);
+  }
+ });
+}
+
+function phaseDone(){
+ if(phaseIdx<PHASES.length-1){setTimeout(()=>beginPhase(phaseIdx+1),600);}
+ else showLoading();
+}
+
+function showLoading(){
+ document.getElementById("quizScreen").classList.add("hidden");
+ document.getElementById("loadingScreen").classList.remove("hidden");
+ setTimeout(showResult,1500);
+}
+
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+function calculate(){
+ const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+ const reaction=clamp(100-(avg(perf.react)-240)/5.2,5,100);
+ const precision=clamp(perf.precC/8*100-perf.precW*9,5,100);
+ const rhythm=clamp(avg(perf.rhythm.map(d=>1-d))*100,5,100);
+ const half=Math.floor(perf.attempts.length/2);
+ const f=avg(perf.attempts.slice(0,half)),s2=avg(perf.attempts.slice(half));
+ const stability=clamp(100-Math.max(0,f-s2)*150,5,100);
+ const m=avg(perf.rhythm);
+ const cv=m>0?Math.sqrt(avg(perf.rhythm.map(d=>(d-m)*(d-m))))/m:0;
+ const recovery=clamp(100-perf.precW*14-cv*45,5,100);
+ const scores={"Reaction Speed":Math.round(reaction),"Precision":Math.round(precision),"Rhythm & Timing":Math.round(rhythm),"Focus Stability":Math.round(stability),"Pressure Recovery":Math.round(recovery)};
+ const primary=Object.entries(scores).sort((a,b)=>b[1]-a[1])[0][0];
+ const profiles={
+  "Reaction Speed":["The Sprinter","You start fast. Your mind triggers quickly when a window opens, and you rarely miss the opening move."],
+  "Precision":["The Sniper","You trade raw speed for clean execution. When you act, the action lands where you intended."],
+  "Rhythm & Timing":["The Rhythm Keeper","Your best work comes in steady, repeatable cycles — timing matters more than intensity for you."],
+  "Focus Stability":["The Marathon Runner","Your output stays level deep into the task while others fade — late stages are your home ground."],
+  "Pressure Recovery":["The Clutch Reset","Errors do not chain in your mind. You reset quickly and the next attempt starts almost clean."]
+ };
+ return {scores,primary,profile:profiles[primary]};
+}
+
+function showResult(){
+ const r=calculate();
+ document.getElementById("loadingScreen").classList.add("hidden");
+ const box=document.getElementById("resultScreen");box.classList.remove("hidden");
+ const scoreCards=Object.entries(r.scores).map(([k,v])=>`<div class="score-card"><div class="score-top"><span>${k}</span><span>${v}%</span></div><div class="scorebar"><span data-score="${v}"></span></div></div>`).join("");
+ box.innerHTML=`
+ <div class="result-head"><div class="mini">YOUR PERFORMANCE MAP</div><h2>Performance Profile</h2><p>Yeh result aapki real task performance se bana self-reflection profile hai — koi fixed label ya professional assessment nahi.</p></div>
+ <div class="primary-pattern"><div class="label">Primary Mode</div><h3>${r.profile[0]}</h3><p>${r.profile[1]}</p></div>
+ <div class="scores">${scoreCards}</div>
+ <div class="mindmap"><h3>Your Performance Flow</h3><div class="map">
+  <div class="node"><i class="fas fa-flag-checkered"></i>START</div><div class="node"><i class="fas fa-crosshairs"></i>EXECUTE</div><div class="node"><i class="fas fa-sliders"></i>ADJUST</div><div class="node"><i class="fas fa-hourglass-half"></i>HOLD</div><div class="node"><i class="fas fa-heart-pulse"></i>RECOVER</div>
+ </div></div>
+ <div class="hidden-pattern"><div class="tag"><i class="fas fa-eye"></i> HIDDEN PATTERN</div><blockquote>“${makeHidden(r)}”</blockquote></div>
+ <div class="insights">
+  <div class="insight"><h4><i class="fas fa-star"></i> Natural Strength</h4><p>${strength(r)}</p></div>
+  <div class="insight"><h4><i class="fas fa-triangle-exclamation"></i> Watch For</h4><p>${watch(r)}</p></div>
+ </div>
+ <div class="shift"><h3><i class="fas fa-arrows-left-right"></i> Performance Shift</h3><div class="shift-flow">
+  <div class="shift-box"><small>CURRENT OUTPUT</small><strong>${current(r)}</strong></div><div class="arrow">→</div>
+  <div class="shift-box"><small>RELIABLE OUTPUT</small><strong>${shift(r)}</strong></div>
+ </div></div>
+ <div class="actions"><button class="btn btn-primary" onclick="startScan()"><i class="fas fa-rotate-right"></i> Scan Again</button><button class="btn btn-secondary" onclick="share()"><i class="fas fa-share-nodes"></i> Share</button><button class="btn btn-secondary" onclick="download()"><i class="fas fa-download"></i> Download Report</button></div>`;
+ setTimeout(()=>document.querySelectorAll(".scorebar span").forEach(x=>x.style.width=x.dataset.score+"%"),200);
+ window.scrollTo({top:document.getElementById("app").offsetTop-80,behavior:"smooth"});
+}
+
+function makeHidden(r){
+ if(r.primary==="Reaction Speed")return "Your speed is real — but the same trigger that makes you fast can make you commit before the situation has fully loaded.";
+ if(r.primary==="Precision")return "You may be slower than others at the start, yet finish earlier — because you rarely have to redo what you did.";
+ if(r.primary==="Rhythm & Timing")return "Your performance is not about working harder — it is about finding the cycle where your effort repeats without leaking.";
+ if(r.primary==="Focus Stability")return "Your quietest strength only becomes visible near the end, when everyone else's graph has already dropped.";
+ return "People remember your mistakes less than you do — your reset speed quietly erases most of them.";
+}
+function strength(r){return r.primary==="Precision"?"Clean, deliberate execution — low rework, low wasted motion.":r.primary==="Rhythm & Timing"?"Sustainable pace — you can repeat a good day instead of having one great day.":r.primary==="Focus Stability"?"Late-stage consistency — deadlines and long tasks favor you.":r.primary==="Pressure Recovery"?"Fast error recovery — a bad moment does not become a bad hour.":"Quick initiation — you move while others are still preparing to move."}
+function watch(r){return r.primary==="Precision"?"Perfect accuracy on the wrong target is still a miss — confirm the target before refining the shot.":r.primary==="Rhythm & Timing"?"A broken rhythm for one day can quietly become a broken week — protect the cycle deliberately.":r.primary==="Focus Stability"?"Starting too calmly can look like delay to fast movers — signal your pace early.":r.primary==="Pressure Recovery"?"Quick resets can become skipping reflection — sometimes the error is data, not noise.":"Speed before clarity can turn into fast rework — add one breath before the first move."}
+function current(r){return r.primary==="Reaction Speed"?"Fast bursts, uneven output":r.primary==="Precision"?"Slow, careful, accurate moves":r.primary==="Rhythm & Timing"?"Works in natural waves":r.primary==="Focus Stability"?"Strong finish, quiet start":"Recovers fast, plans less"}
+function shift(r){return r.primary==="Reaction Speed"?"Trigger fast → Verify once → Commit":r.primary==="Precision"?"Aim → Release → Adjust next round":r.primary==="Rhythm & Timing"?"Anchor the cycle → Guard the anchor":"Start visibly → Finish unchanged"}
+function share(){
+ const r=calculate();const text=`My Performance Mode is ${r.profile[0]} — measured live by Mind Matrix Performance Scan. ⚡`;
+ if(navigator.share)navigator.share({title:"My Performance Profile",text,url:location.href});
+ else navigator.clipboard.writeText(text+" "+location.href).then(()=>alert("Result link copied!"));
+}
+function download(){
+ const r=calculate();
+ const text=`MIND MATRIX — PERFORMANCE SCAN REPORT
+================================
+
+Primary Mode: ${r.profile[0]}
+${r.profile[1]}
+
+Scores:
+${Object.entries(r.scores).map(([k,v])=>`${k}: ${v}%`).join("\n")}
+
+Raw data:
+Avg reaction: ${(perf.react.reduce((a,b)=>a+b,0)/(perf.react.length||1)).toFixed(0)} ms
+Precision hits: ${perf.precC}/8 (wrong taps: ${perf.precW})
+
+Hidden Pattern:
+${makeHidden(r)}
+
+Natural Strength:
+${strength(r)}
+
+Watch For:
+${watch(r)}
+
+Performance Shift:
+${current(r)} → ${shift(r)}
+
+Generated: ${new Date().toLocaleDateString()}
+`;
+ const blob=new Blob([text],{type:"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="MindMatrix_Performance_Report.txt";a.click();URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
