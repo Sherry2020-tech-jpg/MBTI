@@ -23,6 +23,7 @@ body{
     background:
         radial-gradient(circle at 20% 10%, rgba(59,130,246,.15), transparent 40%),
         radial-gradient(circle at 80% 0%, rgba(96,165,250,.12), transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(139,92,246,.10), transparent 55%),
         linear-gradient(135deg,#020617,#0f172a 60%,#020617);
     color:#e2e8f0;
     overflow-x:hidden;
@@ -87,10 +88,10 @@ header{
     justify-content:space-between;
     align-items:center;
     border-radius:20px;
-    background:#020617;
+    background:rgba(2,6,23,.85);
     backdrop-filter:blur(14px);
-    border:1px solid rgb(61,21,204);
-    box-shadow:0 10px30px rgba(83,40,40,0.753), inset 0 1px0 rgba(16,55,180,0.6);
+    border:1px solid transparent;
+    box-shadow:0 10px 30px rgba(0,0,0,.55), inset 0 1px 0 rgba(96,165,250,.35);
     position:relative;
     overflow:hidden;
 }
@@ -100,12 +101,12 @@ header{
     content:"";
     position:absolute;
     top:-2px;left:-2px;right:-2px;bottom:-2px;
-    background:linear-gradient(45deg, #2563eb, #60a5fa, #8b5cf6, #ec4899, #2563eb);
+    background:linear-gradient(45deg, #2563eb, #60a5fa, #8b5cf6, #22d3ee, #2563eb);
     background-size:400% 400%;
     border-radius:22px;
     z-index:-1;
-    animation:borderGlow 6s ease infinite;
-    opacity:0.6;
+    animation:borderGlow 5s ease infinite;
+    opacity:.9;
 }
 
 @keyframes borderGlow{
@@ -145,7 +146,7 @@ header{
 .nav-links{display:flex;gap:34px;list-style:none;align-items:center}
 .nav-links a{
     text-decoration:none;
-    color:#db1c1c;
+    color:#cbd5e1;
     font-weight:600;
     position:relative;
     padding:6px 14px;
@@ -405,13 +406,13 @@ header{
     color:white;
 
     /* Premium outer border */
-    border-top:1px solid rgba(248, 244, 12, 0.945);
-    border-bottom:1px solid rgba(245, 241, 19, 0.952);
+    border-top:1px solid rgba(96,165,250,.25);
+    border-bottom:1px solid rgba(96,165,250,.25);
 
     /* Soft section glow */
     box-shadow:
-        inset 0 1px 0 rgba(238, 255, 2, 0.918),
-        inset 0 -1px 0 rgba(224, 240, 9, 0.911);
+        inset 0 1px 0 rgba(96,165,250,.15),
+        inset 0 -1px 0 rgba(96,165,250,.15);
 }
 
 
@@ -451,7 +452,7 @@ header{
 
     padding:55px 45px;
 
-    border:1px solid rgb(239, 243, 18);
+    border:1px solid rgba(96,165,250,.3);
     border-radius:28px;
 
     background:rgba(15,23,42,.35);
@@ -634,7 +635,15 @@ header{
     margin-bottom:14px;
     position:relative;
     display:inline-block;
+    background:linear-gradient(90deg,#60a5fa,#2563eb,#8b5cf6);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    animation:headShift 5s ease infinite;
 }
+@keyframes headShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 .fancy-head h2::after{
     content:"";
@@ -690,19 +699,21 @@ header{
 /* Card Design */
 .cred-item{
     position: relative;
-    background: linear-gradient(180deg)
-       #0509d6,
-        #0509d6;
 
     border-radius: 24px;
     padding: 36px 26px;
     text-align: center;
 
-    border: 1.5px solid rgba(255, 251, 0, 0.877);
+    border: 1.5px solid transparent;
+    background:
+        linear-gradient(180deg, rgba(15,23,42,.94), rgba(2,6,23,.94)) padding-box,
+        linear-gradient(135deg,#2563eb,#8b5cf6,#60a5fa,#2563eb) border-box;
+    background-size: 100% 100%, 300% 300%;
+    animation: cardBorder 6s ease infinite;
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.6),
-        0 20px 40px rgba(0,0,0,.10);
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 20px 40px rgba(0,0,0,.35);
 
     transform: rotateX(6deg) translateY(30px);
     transform-style: preserve-3d;
@@ -723,7 +734,6 @@ header{
 /* Hover 3D Lift */
 .cred-item:hover{
     transform: translateY(-12px) scale(1.03);
-    border: 1.5px solid rgba(37,99,235,.4);
 
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,.7),
@@ -753,7 +763,7 @@ header{
     width: 60px;
     height: 60px;
     border-radius: 18px;
-    background: linear-gradient(135deg,#000000,#000000);
+    background: linear-gradient(135deg,#2563eb,#8b5cf6);
 
     display: flex;
     align-items: center;
@@ -784,7 +794,7 @@ header{
 .cred-item p{
     font-size: 14px;
     line-height: 1.5;
-    color: #475569;
+    color: #94a3b8;
 }
 
 
@@ -803,20 +813,21 @@ header{
 /* Card Design */
 .card{
     position: relative;
-    background: linear-gradient(180deg),
-        #0509d6,
-        #0509d6;
-
-    border-radius: 30px;
+    border-radius: 28px;
     padding: 48px 36px;
 
-    /* Beautiful border */
-    border: 1.5px solid rgb(252, 207, 6);
+    /* ANIMATED GRADIENT BORDER */
+    border: 1.5px solid transparent;
+    background:
+        linear-gradient(180deg, rgba(15,23,42,.94), rgba(2,6,23,.94)) padding-box,
+        linear-gradient(135deg,#2563eb,#8b5cf6,#60a5fa,#2563eb) border-box;
+    background-size: 100% 100%, 300% 300%;
+    animation: cardBorder 6s ease infinite;
 
     /* Glass + depth */
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.6),
-        0 25px 60px rgba(0, 0, 0, 0.712);
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 25px 60px rgba(0,0,0,.4);
 
     transform: rotateX(8deg) translateY(40px);
     transform-style: preserve-3d;
@@ -835,21 +846,39 @@ header{
 }
 
 /* Hover 3D Lift */
+@keyframes cardBorder{
+    0%,100%{background-position:0 0, 0% 50%}
+    50%{background-position:0 0, 100% 50%}
+}
+
 .card:hover{
     transform: rotateX(0deg) translateY(-20px) scale(1.04);
-    border: 1.5px solid rgba(37,99,235,.45);
 
     box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.7),
-        0 50px 100px rgba(37,99,235,.35);
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 45px 90px rgba(37,99,235,.35),
+        0 0 50px rgba(139,92,246,.18);
 }
+
+/* shine sweep on hover */
+.card::after{
+    content:"";
+    position:absolute;
+    top:0;left:-100%;
+    width:60%;height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
+    transform:skewX(-20deg);
+    transition:left .8s ease;
+    pointer-events:none;
+}
+.card:hover::after{left:140%}
 
 /* Icon Box */
 .icon{
     width: 74px;
     height: 74px;
     border-radius: 22px;
-    background: linear-gradient(135deg,#010203,#010203);
+    background: linear-gradient(135deg,#2563eb,#8b5cf6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -877,7 +906,7 @@ header{
 
 /* Paragraph */
 .card p{
-    color: #475569;
+    color: #94a3b8;
     font-size: 15px;
     line-height: 1.6;
 }
@@ -959,7 +988,7 @@ header{
     overflow:hidden;
 
     background:#0f172a;
-    border:1px solid rgb(250, 234, 6);
+    border:1px solid rgba(96,165,250,.35);
 
     box-shadow:0 20px 60px rgba(0,0,0,.45);
 
@@ -1018,7 +1047,7 @@ header{
 .slide-card:hover{
     transform:translateY(-16px) scale(1.04);
 
-    border:1px solid rgba(255, 251, 4, 0.959);
+    border:1px solid rgba(96,165,250,.7);
 
     box-shadow:0 40px 120px rgba(37,99,235,.3);
 }
@@ -1286,7 +1315,7 @@ header{
     border-radius: 30px;
     max-width: 1100px;
     margin: 80px auto;
-    box-shadow: 0 25px 60px rgb(222, 238, 0);
+    box-shadow: 0 25px 60px rgba(37,99,235,.35);
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(96, 165, 250, 0.15);
@@ -1339,7 +1368,12 @@ header{
 }
 
 .contact-card {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 1.5px solid transparent;
+    background:
+        linear-gradient(180deg, rgba(15,23,42,.94), rgba(2,6,23,.94)) padding-box,
+        linear-gradient(135deg,#2563eb,#8b5cf6,#60a5fa,#2563eb) border-box;
+    background-size: 100% 100%, 300% 300%;
+    animation: cardBorder 6s ease infinite;
     border-radius: 24px;
     padding: 35px 25px;
     max-width: 300px;
@@ -1551,13 +1585,290 @@ footer{
     .services,.credibility-box{grid-template-columns:1fr}
     .hero h1{font-size:36px}
 }
+
+/* ================= NEURAL MATRIX BACKGROUND ================= */
+#neural-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+header,section,footer{position:relative;z-index:1}
+<style>
+
+/* ============================================================
+   MIND MATRIX — UNIFIED PREMIUM DESIGN SYSTEM  (2026 REFRESH)
+   ============================================================ */
+
+/* ---------- 1. REFRESHED ANIMATED AURORA BACKGROUND ---------- */
+body{
+    background:
+        radial-gradient(ellipse 70% 45% at 12% -5%, rgba(37,99,235,.22), transparent 60%),
+        radial-gradient(ellipse 55% 40% at 92% 8%, rgba(139,92,246,.18), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 55% 108%, rgba(236,72,153,.10), transparent 60%),
+        radial-gradient(ellipse 45% 35% at 85% 95%, rgba(34,211,238,.08), transparent 55%),
+        linear-gradient(160deg,#040815 0%,#0a1022 50%,#04081a 100%) !important;
+    background-attachment:fixed;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-15%;
+    z-index:-1;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 18% 22%, rgba(59,130,246,.26), transparent 42%),
+        radial-gradient(circle at 82% 12%, rgba(139,92,246,.22), transparent 40%),
+        radial-gradient(circle at 68% 88%, rgba(236,72,153,.14), transparent 45%),
+        radial-gradient(circle at 12% 82%, rgba(34,211,238,.10), transparent 40%);
+    filter:blur(70px);
+    animation:mm-aurora 26s ease-in-out infinite alternate;
+}
+@keyframes mm-aurora{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(4%,-3%) scale(1.1)}
+    100%{transform:translate(-3%,3%) scale(1.04)}
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:.5;
+    background-image:
+        linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 35%, black 30%, transparent 100%);
+    mask-image:radial-gradient(ellipse at 50% 35%, black 30%, transparent 100%);
+}
+
+/* ---------- 2. UNIFIED GLASS NAVBAR ---------- */
+.navbar{
+    background:rgba(8,13,30,.82) !important;
+    backdrop-filter:blur(22px) saturate(1.5);
+    -webkit-backdrop-filter:blur(22px) saturate(1.5);
+    border:1px solid rgba(96,165,250,.30) !important;
+    border-radius:18px !important;
+    box-shadow:0 14px 44px rgba(0,0,0,.55), 0 0 34px rgba(37,99,235,.14), inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+.logo-badge{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 10px 28px rgba(59,130,246,.5), 0 0 22px rgba(139,92,246,.35) !important;
+}
+.nav-links a{
+    color:#cbd5e1 !important;
+    border-radius:10px;
+    transition:all .3s ease !important;
+}
+.nav-links a:hover{
+    color:#ffffff !important;
+    background:linear-gradient(135deg,rgba(37,99,235,.35),rgba(139,92,246,.28)) !important;
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(37,99,235,.28), inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+/* ---------- 3. SHOWPIECE CARDS — ANIMATED GRADIENT BORDER ---------- */
+.card,.cred-item,.slide-card,.category-card{
+    border:1.5px solid transparent !important;
+    background:
+        linear-gradient(165deg,rgba(21,30,56,.94),rgba(7,11,26,.96)) padding-box,
+        linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899,#22d3ee,#3b82f6) border-box !important;
+    background-size:100% 100%, 320% 320% !important;
+    animation:mm-cardborder 7s linear infinite;
+    box-shadow:0 22px 55px rgba(0,0,0,.5), 0 0 45px rgba(59,130,246,.08), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+@keyframes mm-cardborder{
+    0%,100%{background-position:0 0, 0% 50%}
+    50%{background-position:0 0, 100% 50%}
+}
+.slide-card::after{inset:2px !important; border-radius:26px !important;}
+
+/* ---------- 4. STATIC PREMIUM GLASS CARDS ---------- */
+.contact-card,.career-card,.rec-card,.engine-container,.quiz-container,.skill-container,.panel,
+.stat-card,.chart-card,.table-card,.comparison-table,.about-content{
+    border:1px solid rgba(139,92,246,.32) !important;
+    background:linear-gradient(165deg,rgba(21,30,56,.78),rgba(7,11,26,.88)) !important;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    box-shadow:0 18px 48px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.contact-card:hover,.career-card:hover,.engine-container:hover,.quiz-container:hover,.skill-container:hover,
+.panel:hover,.stat-card:hover,.chart-card:hover,.table-card:hover,.about-content:hover{
+    border-color:rgba(96,165,250,.5) !important;
+    box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 42px rgba(59,130,246,.16), inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+
+/* ---------- 5. SECONDARY GLASS CARDS ---------- */
+.about-highlights > div,.start-feature,.growth-section,.roadmap-section,.sw-card,.suggestions-section,
+.skill-item,.option-card,.detail-card,.trait-bar,.compatibility,.famous-section,.feature-item,.feature,
+.score-card,.insight,.shift,.mindmap,.hidden-pattern,.insight-item,.filter-bar,
+.path-step-content,.skill-rating-item{
+    border:1px solid rgba(96,165,250,.16) !important;
+    background:linear-gradient(165deg,rgba(21,30,56,.62),rgba(7,11,26,.74)) !important;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 14px 38px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+.about-highlights > div:hover,.start-feature:hover,.growth-section:hover,.roadmap-section:hover,.sw-card:hover,
+.suggestions-section:hover,.skill-item:hover,.detail-card:hover,.trait-bar:hover,.compatibility:hover,
+.famous-section:hover,.feature-item:hover,.feature:hover,.score-card:hover,.insight:hover,.shift:hover,
+.hidden-pattern:hover,.insight-item:hover,.path-step-content:hover,.skill-rating-item:hover{
+    border-color:rgba(96,165,250,.42) !important;
+    box-shadow:0 20px 50px rgba(0,0,0,.45), 0 0 36px rgba(59,130,246,.14), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+.option-card.selected,.option.selected{
+    background:linear-gradient(135deg,rgba(37,99,235,.30),rgba(139,92,246,.18)) !important;
+    border-color:rgba(96,165,250,.6) !important;
+    box-shadow:0 10px 30px rgba(37,99,235,.28), inset 0 1px 0 rgba(255,255,255,.1) !important;
+}
+
+/* ---------- 6. UNIFIED BUTTONS ---------- */
+.btn-primary,.btn-start,.refresh-btn,.btn-primary-sm{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 12px 32px rgba(59,130,246,.35) !important;
+}
+.btn-primary:hover,.btn-start:hover,.refresh-btn:hover,.btn-primary-sm:hover{
+    box-shadow:0 18px 44px rgba(139,92,246,.45) !important;
+}
+.lang-btn.active,.seg-btn.active,.page-btn.active{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 6px 18px rgba(59,130,246,.35) !important;
+}
+
+/* ---------- 7. FORM CONTROLS ---------- */
+.form-group input,.form-group select,.form-group textarea,.search-input,.type-select{
+    background:rgba(10,16,34,.65) !important;
+    border:1.5px solid rgba(96,165,250,.18) !important;
+    border-radius:12px !important;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus,
+.search-input:focus,.type-select:focus{
+    border-color:rgba(96,165,250,.5) !important;
+    box-shadow:0 0 24px rgba(37,99,235,.18) !important;
+}
+
+/* ---------- 8. TABLES ---------- */
+table thead th{
+    background:rgba(37,99,235,.10) !important;
+    color:#7dd3fc !important;
+}
+tbody tr:hover{background:rgba(37,99,235,.07) !important}
+
+/* ---------- 9. GLOBAL FRESHENERS ---------- */
+.hero h1 span{
+    background:linear-gradient(135deg,#60a5fa,#a78bfa,#ec4899) !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+    -webkit-text-fill-color:transparent !important;
+    text-shadow:none !important;
+}
+footer{
+    background:rgba(6,10,24,.85) !important;
+    backdrop-filter:blur(14px);
+    border-top:1px solid rgba(96,165,250,.14) !important;
+}
+.step-resource-tag{
+    border-color:rgba(96,165,250,.35) !important;
+    background:rgba(37,99,235,.12) !important;
+}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#070b18}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#2563eb,#8b5cf6);border-radius:8px}
+::selection{background:rgba(139,92,246,.4)}
+@keyframes mm-iconfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes mm-ringspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes mm-emojifloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-7deg)}}
+
+
+/* ============================================================
+   INDEX EXCLUSIVE — FRESH VISUAL POLISH
+   ============================================================ */
+.hero::before{
+    background:
+        radial-gradient(circle, rgba(59,130,246,.30), transparent 65%),
+        radial-gradient(circle at 68% 30%, rgba(139,92,246,.22), transparent 60%) !important;
+}
+.card .icon{position:relative;overflow:visible}
+.card .icon i{
+    animation:mm-iconfloat 3.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 14px rgba(96,165,250,.65));
+    transition:color .4s ease;
+}
+.card:nth-child(2) .icon i{animation-delay:.35s}
+.card:nth-child(3) .icon i{animation-delay:.7s}
+.card:nth-child(4) .icon i{animation-delay:1.05s}
+.card:nth-child(5) .icon i{animation-delay:1.4s}
+.card:nth-child(6) .icon i{animation-delay:1.75s}
+.card:hover .icon i{animation-duration:.9s;color:#ffffff}
+.card .icon::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:26px;
+    border:1.5px dashed rgba(139,92,246,.5);
+    animation:mm-ringspin 12s linear infinite;
+    opacity:0;
+    transition:opacity .4s ease;
+}
+.card:hover .icon::after{opacity:1}
+.cred-item span i{
+    animation:mm-iconfloat 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 10px rgba(96,165,250,.55));
+}
+.cred-item:nth-child(2) span i{animation-delay:.4s}
+.cred-item:nth-child(3) span i{animation-delay:.8s}
+.cred-item:nth-child(4) span i{animation-delay:1.2s}
+.h-deco{filter:drop-shadow(0 0 16px currentColor)}
+.contact-card > span{
+    display:inline-block;
+    animation:mm-emojifloat 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 14px rgba(96,165,250,.5));
+}
+.contact-card:nth-child(2) > span{animation-delay:.5s}
+.contact-card:nth-child(3) > span{animation-delay:1s}
+.strip-track img{
+    border:1.5px solid rgba(96,165,250,.35) !important;
+    outline:none !important;
+    box-shadow:0 24px 50px rgba(0,0,0,.35), 0 0 30px rgba(59,130,246,.12) !important;
+}
+.strip-track img:hover{
+    border-color:rgba(96,165,250,.75) !important;
+    box-shadow:0 40px 80px rgba(0,0,0,.4), 0 0 45px rgba(139,92,246,.25) !important;
+}
+.about-ultra{background:transparent !important}
+.contact-modern{
+    background:rgba(10,16,36,.55) !important;
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(96,165,250,.22) !important;
+}
+.about-highlights h3{
+    background:linear-gradient(135deg,#60a5fa,#a78bfa);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+    text-shadow:none;
+}
+.slide-card .type-icon{border-color:rgba(96,165,250,.45) !important}
 </style>
+
+</style>
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
 
 <body>
+
+<canvas id="neural-bg"></canvas>
 
 <header>
 <nav class="navbar">
@@ -2001,6 +2312,74 @@ const observer=new IntersectionObserver(entries=>{
 
 document.querySelectorAll(".fancy-head,.cred-item,.card")
 .forEach(el=>observer.observe(el));
+
+/* ========== NEURAL MATRIX BACKGROUND (mind theme: neurons + synapses) ========== */
+(function(){
+    const cv=document.getElementById('neural-bg');
+    const cx=cv.getContext('2d');
+    let W,H,parts=[],mouse={x:-9999,y:-9999};
+
+    function resize(){
+        W=cv.width=innerWidth;
+        H=cv.height=innerHeight;
+        init();
+    }
+    function init(){
+        parts=[];
+        const n=Math.min(90,Math.floor(W*H/16000));
+        for(let i=0;i<n;i++){
+            parts.push({
+                x:Math.random()*W,
+                y:Math.random()*H,
+                vx:(Math.random()-.5)*.4,
+                vy:(Math.random()-.5)*.4,
+                r:1.5+Math.random()*1.8
+            });
+        }
+    }
+    resize();
+    addEventListener('resize',resize);
+    addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+    document.documentElement.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+
+    (function draw(){
+        cx.clearRect(0,0,W,H);
+        const R=140;
+        for(let i=0;i<parts.length;i++){
+            const p=parts[i];
+            p.x+=p.vx;
+            p.y+=p.vy;
+            if(p.x<0||p.x>W)p.vx*=-1;
+            if(p.y<0||p.y>H)p.vy*=-1;
+
+            /* mouse ke qareeb neurons halke se attract hote hain */
+            const dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.hypot(dx,dy);
+            if(d<160&&d>0){p.x+=dx*0.002;p.y+=dy*0.002;}
+
+            /* synapse connections */
+            for(let j=i+1;j<parts.length;j++){
+                const q=parts[j];
+                const dd=Math.hypot(p.x-q.x,p.y-q.y);
+                if(dd<R){
+                    cx.globalAlpha=(1-dd/R)*.45;
+                    cx.strokeStyle='#60a5fa';
+                    cx.lineWidth=1;
+                    cx.beginPath();
+                    cx.moveTo(p.x,p.y);
+                    cx.lineTo(q.x,q.y);
+                    cx.stroke();
+                }
+            }
+            cx.globalAlpha=.9;
+            cx.fillStyle='#93c5fd';
+            cx.beginPath();
+            cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            cx.fill();
+        }
+        cx.globalAlpha=1;
+        requestAnimationFrame(draw);
+    })();
+})();
 </script>
 
 </body>
