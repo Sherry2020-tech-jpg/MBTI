@@ -490,6 +490,225 @@ footer{background:#0f172a;color:#94a3b8;text-align:center;padding:60px 20px;bord
 .orbit-core{width:92px;height:92px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(37,99,235,.3),rgba(139,92,246,.2));border:1px solid rgba(147,197,253,.3);box-shadow:0 0 45px rgba(37,99,235,.3);font-size:34px;color:#93c5fd;animation:pulseBadge 3s ease-in-out infinite}
 @media(max-width:500px){.pattern-orbit{width:170px;height:170px}.orbit-core{width:76px;height:76px;font-size:28px}}
 </style>
+
+<style>/* MIND MATRIX UNIFIED PREMIUM DESIGN — 2026 REFRESH */
+
+/* ============================================================
+   MIND MATRIX — UNIFIED PREMIUM DESIGN SYSTEM  (2026 REFRESH)
+   ============================================================ */
+
+/* ---------- 1. REFRESHED ANIMATED AURORA BACKGROUND ---------- */
+body{
+    background:
+        radial-gradient(ellipse 70% 45% at 12% -5%, rgba(37,99,235,.22), transparent 60%),
+        radial-gradient(ellipse 55% 40% at 92% 8%, rgba(139,92,246,.18), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 55% 108%, rgba(236,72,153,.10), transparent 60%),
+        radial-gradient(ellipse 45% 35% at 85% 95%, rgba(34,211,238,.08), transparent 55%),
+        linear-gradient(160deg,#040815 0%,#0a1022 50%,#04081a 100%) !important;
+    background-attachment:fixed;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-15%;
+    z-index:-1;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 18% 22%, rgba(59,130,246,.26), transparent 42%),
+        radial-gradient(circle at 82% 12%, rgba(139,92,246,.22), transparent 40%),
+        radial-gradient(circle at 68% 88%, rgba(236,72,153,.14), transparent 45%),
+        radial-gradient(circle at 12% 82%, rgba(34,211,238,.10), transparent 40%);
+    filter:blur(70px);
+    animation:mm-aurora 26s ease-in-out infinite alternate;
+}
+@keyframes mm-aurora{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(4%,-3%) scale(1.1)}
+    100%{transform:translate(-3%,3%) scale(1.04)}
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:.5;
+    background-image:
+        linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px);
+    background-size:56px 56px;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 35%, black 30%, transparent 100%);
+    mask-image:radial-gradient(ellipse at 50% 35%, black 30%, transparent 100%);
+}
+
+/* ---------- 2. UNIFIED GLASS NAVBAR ---------- */
+.navbar{
+    background:rgba(8,13,30,.82) !important;
+    backdrop-filter:blur(22px) saturate(1.5);
+    -webkit-backdrop-filter:blur(22px) saturate(1.5);
+    border:1px solid rgba(96,165,250,.30) !important;
+    border-radius:18px !important;
+    box-shadow:0 14px 44px rgba(0,0,0,.55), 0 0 34px rgba(37,99,235,.14), inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+.logo-badge{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 10px 28px rgba(59,130,246,.5), 0 0 22px rgba(139,92,246,.35) !important;
+}
+.nav-links a{
+    color:#cbd5e1 !important;
+    border-radius:10px;
+    transition:all .3s ease !important;
+}
+.nav-links a:hover{
+    color:#ffffff !important;
+    background:linear-gradient(135deg,rgba(37,99,235,.35),rgba(139,92,246,.28)) !important;
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(37,99,235,.28), inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+/* ---------- 3. SHOWPIECE CARDS — ANIMATED GRADIENT BORDER ---------- */
+.card,.cred-item,.slide-card,.category-card{
+    border:1.5px solid transparent !important;
+    background:
+        linear-gradient(165deg,rgba(21,30,56,.94),rgba(7,11,26,.96)) padding-box,
+        linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899,#22d3ee,#3b82f6) border-box !important;
+    background-size:100% 100%, 320% 320% !important;
+    animation:mm-cardborder 7s linear infinite;
+    box-shadow:0 22px 55px rgba(0,0,0,.5), 0 0 45px rgba(59,130,246,.08), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+@keyframes mm-cardborder{
+    0%,100%{background-position:0 0, 0% 50%}
+    50%{background-position:0 0, 100% 50%}
+}
+.slide-card::after{inset:2px !important; border-radius:26px !important;}
+
+/* ---------- 4. STATIC PREMIUM GLASS CARDS ---------- */
+.contact-card,.career-card,.rec-card,.engine-container,.quiz-container,.skill-container,.panel,
+.stat-card,.chart-card,.table-card,.comparison-table,.about-content{
+    border:1px solid rgba(139,92,246,.32) !important;
+    background:linear-gradient(165deg,rgba(21,30,56,.78),rgba(7,11,26,.88)) !important;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    box-shadow:0 18px 48px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.contact-card:hover,.career-card:hover,.engine-container:hover,.quiz-container:hover,.skill-container:hover,
+.panel:hover,.stat-card:hover,.chart-card:hover,.table-card:hover,.about-content:hover{
+    border-color:rgba(96,165,250,.5) !important;
+    box-shadow:0 24px 60px rgba(0,0,0,.5), 0 0 42px rgba(59,130,246,.16), inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+
+/* ---------- 5. SECONDARY GLASS CARDS ---------- */
+.about-highlights > div,.start-feature,.growth-section,.roadmap-section,.sw-card,.suggestions-section,
+.skill-item,.option-card,.detail-card,.trait-bar,.compatibility,.famous-section,.feature-item,.feature,
+.score-card,.insight,.shift,.mindmap,.hidden-pattern,.insight-item,.filter-bar,
+.path-step-content,.skill-rating-item{
+    border:1px solid rgba(96,165,250,.16) !important;
+    background:linear-gradient(165deg,rgba(21,30,56,.62),rgba(7,11,26,.74)) !important;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 14px 38px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+.about-highlights > div:hover,.start-feature:hover,.growth-section:hover,.roadmap-section:hover,.sw-card:hover,
+.suggestions-section:hover,.skill-item:hover,.detail-card:hover,.trait-bar:hover,.compatibility:hover,
+.famous-section:hover,.feature-item:hover,.feature:hover,.score-card:hover,.insight:hover,.shift:hover,
+.hidden-pattern:hover,.insight-item:hover,.path-step-content:hover,.skill-rating-item:hover{
+    border-color:rgba(96,165,250,.42) !important;
+    box-shadow:0 20px 50px rgba(0,0,0,.45), 0 0 36px rgba(59,130,246,.14), inset 0 1px 0 rgba(255,255,255,.07) !important;
+}
+.option-card.selected,.option.selected{
+    background:linear-gradient(135deg,rgba(37,99,235,.30),rgba(139,92,246,.18)) !important;
+    border-color:rgba(96,165,250,.6) !important;
+    box-shadow:0 10px 30px rgba(37,99,235,.28), inset 0 1px 0 rgba(255,255,255,.1) !important;
+}
+
+/* ---------- 6. UNIFIED BUTTONS ---------- */
+.btn-primary,.btn-start,.refresh-btn,.btn-primary-sm{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 12px 32px rgba(59,130,246,.35) !important;
+}
+.btn-primary:hover,.btn-start:hover,.refresh-btn:hover,.btn-primary-sm:hover{
+    box-shadow:0 18px 44px rgba(139,92,246,.45) !important;
+}
+.lang-btn.active,.seg-btn.active,.page-btn.active{
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6) !important;
+    box-shadow:0 6px 18px rgba(59,130,246,.35) !important;
+}
+
+/* ---------- 7. FORM CONTROLS ---------- */
+.form-group input,.form-group select,.form-group textarea,.search-input,.type-select{
+    background:rgba(10,16,34,.65) !important;
+    border:1.5px solid rgba(96,165,250,.18) !important;
+    border-radius:12px !important;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus,
+.search-input:focus,.type-select:focus{
+    border-color:rgba(96,165,250,.5) !important;
+    box-shadow:0 0 24px rgba(37,99,235,.18) !important;
+}
+
+/* ---------- 8. TABLES ---------- */
+table thead th{
+    background:rgba(37,99,235,.10) !important;
+    color:#7dd3fc !important;
+}
+tbody tr:hover{background:rgba(37,99,235,.07) !important}
+
+/* ---------- 9. GLOBAL FRESHENERS ---------- */
+.hero h1 span{
+    background:linear-gradient(135deg,#60a5fa,#a78bfa,#ec4899) !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+    -webkit-text-fill-color:transparent !important;
+    text-shadow:none !important;
+}
+footer{
+    background:rgba(6,10,24,.85) !important;
+    backdrop-filter:blur(14px);
+    border-top:1px solid rgba(96,165,250,.14) !important;
+}
+.step-resource-tag{
+    border-color:rgba(96,165,250,.35) !important;
+    background:rgba(37,99,235,.12) !important;
+}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#070b18}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#2563eb,#8b5cf6);border-radius:8px}
+::selection{background:rgba(139,92,246,.4)}
+@keyframes mm-iconfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes mm-ringspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes mm-emojifloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-7deg)}}
+
+
+/* ===== PERSONALITY PAGE — PREMIUM POLISH ===== */
+.hero::before{
+    background:
+        radial-gradient(circle, rgba(59,130,246,.30), transparent 65%),
+        radial-gradient(circle at 68% 30%, rgba(236,72,153,.18), transparent 60%) !important;
+}
+.feature-icon-wrap i{
+    animation:mm-iconfloat 3.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 14px rgba(96,165,250,.65));
+    transition:all .3s ease;
+}
+.feature-item:nth-child(2) .feature-icon-wrap i{animation-delay:.4s}
+.feature-item:nth-child(3) .feature-icon-wrap i{animation-delay:.8s}
+.feature-item:nth-child(4) .feature-icon-wrap i{animation-delay:1.2s}
+.feature-item:hover .feature-icon-wrap i{color:#fff;animation-duration:.9s}
+.pattern-orbit{box-shadow:0 0 80px rgba(37,99,235,.2),inset 0 0 55px rgba(139,92,246,.1)}
+.result-type-code{
+    filter:drop-shadow(0 0 30px rgba(96,165,250,.4));
+}
+.cat-dot.active{box-shadow:0 0 14px rgba(59,130,246,.7)}
+.famous-person .avatar{transition:all .4s cubic-bezier(.16,1,.3,1)}
+.famous-person:hover .avatar{
+    transform:scale(1.12) rotate(-5deg);
+    box-shadow:0 15px 35px rgba(37,99,235,.4),0 0 25px rgba(139,92,246,.3);
+}
+</style>
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
